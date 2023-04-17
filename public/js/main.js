@@ -3,7 +3,7 @@ const documentFormats = {
         'margins': {
             'x':0.375,
             'y':0.1875,
-            'gutter': 0.25
+            'gutterY': 0.25
         },
         'images': {
             'width': 3.75,
@@ -31,7 +31,7 @@ doc.text("Peter's Cut-Erator", 0.25, 4, {'angle': 270});
 //Add business card (with bleed)
 for(let x = 0; x < documentFormats.business_card.layout[0]; x++){
     for(let y = 0; y < documentFormats.business_card.layout[1]; y++) {
-        let position = {'x': (documentFormats.business_card.margins.x*(x+1) + documentFormats.business_card.images.width*x), 'y': (documentFormats.business_card.margins.y*(y+1) + documentFormats.business_card.images.height*y)};
+        let position = {'x': (documentFormats.business_card.margins.x + documentFormats.business_card.images.width*x), 'y': (documentFormats.business_card.margins.y + documentFormats.business_card.margins.gutterY*y + documentFormats.business_card.images.height*y)};
         let size = {'x': documentFormats.business_card.images.width,'y': documentFormats.business_card.images.height}
         doc.addImage(testCard, 'PNG', position.x, position.y, size.x, size.y);
     }
