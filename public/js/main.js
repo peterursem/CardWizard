@@ -1,3 +1,5 @@
+window.jsPDF = window.jspdf.jsPDF;
+
 const doc = new jsPDF({
     orientation: "portrait",
     unit: "in",
