@@ -1,4 +1,4 @@
-import { jsPDF } from './node_modules/jspdf/dist/jspdf.es';
+import { jsPDF } from '/js/node_modules/jspdf/dist/jspdf.es';
 
 const doc = new jsPDF({
     orientation: "portrait",
