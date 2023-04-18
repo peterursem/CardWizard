@@ -27,10 +27,10 @@ const documentFormats = {
     },
     '4x6': {
         'margins': {
-            'x':1,
+            'x':0.75,
             'y':0.625,
             'gutterX': 0,
-            'gutterY': 1.25
+            'gutterY': 1
         },
         'images': {
             'width': 6.5,
