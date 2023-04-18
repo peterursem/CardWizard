@@ -19,14 +19,27 @@ let blobToBase64 = function(blob) {
     });
 }
 
-function getTestImg(size) {
-  let blob = await getImgBlob(url('/imgs/'+size+'.png'))
+let getTestImg = async function (size) {
+  let blob = await getImgBlob('/imgs/'+size+'.png');
   let base64 = await blobToBase64(blob);
   return base64;
 }
 
-let size = prompt('Choose a cut size: (3.5x2, 3.5x5, 4x6, 5x7)');
+var sizeSelect = prompt('Choose a cut size: (3.5x2, 3.5x5, 4x6, 5x7)');
 
-let imgString = await getTestImg(size);
+if(sizeSelect == ''){
+  console.error('No size selected');
+}
 
-console.log(createDocument(size, [imgString, imgString]));
+getTestImg(sizeSelect)
+.then(base64Image => {
+  console.log(sizeSelect.toLowerCase());
+  console.log(base64Image);
+  const pdf = createDocument([base64Image, base64Image], sizeSelect.toLowerCase());
+  let iframe = document.createElement('iframe');
+  iframe.width = '100%';
+  iframe.height = '80vh';
+  iframe.src = pdf;
+  document.getElementById('frameDiv').appendChild(iframe);
+});
+

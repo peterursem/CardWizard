@@ -28,7 +28,7 @@ const documentFormats = {
     '4x6': {
         'margins': {
             'x':1,
-            'y':1.125,
+            'y':0.625,
             'gutterX': 0,
             'gutterY': 1.25
         },
@@ -53,11 +53,16 @@ const documentFormats = {
     }
 };
 
-export function createDocument(size, imgs) {
+export function createDocument(imgs, size) {
     const doc = new jspdf.jsPDF({
         orientation: "portrait",
         unit: "in",
         format: [8.5, 11]
+    });
+
+    doc.setProperties({
+        'title': 'Cut-Erated',
+        'author':  "Peter's Cut-Erator"
     });
     
     doc.rect(0.5,0.0625,1,0.125,'F'); //Cutter calibration strip
@@ -65,24 +70,30 @@ export function createDocument(size, imgs) {
     doc.setFontSize(12);
     doc.text('Cut-Erator - Use actual size and 8.5" x 11" (Letter) paper', 0.25, 3, {'angle': 270});
 
-    addImages(imgs);
-    
+    let imgPkgs = positionImages(imgs, size);
+    imgPkgs.forEach(pkg => {
+        doc.addImage(pkg[0],pkg[1],pkg[2],pkg[3],pkg[4],pkg[5]);
+    });
+    doc.save('test.pdf');
     return(doc.output('datauristring'));
 }
 
-function addImages(imgs) {
+function positionImages(imgs, size) {
+    console.log(size);
     if (imgs.length < documentFormats[size].layout[0] * documentFormats[size].layout[1]) {
         console.warn('Not enough images to fill page');
     }
 
     let index = 0;
+    let imagePkgs = [];
     for(let x = 0; x < documentFormats[size].layout[0]; x++){
         for(let y = 0; y < documentFormats[size].layout[1]; y++) {
             let position = {'x': (documentFormats[size].margins.x + (documentFormats[size].margins.gutterX*x) + (documentFormats[size].images.width*x)), 
                             'y': (documentFormats[size].margins.y + (documentFormats[size].margins.gutterY*y) + documentFormats[size].images.height*y)};
-            let size = {'x': documentFormats[size].images.width,
+            let dimension = {'x': documentFormats[size].images.width,
                         'y': documentFormats[size].images.height };
-            doc.addImage(imgs[index], 'PNG', position.x, position.y, size.x, size.y);
+            imagePkgs.push([imgs[index], 'PNG', position.x, position.y, dimension.x, dimension.y]);
         }
     }
+    return imagePkgs;
 }
