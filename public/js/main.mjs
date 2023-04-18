@@ -1,9 +1,16 @@
+import { createDocument } from './doc.mjs';
+
 let size = prompt('Choose a cut size: (3.5x2, 3.5x5, 4x6, 5x7)');
 
-let imgString = getTestImg(size);
+let imgString = await getTestImg(size);
+
+console.log(createDocument(size, [imgString, imgString]));
 
 function getTestImg(size) {
-    getImgBlob(url('/imgs/'+size+'.png'));
+    return getImgBlob(url('/imgs/'+size+'.png'))
+    .then(blob => {
+        return blobToBase64(blob);
+    });
 }
 
 let getImgBlob = function(url){

@@ -53,7 +53,7 @@ const documentFormats = {
     }
 };
 
-function createDocument(size, imgs) {
+export function createDocument(size, imgs) {
     const doc = new jspdf.jsPDF({
         orientation: "portrait",
         unit: "in",
@@ -71,6 +71,10 @@ function createDocument(size, imgs) {
 }
 
 function addImages(imgs) {
+    if (imgs.length < documentFormats[size].layout[0] * documentFormats[size].layout[1]) {
+        console.warn('Not enough images to fill page');
+    }
+
     let index = 0;
     for(let x = 0; x < documentFormats[size].layout[0]; x++){
         for(let y = 0; y < documentFormats[size].layout[1]; y++) {
