@@ -41,7 +41,7 @@ doc.rect(0.5,0.0625,1,0.125,'F');
 
 //Document watermark
 doc.setFontSize(12);
-doc.text("Peter's Cut-Erator", 0.25, 4, {'angle': 270});
+doc.text("Cut-Erator - Use 'Print size: Actual size' and 8.5 x 11 (Letter) paper", 0.25, 4, {'angle': 270});
 
 //Add business card (with bleed)
 for(let x = 0; x < documentFormats[layout].layout[0]; x++){
