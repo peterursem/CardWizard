@@ -15,7 +15,7 @@ const documentFormats = {
     '3.5x5': {
         'margins': {
             'x':0.375,
-            'y':0.250,
+            'y':0.125,
             'gutterX': 0.25,
             'gutterY': 0.25
         },
@@ -24,6 +24,32 @@ const documentFormats = {
             'height': 5.25
         },
         'layout': [2,2]
+    },
+    '5x7': {
+        'margins': {
+            'x':0.5,
+            'y':0.125,
+            'gutterX': 0,
+            'gutterY': 0.25
+        },
+        'images': {
+            'width': 7.5,
+            'height': 5.25
+        },
+        'layout': [1,2]
+    },
+    '4x6': {
+        'margins': {
+            'x':1,
+            'y':1.125,
+            'gutterX': 0,
+            'gutterY': 1.25
+        },
+        'images': {
+            'width': 6.5,
+            'height': 4.25
+        },
+        'layout': [1,2]
     }
 };
 
