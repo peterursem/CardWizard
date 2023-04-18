@@ -27,26 +27,26 @@ const documentFormats = {
     },
     '4x6': {
         'margins': {
-            'x':1,
-            'y':0.625,
+            'x':1.125,
+            'y':0.375,
             'gutterX': 0,
-            'gutterY': 1.25
+            'gutterY': 2
         },
         'images': {
-            'width': 6.5,
+            'width': 6.25,
             'height': 4.25
         },
         'layout': [1,2]
     },
     '5x7': {
         'margins': {
-            'x':0.5,
-            'y':0.125,
+            'x':0.625,
+            'y':0.375,
             'gutterX': 0,
-            'gutterY': 0.25
+            'gutterY': 0
         },
         'images': {
-            'width': 7.5,
+            'width': 7.25,
             'height': 5.25
         },
         'layout': [1,2]
