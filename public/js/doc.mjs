@@ -65,7 +65,7 @@ export function createDocument(imgs, size) {
         'author':  "Peter's Cut-Erator"
     });
     
-    doc.rect(0.5,0.0625,1,0.125,'F'); //Cutter calibration strip
+    doc.rect(0.3125,0.1875,1.5,0.0625,'F'); //Cutter calibration strip
     
     doc.setFontSize(12);
     doc.text('Cut-Erator - Use actual size and 8.5" x 11" (Letter) paper', 0.25, 3, {'angle': 270});
