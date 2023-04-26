@@ -7,9 +7,21 @@
     <link rel="stylesheet" href="/style.css">
   </head>
   <body>
-    <p>Hello, Staples!</p>
-    <div id="frameDiv"></div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <div id="topBar">
+      <p>Peter's Cut-Erator v0.2</p>
+    </div>
+
+    <content>
+      <div id="formatRow">
+      </div>
+      <canvas id="editor" width=200></canvas>
+      <div id="placeHolder">
+        <p id="inner">Here you will see your document preview.</p>
+      </div>
+    </content>
+
+    <script src="/js/jspdf.umd.min.js"></script>
     <script src="/js/main.mjs" type="module"></script>
+    <script src="/js/editor.mjs" type="module"></script>
   </body>
 </html>

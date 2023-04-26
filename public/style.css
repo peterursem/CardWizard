@@ -1,14 +1,74 @@
-html, body {
-    background-color: #202020;
-    color: #dcdcdc;
+@font-face {
+    font-family: Poppins;
+    src: url(/fonts/Poppins.ttf);
 }
 
-#frameDiv {
-    width: 100%;
-    height: 80vh;
+:root {
+    --foregroundColour: #ddd;
+    --backgroundColour: #222;
+    --highlightColour: red;
+
+    --outerMargin: 20px;
+    --editorWidth: 50vw;
+    --previewWidth: 30vw;
+    --noFormats: 1;
+
+    background-color: var(--backgroundColour);
+    color: var(--foregroundColour);
+    font-family: 'Poppins';
 }
 
-iframe {
+#topBar{
     width: 100%;
-    height: 100%;
+    text-align: center;
+}
+
+content {
+    display: flex;
+    justify-content: space-between;
+}
+
+#formatRow {
+    height: 90vh;
+    margin: 0 0 0 var(--outerMargin);
+    width: 8vw;
+    border: 1px solid var(--foregroundColour);
+    border-radius: 10px;
+    display: inline;
+}
+
+#formatRow button {
+    font-family: 'Poppins';
+    display: block;
+    height: calc(100% / var(--noFormats));
+    width: 8vw;
+    color: var(--foregroundColour);
+    border: none;
+    border-bottom: 1px solid var(--foregroundColour);
+    background-color: transparent;
+}
+
+#formatRow :last-child {
+    border: none;
+}
+
+canvas {
+    display: inline;
+    margin: auto 0;
+    border: 1px solid var(--highlightColour);
+    width: var(--editorWidth);
+    height: calc(var(--editorWidth) * (2/3.5));
+}
+
+#placeHolder{
+    margin: auto var(--outerMargin) auto 0;
+    border: 1px solid var(--highlightColour);
+    width: var(--previewWidth);
+    height: calc(var(--previewWidth) * (11/8.5));
+}
+
+object {
+    margin: 0 var(--outerMargin) 0 0;
+    width: var(--previewWidth);
+    height: calc(var(--previewWidth) * (11/8.5));
 }
