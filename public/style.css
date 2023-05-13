@@ -1,6 +1,6 @@
 @font-face {
-    font-family: Poppins;
-    src: url(/fonts/Poppins.ttf);
+    font-family: Motiva-Regular;
+    src: url(/fonts/Regular.ttf);
 }
 
 :root {
@@ -11,11 +11,10 @@
     --outerMargin: 20px;
     --editorWidth: 50vw;
     --previewWidth: 30vw;
-    --noFormats: 1;
 
     background-color: var(--backgroundColour);
     color: var(--foregroundColour);
-    font-family: 'Poppins';
+    font-family: 'Motiva-Regular';
 }
 
 #topBar{
@@ -28,7 +27,8 @@ content {
     justify-content: space-between;
 }
 
-#formatRow {
+#formatBar {
+    --noFormats: 1;
     height: 90vh;
     margin: 0 0 0 var(--outerMargin);
     width: 8vw;
@@ -37,8 +37,8 @@ content {
     display: inline;
 }
 
-#formatRow button {
-    font-family: 'Poppins';
+#formatBar button {
+    font-family: 'Motiva-Regular';
     display: block;
     height: calc(100% / var(--noFormats));
     width: 8vw;
@@ -48,16 +48,30 @@ content {
     background-color: transparent;
 }
 
-#formatRow :last-child {
+#formatBar :last-child {
     border: none;
 }
 
-canvas {
-    display: inline;
+#formatBar button:focus {
+    color: var(--backgroundColour);
+    background-color: var(--foregroundColour);
+}
+
+#editor {
+    display: block;
     margin: auto 0;
     border: 1px solid var(--highlightColour);
     width: var(--editorWidth);
-    height: calc(var(--editorWidth) * (2/3.5));
+    height: calc(var(--editorWidth) / var(--aspectRatio));
+}
+
+img {
+    display: block;
+    width: 100%;
+}
+
+#cutBox {
+    border: 1px solid var(--highlightColour);
 }
 
 #placeHolder{
@@ -68,7 +82,7 @@ canvas {
 }
 
 object {
-    margin: 0 var(--outerMargin) 0 0;
+    margin: auto var(--outerMargin) auto 0;
     width: var(--previewWidth);
     height: calc(var(--previewWidth) * (11/8.5));
 }
