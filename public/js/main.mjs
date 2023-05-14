@@ -12,7 +12,10 @@ TODO:
 import { initCropper, getCropperData, destroyCropper } from './editor.mjs';
 import { createDocument, getPossibleFormats } from './export.mjs';
 
+var selectedFormat;
+
 function formatSelected(format) {
+  selectedFormat = format;
   const existingImg = document.querySelector('img');
   if (existingImg) {
     existingImg.remove();
@@ -21,7 +24,7 @@ function formatSelected(format) {
   initCropper(format);
 }
 
-function generatePreview() {
+function generatePreview(format) {
   const existingObject = document.querySelector("object"),
   placeHolder = document.querySelector('#placeHolder');
 
@@ -52,4 +55,8 @@ getPossibleFormats()
     i++;
   });
   document.getElementById("formatBar").style.setProperty('--noFormats', i);
+});
+
+document.getElementById('addAll').addEventListener('click', () => {
+  generatePreview(selectedFormat);
 });
