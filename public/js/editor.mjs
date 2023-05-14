@@ -24,11 +24,11 @@ export const initCropper = (format) => {
     });
 }
 
-export const getCropperData = () => {
-    return cropper.getCroppedCanvas().toBlob((blob) => {
-        return blob;
+export const getCropperData = new Promise((res, err) => {
+    cropper.getCroppedCanvas().toBlob((blob) => {
+        res(blob);
     });
-}
+});
 
 export const destroyCropper = () => {
     cropper.destroy();
