@@ -202,7 +202,7 @@ var DEFAULTS = {
   // Show the white modal to highlight the crop box
   highlight: false,
   // Show the grid background
-  background: true,
+  background: false,
   // Enable to crop the image automatically when initialize
   autoCrop: true,
   // Define the percentage of automatic cropping area when initializes
@@ -243,7 +243,7 @@ var DEFAULTS = {
   zoom: null
 };
 
-var TEMPLATE = '<div class="cropper-container" touch-action="none">' + '<div class="cropper-wrap-box">' + '<div class="cropper-canvas"></div>' + '</div>' + '<div class="cropper-drag-box"></div>' + '<div class="cropper-crop-box">' + '<span class="cropper-view-box"></span>' + '<span class="cropper-center"></span>' + '<span class="cropper-face"></span>' + '<div id="cutBox"></div>' + '</div>' + '</div>';
+var TEMPLATE = '<div class="cropper-container" touch-action="none">' + '<div class="cropper-wrap-box">' + '<div class="cropper-canvas"></div>' + '</div>' + '<div class="cropper-drag-box"></div>' + '<div class="cropper-crop-box">' + '<span class="cropper-view-box"></span>' + '<span class="cropper-center"></span>' + '<span class="cropper-face"></span>' + '<div id="cutBox" class="highlightBorder"></div>' + '</div>' + '</div>';
 
 /**
  * Check if the given value is not a number.

@@ -3,49 +3,120 @@
     src: url(/fonts/Regular.ttf);
 }
 
+@font-face {
+    font-family: Motiva-Black;
+    src: url(/fonts/Black.ttf);
+}
+
+@font-face {
+    font-family: lulo;
+    src: url(/fonts/Lulo_Clean_One_Bold.ttf);
+}
+
 :root {
-    --foregroundColour: #ddd;
+    --foregroundColour: #fff;
     --backgroundColour: #222;
-    --highlightColour: red;
+    --highlightColour: #CE0000;
 
-    --outerMargin: 20px;
-    --editorWidth: 50vw;
-    --previewWidth: 30vw;
+    --innerMargin: 1vw;
+    --formatPickerWidth: 20vw;
+    --editorWidth: 48vw;
+    --previewWidth: 20vw;
 
-    background-color: var(--backgroundColour);
+    background-image: url('/imgs/bg.jpg');
+    background-size: cover;
     color: var(--foregroundColour);
     font-family: 'Motiva-Regular';
 }
 
+body {
+    margin: 0;
+}
+
 #topBar{
     width: 100%;
+    height: 3vh;
+    margin-top: 1vh;
+
+    overflow: hidden;
     text-align: center;
+}
+
+#topBar img {
+    display: inline-block;
+    width: auto;
+    height: 100%;
+
+    fill: white;
+}
+
+#vr {
+    display: inline-block;
+    width: 2px;
+    height: 100%;
+    margin-inline: 2vw;
+
+    background-color: white;
 }
 
 content {
     display: flex;
+    height: 96vh;
+
     justify-content: space-between;
 }
 
 #formatBar {
     --noFormats: 1;
-    height: 90vh;
-    margin: 0 0 0 var(--outerMargin);
-    width: 8vw;
-    border: 1px solid var(--foregroundColour);
-    border-radius: 10px;
     display: inline;
+    height: 100vh;
+    width: var(--formatPickerWidth);
+    margin-top: -4vh;
+
+    border-right: 3px solid var(--foregroundColour);
+    backdrop-filter: blur(20px);
 }
 
 #formatBar button {
-    font-family: 'Motiva-Regular';
-    display: block;
+    position: relative;
+    display: flex;
     height: calc(100% / var(--noFormats));
-    width: 8vw;
-    color: var(--foregroundColour);
+    width: 100%;
+
     border: none;
-    border-bottom: 1px solid var(--foregroundColour);
-    background-color: transparent;
+    border-bottom: 3px solid var(--foregroundColour);
+    background-color: #ffffff15;
+    
+    color: var(--foregroundColour);
+}
+
+button h1 {
+    margin: 0;
+
+    float: left;
+    
+    font-family: 'Motiva-Black';
+    font-size: calc(20vh / var(--noFormats));
+    font-weight: normal;
+}
+
+button a {
+    position: absolute;
+    display: block;
+    left: 6px;
+    top: calc(20vh / var(--noFormats) + 6px);
+    
+    font-family: 'lulo';
+    font-size: calc(4vh / var(--noFormats));
+    color: #ffffff99;
+}
+
+button img {
+    position: absolute;
+    bottom: 12px;
+    right: calc(var(--formatPickerWidth) / 10);
+    height: calc(60vh / var(--noFormats));
+    width: auto;
 }
 
 #formatBar :last-child {
@@ -58,11 +129,12 @@ content {
 }
 
 #editor {
+    position: relative;
     display: block;
-    margin: auto 0;
-    border: 1px solid var(--highlightColour);
-    width: var(--editorWidth);
     height: calc(var(--editorWidth) / var(--aspectRatio));
+    max-height: 80%;
+    width: var(--editorWidth);
+    margin: auto var(--innerMargin);
 }
 
 img {
@@ -70,19 +142,39 @@ img {
     width: 100%;
 }
 
-#cutBox {
-    border: 1px solid var(--highlightColour);
+.highlightBorder{
+    border: 2px solid var(--highlightColour);
 }
 
-#placeHolder{
-    margin: auto var(--outerMargin) auto 0;
-    border: 1px solid var(--highlightColour);
-    width: var(--previewWidth);
-    height: calc(var(--previewWidth) * (11/8.5));
+#controls {
+    position: absolute;
+    display: flex;
+    width: 100%;
+    height: 50px;
+    bottom: 5vh;
+
+    justify-content: center;
+}
+#controls button {
+    width: 20%;
+    font-family: 'lulo';
+    font-size: large;
+}
+#addOne {
+    margin-right: 20px;
+
+    border: 3px solid var(--highlightColour);
+    background-color: var(--foregroundColour);
+    color: var(--highlightColour);
+}
+#addAll {
+    border: none;
+    background-color: var(--highlightColour);
+    color: var(--foregroundColour);
 }
 
-object {
-    margin: auto var(--outerMargin) auto 0;
+object, #placeHolder {
     width: var(--previewWidth);
     height: calc(var(--previewWidth) * (11/8.5));
+    margin: auto 0;
 }
