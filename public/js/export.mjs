@@ -65,6 +65,9 @@ const documentFormats = {
     }
 };
 
+import { getCropperData } from "./editor.mjs";
+
+
 export const getPossibleFormats = function() {
     return new Promise(resolve => {
         let formats = [];
@@ -80,7 +83,6 @@ export const getAspectRatio = function(format) {
 }
 
 export const getCutSize = function(format) {
-    console.log(documentFormats[format]);
     return {
         width: documentFormats[format].images.cutWidth/documentFormats[format].images.width*100, 
         height: documentFormats[format].images.cutHeight/documentFormats[format].images.height*100, 
@@ -135,17 +137,13 @@ function createDocument(imgs, size) {
 }
 
 function positionImages(img, size) {
-    console.log(size);
-    console.log(typeof img);
-    console.log(img);
-
     let imgs = [];
     if (typeof img == 'string'){
         imgs.push(img);
     }
 
-    if (imgs.length > 1 && imgs.length < documentFormats[size].layout[0] * documentFormats[size].layout[1]) {
-        console.warn('Not enough images to fill page.');
+    if (typeof img == 'array') {
+        imgs = [...img];
     }
 
     var index = 0,
@@ -157,7 +155,7 @@ function positionImages(img, size) {
             let dimension = {'x': documentFormats[size].images.width,
                              'y': documentFormats[size].images.height };
             imagePkgs.push([imgs[index], 'PNG', position.x, position.y, dimension.x, dimension.y]);
-            if (imgs.length > 1) {index++;}
+            if (index < imgs.length - 1) {index++;}
         }
     }
     return imagePkgs;

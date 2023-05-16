@@ -210,7 +210,7 @@ var DEFAULTS = {
   // Enable to move the image
   movable: false,
   // Enable to rotate the image
-  rotatable: false,
+  rotatable: true,
   // Enable to scale the image
   scalable: false,
   // Enable to zoom the image

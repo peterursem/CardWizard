@@ -7,20 +7,17 @@ TODO:
 */
 
 
-import { initCropper, destroyCropper, read } from './editor.mjs';
+import { initCropper, destroyCropper } from './editor.mjs';
 import { getPossibleFormats, generatePreview } from './export.mjs';
 
 var selectedFormat;
 
 function formatSelected(format) {
   selectedFormat = format;
-  /*
-  const existingImg = document.querySelector('#editor img');
-  if (existingImg) {
-    existingImg.remove();
+  const existingCropper = document.querySelector('.cropper-canvas');
+  if (existingCropper) {
     destroyCropper();
   }
-  */
   initCropper(format);
 }
 
@@ -40,24 +37,3 @@ getPossibleFormats()
 document.getElementById('addAll').addEventListener('click', () => {
   generatePreview(selectedFormat);
 });
-
-//## Define drag + drop capability ##//
-function drag(e) {
-  e.stopPropagation();
-  e.preventDefault();
-}
-
-function drop(e) {
-  e.stopPropagation();
-  e.preventDefault();
-
-  const dt = e.dataTransfer;
-  const files = dt.files;
-  
-  read(files[0]);
-}
-
-const dropbox = document.body;
-dropbox.addEventListener("dragenter", drag, false);
-dropbox.addEventListener("dragover", drag, false);
-dropbox.addEventListener("drop", drop, false);

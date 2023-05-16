@@ -73,7 +73,7 @@ content {
     width: var(--formatPickerWidth);
     margin-top: -4vh;
 
-    border-right: 3px solid var(--foregroundColour);
+    border-right: 5px solid var(--foregroundColour);
     backdrop-filter: blur(20px);
 }
 
@@ -84,9 +84,9 @@ content {
     width: 100%;
 
     border: none;
-    border-bottom: 3px solid var(--foregroundColour);
+    border-bottom: 5px solid var(--foregroundColour);
+
     background-color: #ffffff15;
-    
     color: var(--foregroundColour);
 }
 
@@ -144,6 +144,20 @@ img {
 
 .highlightBorder{
     border: 2px solid var(--highlightColour);
+}
+
+#topControls{
+    position: absolute;
+    display: flex;
+    width: 100%;
+    height: 50px;
+    top: 5vh;
+
+    justify-content: center;
+}
+
+#rotateLeft {
+    margin-right: 20px;
 }
 
 #controls {

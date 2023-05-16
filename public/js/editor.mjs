@@ -18,22 +18,27 @@ export const initCropper = (format) => {
             cutBox.style.height = "calc("+formatDimensions.height+"% - 3px)";
             cutBox.style.left = formatDimensions.x + "%";
             cutBox.style.top = formatDimensions.y + "%";
+            document.getElementById('rotateRight').addEventListener('click', () => {
+                cropper.rotate(90);
+            });
+            document.getElementById('rotateLeft').addEventListener('click', () => {
+                cropper.rotate(-90);
+            });
         }
     });
 }
 
-const reader = new FileReader;
-export const read = (file) => {
-    console.log('reading');
-    reader.readAsDataURL(file);
+export const getCropperData = () => {
+    return new Promise((res, err) => {
+        cropper.getCroppedCanvas().toBlob((blob) => {
+            res(blobToBase64(blob));
+        });
+    });
 }
-reader.addEventListener("load", () => {
-    const data = reader.result;
-    console.log(data);
-    let img = document.createElement('img');
-    img.src = data;
-    document.getElementById('editor').appendChild(img);
-}, false);
+
+export const destroyCropper = () => {
+    cropper.destroy();
+}
 
 let blobToBase64 = function(blob) {
     return new Promise(resolve => {
@@ -45,15 +50,47 @@ let blobToBase64 = function(blob) {
     });
 }
 
-export const getCropperData = () => {
-    return new Promise((res, err) => {
-        console.log(cropper);
-        cropper.getCroppedCanvas().toBlob((blob) => {
-            res(blobToBase64(blob));
-        });
-    });
+//## Define drag + drop capability ##//
+
+const reader = new FileReader;
+export const read = (file) => {
+    reader.readAsDataURL(file);
 }
 
-export const destroyCropper = () => {
-    cropper.destroy();
-}
+reader.addEventListener("load", () => {
+    const data = reader.result;
+    let img = document.createElement('img');
+    img.src = data;
+
+    let editingImg = document.querySelector('.cropper-view-box img');
+    let droppedImg = document.querySelector('#editor img');
+    if (editingImg) {
+        cropper.replace(data);
+    }
+    else if (droppedImg) {
+        droppedImg.replaceWith(img);
+    }
+    else {
+        document.getElementById('editor').appendChild(img);
+    }
+}, false);
+
+function drag(e) {
+    e.stopPropagation();
+    e.preventDefault();
+  }
+  
+  function drop(e) {
+    e.stopPropagation();
+    e.preventDefault();
+  
+    const dt = e.dataTransfer;
+    const files = dt.files;
+    
+    read(files[0]);
+  }
+  
+  const dropbox = document.body;
+  dropbox.addEventListener("dragenter", drag, false);
+  dropbox.addEventListener("dragover", drag, false);
+  dropbox.addEventListener("drop", drop, false);
