@@ -1,11 +1,11 @@
 @font-face {
     font-family: Motiva-Regular;
-    src: url(/fonts/Regular.ttf);
+    src: url(/fonts/MotivaRegular.ttf);
 }
 
 @font-face {
     font-family: Motiva-Black;
-    src: url(/fonts/Black.ttf);
+    src: url(/fonts/MotivaBlack.ttf);
 }
 
 @font-face {
@@ -18,9 +18,10 @@
     --backgroundColour: #222;
     --highlightColour: #CE0000;
 
+    --outerMargin: 1vw;
     --innerMargin: 1vw;
     --formatPickerWidth: 20vw;
-    --editorWidth: 48vw;
+    --editorWidth: 56vw;
     --previewWidth: 20vw;
 
     background-image: url('/imgs/bg.jpg');
@@ -90,7 +91,7 @@ content {
     color: var(--foregroundColour);
 }
 
-button h1 {
+#formatBar button h1 {
     margin: 0;
 
     float: left;
@@ -100,9 +101,8 @@ button h1 {
     font-weight: normal;
 }
 
-button a {
+#formatBar button a {
     position: absolute;
-    display: block;
     left: 6px;
     top: calc(20vh / var(--noFormats) + 6px);
     
@@ -111,7 +111,7 @@ button a {
     color: #ffffff99;
 }
 
-button img {
+#formatBar button img {
     position: absolute;
     bottom: 12px;
     right: calc(var(--formatPickerWidth) / 10);
@@ -123,18 +123,18 @@ button img {
     border: none;
 }
 
-#formatBar button:focus {
-    color: var(--backgroundColour);
-    background-color: var(--foregroundColour);
+#formatBar .selected {
+    color: var(--highlightColour);
 }
 
 #editor {
     position: relative;
     display: block;
     height: calc(var(--editorWidth) / var(--aspectRatio));
-    max-height: 80%;
+    max-height: 70%;
     width: var(--editorWidth);
-    margin: auto var(--innerMargin);
+    margin: auto var(--innerMargin) auto calc(var(--innerMargin) + var(--outerMargin));
+    overflow: hidden;
 }
 
 img {
@@ -142,18 +142,34 @@ img {
     width: 100%;
 }
 
+#cutBox {
+    pointer-events: none;
+}
+
 .highlightBorder{
     border: 2px solid var(--highlightColour);
 }
 
-#topControls{
+#topControls {
     position: absolute;
     display: flex;
     width: 100%;
-    height: 50px;
-    top: 5vh;
+    height: 51px;
+    top: 10vh;
 
     justify-content: center;
+}
+
+#topControls button {
+    border: 0;
+    padding: 0;
+    height: 51px;
+    width: 51px;
+}
+
+#topControls button img {
+    height: 51px;
+    width: 51px;
 }
 
 #rotateLeft {
@@ -189,6 +205,6 @@ img {
 
 object, #placeHolder {
     width: var(--previewWidth);
-    height: calc(var(--previewWidth) * (11/8.5));
-    margin: auto 0;
+    height: calc(var(--previewWidth) * (12/8.5));
+    margin: auto var(--outerMargin) auto 0;
 }

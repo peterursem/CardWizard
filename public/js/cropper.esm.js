@@ -174,7 +174,7 @@ var DEFAULTS = {
   // 0, 1, 2, 3
 
   // Define the dragging mode of the cropper
-  dragMode: DRAG_MODE_NONE,
+  dragMode: DRAG_MODE_MOVE,
   // 'crop', 'move' or 'none'
 
   // Define the initial aspect ratio of the crop box
@@ -208,7 +208,7 @@ var DEFAULTS = {
   // Define the percentage of automatic cropping area when initializes
   autoCropArea: 1,
   // Enable to move the image
-  movable: false,
+  movable: true,
   // Enable to rotate the image
   rotatable: true,
   // Enable to scale the image

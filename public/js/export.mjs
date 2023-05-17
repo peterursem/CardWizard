@@ -67,6 +67,7 @@ const documentFormats = {
 
 import { getCropperData } from "./editor.mjs";
 
+var images = [];
 
 export const getPossibleFormats = function() {
     return new Promise(resolve => {
@@ -76,7 +77,7 @@ export const getPossibleFormats = function() {
         }
         resolve(formats);
     });
-}
+};
 
 export const getAspectRatio = function(format) {
     return (documentFormats[format].images.width / documentFormats[format].images.height);
@@ -89,29 +90,46 @@ export const getCutSize = function(format) {
         x: (documentFormats[format].images.width - documentFormats[format].images.cutWidth)/2/documentFormats[format].images.width*100, 
         y: (documentFormats[format].images.height - documentFormats[format].images.cutHeight)/2/documentFormats[format].images.height*100
     };
-}
+};
 
 export const generatePreview = (format) => {
     const existingObject = document.querySelector("object"),
     placeHolder = document.querySelector('#placeHolder');
-  
-    getCropperData(format)
+
+    const pdf = createDocument(images, format.toLowerCase());
+    let object = document.createElement('object');
+    object.type = 'application/pdf';
+    object.data = pdf;
+    if(existingObject) {
+        existingObject.remove();
+    }
+    if(placeHolder) {
+        placeHolder.remove();
+    }
+    document.querySelector('content').appendChild(object);
+};
+
+export const addPage = (format) => {
+    const imgsOnPage = documentFormats[format].layout[0] * documentFormats[format].layout[1];
+    getCropperData()
     .then(base64Image => {
-        const pdf = createDocument(base64Image, format.toLowerCase());
-        let object = document.createElement('object');
-        object.type = 'application/pdf';
-        object.data = pdf;
-        if(existingObject) {
-            existingObject.remove();
+        for(let i; i < imgsOnPage; i++) {
+            images.push(base64Image);
+            console.log(images);
         }
-        if(placeHolder) {
-            placeHolder.remove();
-        }
-        document.querySelector('content').appendChild(object);
+        generatePreview(format);
+    });
+}
+
+export const addPhoto = (format) => {
+    getCropperData()
+    .then(base64Image => {
+        images.push(base64Image);
+        generatePreview(format);
     });
 };
 
-function createDocument(imgs, size) {
+function createDocument(imgs, format) {
     const doc = new jspdf.jsPDF({
         orientation: "portrait",
         unit: "in",
@@ -119,44 +137,52 @@ function createDocument(imgs, size) {
     });
 
     doc.setProperties({
-        'title': "Cut " + size,
+        'title': "Cut " + format,
         'author':  "Peter's Cut-Erator"
     });
-    
-    doc.setFontSize(12);
-    doc.text('Cut-Erator - Use actual size and 8.5" x 11" (Letter) paper', 0.25, 3, {'angle': 270});
 
-    let imgPkgs = positionImages(imgs, size);
+    let imgPkgs = positionImages(imgs, format);
+    const imgsOnPage = documentFormats[format].layout[0] * documentFormats[format].layout[1];
+    let i = 0;
     imgPkgs.forEach(pkg => {
+        if (i % imgsOnPage == 0 && i > 0) {
+            watermark(doc);
+            doc.addPage();
+        }
         doc.addImage(pkg[0],pkg[1],pkg[2],pkg[3],pkg[4],pkg[5]);
+        i++;
     });
-
-    doc.rect(0.3125,0.1875,1.5,0.0625,'F'); //Cutter calibration strip
+    watermark(doc);
  
     return(doc.output('bloburl'));
 }
 
-function positionImages(img, size) {
-    let imgs = [];
-    if (typeof img == 'string'){
-        imgs.push(img);
-    }
+function watermark(doc) {
+    doc.setFontSize(12);
+    doc.text('Cut-Erator - Use actual size and 8.5" x 11" (Letter) paper - Load with black bar first.', 0.25, 2.25, {'angle': 270});
+    doc.rect(0.3125,0.1875,1.5,0.0625,'F'); //Cutter calibration strip
+}
 
-    if (typeof img == 'array') {
-        imgs = [...img];
-    }
+function positionImages(imgs, format) {
+    var i = 0,
+        imgPkgs = [];
 
-    var index = 0,
-        imagePkgs = [];
-    for(let x = 0; x < documentFormats[size].layout[0]; x++){
-        for(let y = 0; y < documentFormats[size].layout[1]; y++) {
-            let position = {'x': (documentFormats[size].margins.x + (documentFormats[size].margins.gutterX*x) + (documentFormats[size].images.width*x)), 
-                            'y': (documentFormats[size].margins.y + (documentFormats[size].margins.gutterY*y) + documentFormats[size].images.height*y)};
-            let dimension = {'x': documentFormats[size].images.width,
-                             'y': documentFormats[size].images.height };
-            imagePkgs.push([imgs[index], 'PNG', position.x, position.y, dimension.x, dimension.y]);
-            if (index < imgs.length - 1) {index++;}
+    for(let img in imgs) {
+        let imgNo = img;
+        while (imgNo >= documentFormats[format].layout[1]) {
+            imgNo -= documentFormats[format].layout[1];
+        }
+        const x = imgNo % documentFormats[format].layout[0];
+        const y = Math.floor(imgNo / documentFormats[format].layout[0]);
+        let pos = {'x': (documentFormats[format].margins.x + (documentFormats[format].margins.gutterX*x) + (documentFormats[format].images.width*x)), 
+                   'y': (documentFormats[format].margins.y + (documentFormats[format].margins.gutterY*y) + documentFormats[format].images.height*y)};
+        let dim = {'x': documentFormats[format].images.width,
+                   'y': documentFormats[format].images.height };
+        imgPkgs.push([imgs[i], 'PNG', pos.x, pos.y, dim.x, dim.y]);
+
+        if (i < imgs.length) {
+            i++;
         }
     }
-    return imagePkgs;
+    return imgPkgs;
 }

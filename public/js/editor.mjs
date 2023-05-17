@@ -18,15 +18,17 @@ export const initCropper = (format) => {
             cutBox.style.height = "calc("+formatDimensions.height+"% - 3px)";
             cutBox.style.left = formatDimensions.x + "%";
             cutBox.style.top = formatDimensions.y + "%";
-            document.getElementById('rotateRight').addEventListener('click', () => {
-                cropper.rotate(90);
-            });
-            document.getElementById('rotateLeft').addEventListener('click', () => {
-                cropper.rotate(-90);
-            });
         }
     });
 }
+
+document.getElementById('rotateRight').addEventListener('click', () => {
+    console.log('right');  
+    cropper.rotate(90);
+});
+document.getElementById('rotateLeft').addEventListener('click', () => {
+    cropper.rotate(-90);
+});
 
 export const getCropperData = () => {
     return new Promise((res, err) => {
