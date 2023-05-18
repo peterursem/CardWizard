@@ -23,9 +23,9 @@ getPossibleFormats()
   let i = 0
   formats.forEach(format => {
     let newButton = document.createElement('button');
-        newButton.id = format.size;
-        newButton.innerHTML = '<h1>' + format.size + '</h1> <a>' + format.desc + '</a> <img src="' + format.example + '">' ;
-        newButton.onclick = function() {formatSelected(format.size)};
+    newButton.id = format.size;
+    newButton.innerHTML = '<h1>' + format.size + '</h1> <a>' + format.desc + '</a> <img src="' + format.example + '">' ;
+    newButton.onclick = function() {formatSelected(format.size)};
     document.getElementById('formatBar').appendChild(newButton);
     i++;
   });

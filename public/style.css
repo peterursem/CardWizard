@@ -72,6 +72,7 @@ content {
     display: inline;
     height: 100vh;
     width: var(--formatPickerWidth);
+    min-width: 200px;
     margin-top: -4vh;
 
     border-right: 5px solid var(--foregroundColour);
@@ -83,6 +84,7 @@ content {
     display: flex;
     height: calc(100% / var(--noFormats));
     width: 100%;
+    overflow: hidden;
 
     border: none;
     border-bottom: 5px solid var(--foregroundColour);
@@ -97,26 +99,28 @@ content {
     float: left;
     
     font-family: 'Motiva-Black';
-    font-size: calc(20vh / var(--noFormats));
+    font-size: calc(30vh / var(--noFormats));
     font-weight: normal;
 }
 
 #formatBar button a {
     position: absolute;
     left: 6px;
-    top: calc(20vh / var(--noFormats) + 6px);
+    top: calc(30vh / var(--noFormats) + 6px);
     
     font-family: 'lulo';
-    font-size: calc(4vh / var(--noFormats));
+    font-size: calc(6vh / var(--noFormats));
     color: #ffffff99;
 }
 
 #formatBar button img {
     position: absolute;
-    bottom: 12px;
-    right: calc(var(--formatPickerWidth) / 10);
-    height: calc(60vh / var(--noFormats));
+    bottom: 0;
+    right: 0;
+    height: auto;
     width: auto;
+    max-width: 80%;
+    z-index: -1;
 }
 
 #formatBar :last-child {
@@ -125,6 +129,10 @@ content {
 
 #formatBar .selected {
     color: var(--highlightColour);
+}
+
+#formatBar .selected a {
+    color: #CE000099;
 }
 
 #editor {

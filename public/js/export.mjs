@@ -15,13 +15,45 @@ const documentFormats = {
         },
         'layout': [2,5]
     },
+    '3.5x2.5': {
+        'desc': "Trading Card",
+        'margins': {
+            'x':0.375,
+            'y':0.25,
+            'gutterX': 0.25,
+            'gutterY': 0
+        },
+        'images': {
+            'width': 3.75,
+            'height': 2.625,
+            "cutWidth": 3.5,
+            "cutHeight": 2.5
+        },
+        'layout': [2,4]
+    },
     '3.5x5': {
         'desc': "Note Card",
         'margins': {
             'x':0.375,
-            'y':0.125,
+            'y':0.375,
             'gutterX': 0.25,
-            'gutterY': 0.25
+            'gutterY': 0
+        },
+        'images': {
+            'width': 3.75,
+            'height': 5.25,
+            "cutWidth": 3.5,
+            "cutHeight": 5
+        },
+        'layout': [2,2]
+    },
+    '3.5x5F': {
+        'desc': "Tent Card",
+        'margins': {
+            'x':0.375,
+            'y':0.375,
+            'gutterX': 0.25,
+            'gutterY': 0
         },
         'images': {
             'width': 3.75,
@@ -62,6 +94,22 @@ const documentFormats = {
             "cutHeight": 5
         },
         'layout': [1,2]
+    },
+    '10x7': {
+        'desc': "Greeting Card",
+        'margins': {
+            'x':0.625,
+            'y':0.5,
+            'gutterX': 0,
+            'gutterY': 0
+        },
+        'images': {
+            'width': 7.25,
+            'height': 10.25,
+            "cutWidth": 7,
+            "cutHeight": 10
+        },
+        'layout': [1,1]
     }
 };
 
@@ -113,9 +161,8 @@ export const addPage = (format) => {
     const imgsOnPage = documentFormats[format].layout[0] * documentFormats[format].layout[1];
     getCropperData()
     .then(base64Image => {
-        for(let i; i < imgsOnPage; i++) {
+        for(let i = 0; i < imgsOnPage; i++) {
             images.push(base64Image);
-            console.log(images);
         }
         generatePreview(format);
     });
@@ -166,7 +213,6 @@ function watermark(doc) {
 function positionImages(imgs, format) {
     var i = 0,
         imgPkgs = [];
-
     for(let img in imgs) {
         let imgNo = img;
         while (imgNo >= documentFormats[format].layout[1]) {

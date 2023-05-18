@@ -23,7 +23,6 @@ export const initCropper = (format) => {
 }
 
 document.getElementById('rotateRight').addEventListener('click', () => {
-    console.log('right');  
     cropper.rotate(90);
 });
 document.getElementById('rotateLeft').addEventListener('click', () => {
