@@ -158,6 +158,13 @@ img {
     border: 2px solid var(--highlightColour);
 }
 
+.controls button, .controls button img {
+    border: 0;
+    padding: 0;
+    height: 51px;
+    width: 51px;
+}
+
 #topControls {
     position: absolute;
     display: flex;
@@ -168,23 +175,11 @@ img {
     justify-content: center;
 }
 
-#topControls button {
-    border: 0;
-    padding: 0;
-    height: 51px;
-    width: 51px;
-}
-
-#topControls button img {
-    height: 51px;
-    width: 51px;
-}
-
 #rotateLeft {
     margin-right: 20px;
 }
 
-#controls {
+#bottomControls {
     position: absolute;
     display: flex;
     width: 100%;
@@ -193,7 +188,7 @@ img {
 
     justify-content: center;
 }
-#controls button {
+#bottomControls button {
     width: 20%;
     font-family: 'lulo';
     font-size: large;
