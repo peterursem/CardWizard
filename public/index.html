@@ -8,43 +8,44 @@
     <link  href="/cropper.min.css" rel="stylesheet">
   </head>
   <body>
-    <div id="topBar">
-      <img src="/imgs/staples.svg">
-      <div id="vr"></div>
-      <img src="/imgs/logo.svg">
-    </div>
-
-    <content>
+    <header>
+      <img src="/imgs/logos/staples.svg">
+      <div id="line"></div>
+      <img src="/imgs/logos/logo.svg">
+    </header>
+    <main>
       <div id="formatBar">
       </div>
       <div id="editor">
-        
       </div>
-      <div id="topControls" class="controls">
-        <button id="rotateLeft">
-          <img src="/imgs/left.png">
-        </button>
-        <button id="rotateRight">
-          <img src="/imgs/right.png">
-        </button>
+      <div id="editorControls" class="controls">
+        <div id="topControls" class="innerControls">
+          <button id="rotateLeft">
+            <img src="/imgs/buttons/left.png">
+          </button>
+          <button id="rotateRight">
+            <img src="/imgs/buttons/right.png">
+          </button>
+        </div>
+        <div id="bottomControls" class="innerControls">
+          <button id="addOne">ADD ONE</button>
+          <button id="addAll">FILL PAGE</button>
+        </div>
       </div>
-      <div id="bottomControls" class="controls">
-        <button id="addOne">ADD ONE</button>
-        <button id="addAll">FILL PAGE</button>
-      </div>
+      
       <div id="exportControls" class="controls">
-        <button id="clear">
-          <img src="/imgs/clear.png">
-        </button>
-        <button id="print">
-          <img src="/imgs/print.png">
-        </button>
+        <div>
+          <button id="clear">
+            <img src="/imgs/buttons/clear.png">
+          </button>
+          <button id="print">
+            <img src="/imgs/buttons/print.png">
+          </button>
+        </div>
       </div>
       <div id="placeHolder" class="highlightBorder">
-        <p id="inner">Here you will see your document preview.</p>
       </div>
-    </content>
-
+    </main>
     <script src="/js/jspdf.umd.min.js"></script>
     <script src="/js/main.mjs" type="module"></script>
   </body>

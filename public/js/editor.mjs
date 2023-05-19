@@ -6,6 +6,14 @@ var cropper;
 
 export const initCropper = (format) => {
     const image = document.querySelector('#editor img');
+    if (!image) {
+      let newImg = document.createElement('img');
+      newImg.src = '/imgs/templates/' + format + '.png';
+      document.querySelector('#editor').appendChild(newImg);
+    }
+    else if(image.src.contains('hero')) {
+      image.src = '/imgs/templates/' + format + '.png'
+    }
     const aspect = getAspectRatio(format);
     editor.style.setProperty('--aspectRatio', aspect);
     cropper = new Cropper(image, {
@@ -30,7 +38,7 @@ document.getElementById('rotateLeft').addEventListener('click', () => {
 });
 
 export const getCropperData = () => {
-    return new Promise((res, err) => {
+    return new Promise((res) => {
         cropper.getCroppedCanvas().toBlob((blob) => {
             res(blobToBase64(blob));
         });

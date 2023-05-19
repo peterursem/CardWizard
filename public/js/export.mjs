@@ -47,7 +47,7 @@ const documentFormats = {
         },
         'layout': [2,2]
     },
-    '3.5x5F': {
+    '3.5x5f': {
         'desc': "Tent Card",
         'margins': {
             'x':0.375,
@@ -95,7 +95,7 @@ const documentFormats = {
         },
         'layout': [1,2]
     },
-    '10x7': {
+    '10x7f': {
         'desc': "Greeting Card",
         'margins': {
             'x':0.625,
@@ -121,7 +121,7 @@ export const getPossibleFormats = function() {
     return new Promise(resolve => {
         let formats = [];
         for(let format of Object.keys(documentFormats)){
-            formats.push({size: format, desc: documentFormats[format].desc, example: "/imgs/" + format + ".png"});
+            formats.push({size: format, desc: documentFormats[format].desc, example: "/imgs/hero/" + format + ".png"});
         }
         resolve(formats);
     });
@@ -154,7 +154,7 @@ export const generatePreview = (format) => {
     if(placeHolder) {
         placeHolder.remove();
     }
-    document.querySelector('content').appendChild(object);
+    document.querySelector('main').appendChild(object);
 };
 
 export const addPage = (format) => {
@@ -176,6 +176,24 @@ export const addPhoto = (format) => {
     });
 };
 
+export const clearPages = () => {
+    images = [];
+    lastDocument = '';
+    if(document.querySelector('object')) {
+        let placeHolder = document.createElement('div');
+        placeHolder.id = 'placeHolder';
+        placeHolder.classList.add('highlightBorder');
+        document.querySelector('object').replaceWith(placeHolder);
+    }
+};
+
+export const printPages = () => {
+    if(lastDocument != '') {
+        window.open(lastDocument);
+    }
+};
+
+let lastDocument = '';
 function createDocument(imgs, format) {
     const doc = new jspdf.jsPDF({
         orientation: "portrait",
@@ -200,8 +218,8 @@ function createDocument(imgs, format) {
         i++;
     });
     watermark(doc);
- 
-    return(doc.output('bloburl'));
+    lastDocument = doc.output('bloburl');
+    return(lastDocument + '#toolbar=0');
 }
 
 function watermark(doc) {
@@ -215,11 +233,12 @@ function positionImages(imgs, format) {
         imgPkgs = [];
     for(let img in imgs) {
         let imgNo = img;
-        while (imgNo >= documentFormats[format].layout[1]) {
-            imgNo -= documentFormats[format].layout[1];
+        while (imgNo >= documentFormats[format].layout[0] * documentFormats[format].layout[1]) {
+            imgNo -= documentFormats[format].layout[0] * documentFormats[format].layout[1];
         }
         const x = imgNo % documentFormats[format].layout[0];
         const y = Math.floor(imgNo / documentFormats[format].layout[0]);
+        console.log(x,y);
         let pos = {'x': (documentFormats[format].margins.x + (documentFormats[format].margins.gutterX*x) + (documentFormats[format].images.width*x)), 
                    'y': (documentFormats[format].margins.y + (documentFormats[format].margins.gutterY*y) + documentFormats[format].images.height*y)};
         let dim = {'x': documentFormats[format].images.width,

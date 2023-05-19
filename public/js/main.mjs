@@ -1,8 +1,9 @@
 import { initCropper, destroyCropper } from './editor.mjs';
-import { getPossibleFormats, addPage, addPhoto } from './export.mjs';
+import { getPossibleFormats, addPage, addPhoto, clearPages, printPages } from './export.mjs';
 
 var selectedFormat;
 function formatSelected(format) {
+  clearPages();
   selectedFormat = format;
 
   const existingSelection = document.querySelector('.selected'); 
@@ -15,6 +16,7 @@ function formatSelected(format) {
   if (existingCropper) {
     destroyCropper();
   }
+
   initCropper(format);
 }
 
@@ -24,8 +26,10 @@ getPossibleFormats()
   formats.forEach(format => {
     let newButton = document.createElement('button');
     newButton.id = format.size;
-    newButton.innerHTML = '<h1>' + format.size + '</h1> <a>' + format.desc + '</a> <img src="' + format.example + '">' ;
-    newButton.onclick = function() {formatSelected(format.size)};
+    newButton.innerHTML = '<h1>' + format.size.replace('f', '') + '</h1> <a>' + format.desc + '</a> <img src="' + format.example + '">' ;
+    newButton.onclick = function() {
+      formatSelected(format.size)
+    };
     document.getElementById('formatBar').appendChild(newButton);
     i++;
   });
@@ -35,7 +39,12 @@ getPossibleFormats()
 document.getElementById('addAll').addEventListener('click', () => {
   addPage(selectedFormat);
 });
-
 document.getElementById('addOne').addEventListener('click', () => {
   addPhoto(selectedFormat);
+});
+document.getElementById('clear').addEventListener('click', () => {
+  clearPages();
+});
+document.getElementById('print').addEventListener('click', () => {
+  printPages();
 });
