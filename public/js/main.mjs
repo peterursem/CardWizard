@@ -5,18 +5,16 @@ var selectedFormat;
 function formatSelected(format) {
   clearPages();
   selectedFormat = format;
-
   const existingSelection = document.querySelector('.selected'); 
   if (existingSelection) {
     existingSelection.classList.remove('selected');
   }
   document.getElementById(format).classList.add('selected');
-
   const existingCropper = document.querySelector('.cropper-canvas');
   if (existingCropper) {
     destroyCropper();
+    document.querySelector('#editor img').remove();
   }
-
   initCropper(format);
 }
 
@@ -28,7 +26,7 @@ getPossibleFormats()
     newButton.id = format.size;
     newButton.innerHTML = '<h1>' + format.size.replace('f', '') + '</h1> <a>' + format.desc + '</a> <img src="' + format.example + '">' ;
     newButton.onclick = function() {
-      formatSelected(format.size)
+      formatSelected(format.size);
     };
     document.getElementById('formatBar').appendChild(newButton);
     i++;

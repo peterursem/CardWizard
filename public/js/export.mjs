@@ -161,7 +161,12 @@ export const addPage = (format) => {
     const imgsOnPage = documentFormats[format].layout[0] * documentFormats[format].layout[1];
     getCropperData()
     .then(base64Image => {
-        for(let i = 0; i < imgsOnPage; i++) {
+        let noImg = images.length;
+        while(noImg >= imgsOnPage) {
+            noImg -= imgsOnPage;
+        }
+        const remain = imgsOnPage - noImg;
+        for(let i = 0; i < remain; i++) {
             images.push(base64Image);
         }
         generatePreview(format);
@@ -238,13 +243,11 @@ function positionImages(imgs, format) {
         }
         const x = imgNo % documentFormats[format].layout[0];
         const y = Math.floor(imgNo / documentFormats[format].layout[0]);
-        console.log(x,y);
         let pos = {'x': (documentFormats[format].margins.x + (documentFormats[format].margins.gutterX*x) + (documentFormats[format].images.width*x)), 
                    'y': (documentFormats[format].margins.y + (documentFormats[format].margins.gutterY*y) + documentFormats[format].images.height*y)};
         let dim = {'x': documentFormats[format].images.width,
                    'y': documentFormats[format].images.height };
         imgPkgs.push([imgs[i], 'PNG', pos.x, pos.y, dim.x, dim.y]);
-
         if (i < imgs.length) {
             i++;
         }
