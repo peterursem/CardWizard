@@ -5,10 +5,18 @@ const editor = document.getElementById('editor');
 var cropper;
 
 export const initCropper = (format) => {
-
-    let image = document.createElement('img');
-    image.src = '/imgs/templates/' + format + '.png';
-    document.querySelector('#editor').appendChild(image);    
+    let existingImg = document.querySelector('#editor img'),
+    editingImg = document.querySelector('.cropper-view-box img');
+    let image = 0;
+    console.log(existingImg,editingImg);
+    if (existingImg) {
+        image = existingImg;
+    }
+    if(image == 0) {
+        image = document.createElement('img');
+        image.src = '/imgs/templates/' + format + '.png';
+        document.querySelector('#editor').appendChild(image);
+    }
 
     const aspect = getAspectRatio(format);
     editor.style.setProperty('--aspectRatio', aspect);
