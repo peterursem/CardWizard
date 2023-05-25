@@ -220,7 +220,7 @@ function createDocument(imgs, format) {
     let i = 0;
     imgPkgs.forEach(pkg => {
         if (i % imgsOnPage == 0 && i > 0) {
-            watermark(doc);
+            watermark(doc, format);
             doc.addPage();
         }
         console.log(pkg);
