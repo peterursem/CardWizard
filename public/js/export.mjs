@@ -111,7 +111,7 @@ const documentFormats = {
 import { getCropperData } from './editor.mjs';
 
 var images = [];
-let duplex = false;
+let duplex = true;
 
 export const getPossibleFormats = function() {
     return new Promise(resolve => {
@@ -252,7 +252,7 @@ function positionImages(imgs, format) {
         const gutters = {x: documentFormats[format].margins.gutterX || 0, y: documentFormats[format].margins.gutterY || 0}
 
         let yMargin = documentFormats[format].margins.y;
-        if (duplex == true && pageNo % 2 == 0 && documentFormats[format].margins.dsYmargin) {
+        if (duplex == true && pageNo % 2 != 0 && documentFormats[format].margins.dsYmargin) {
             yMargin = documentFormats[format].margins.dsYmargin;
         }
         console.log(yMargin);
