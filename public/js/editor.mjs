@@ -8,7 +8,6 @@ export const initCropper = (format) => {
     let existingImg = document.querySelector('#editor img'),
     editingImg = document.querySelector('.cropper-view-box img');
     let image = 0;
-    console.log(existingImg,editingImg);
     if (existingImg) {
         image = existingImg;
     }

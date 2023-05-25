@@ -1,127 +1,123 @@
 const documentFormats = {
     '3.5x2': {
-        'desc': "Business Card",
-        'margins': {
-            'x':0.375,
-            'y':0.1875,
-            'gutterX': 0.25,
-            'gutterY': 0
+        desc: "Business Card",
+        margins: {
+            x: 0.375,
+            y: 0.1875,
+            gutterX: 0.25,
         },
-        'images': {
-            'width': 3.75,
-            'height': 2.125,
-            "cutWidth": 3.5,
-            "cutHeight": 2
+        images: {
+            width: 3.75,
+            height: 2.125,
+            cutWidth: 3.5,
+            cutHeight: 2
         },
-        'layout': [2,5]
+        layout: {x: 2, y: 5}
     },
     '3.5x2.5': {
-        'desc': "Trading Card",
-        'margins': {
-            'x':0.375,
-            'y':0.25,
-            'gutterX': 0.25,
-            'gutterY': 0
+        desc: "Trading Card",
+        margins: {
+            x: 0.375,
+            y: 0.25,
+            gutterX: 0.25,
         },
-        'images': {
-            'width': 3.75,
-            'height': 2.625,
-            "cutWidth": 3.5,
-            "cutHeight": 2.5
+        images: {
+            width: 3.75,
+            height: 2.625,
+            cutWidth: 3.5,
+            cutHeight: 2.5
         },
-        'layout': [2,4]
+        layout: {x: 2, y: 4}
     },
     '3.5x5': {
-        'desc': "Note Card",
-        'margins': {
-            'x':0.375,
-            'y':0.375,
-            'gutterX': 0.25,
-            'gutterY': 0
+        desc: "Note Card",
+        margins: {
+            x: 0.375,
+            y: 0.375,
+            gutterX: 0.25,
+            dsYmargin: 0.125
         },
-        'images': {
-            'width': 3.75,
-            'height': 5.25,
-            "cutWidth": 3.5,
-            "cutHeight": 5
+        images: {
+            width: 3.75,
+            height: 5.25,
+            cutWidth: 3.5,
+            cutHeight: 5
         },
-        'layout': [2,2]
+        layout: {x: 2, y: 2}
     },
     '3.5x5f': {
-        'desc': "Tent Card",
-        'margins': {
-            'x':0.375,
-            'y':0.375,
-            'gutterX': 0.25,
-            'gutterY': 0
+        desc: "Tent Card",
+        margins: {
+            x: 0.375,
+            y: 0.375,
+            gutterX: 0.25,
+            dsYmargin: 0.125
         },
-        'images': {
-            'width': 3.75,
-            'height': 5.25,
-            "cutWidth": 3.5,
-            "cutHeight": 5
+        images: {
+            width: 3.75,
+            height: 5.25,
+            cutWidth: 3.5,
+            cutHeight: 5
         },
-        'layout': [2,2]
+        layout: {x: 2, y: 2}
     },
     '4x6': {
-        'desc': "Post Card / Photo",
-        'margins': {
-            'x':1.125,
-            'y':0.375,
-            'gutterX': 0,
-            'gutterY': 2
+        desc: "Post Card / Photo",
+        margins: {
+            x: 1.125,
+            y: 0.375,
+            gutterY: 2,
+            dsYmargin: 0.125
         },
-        'images': {
-            'width': 6.25,
-            'height': 4.25,
-            "cutWidth": 6,
-            "cutHeight": 4
+        images: {
+            width: 6.25,
+            height: 4.25,
+            cutWidth: 6,
+            cutHeight: 4
         },
-        'layout': [1,2]
+        layout: {x: 1, y: 2}
     },
     '5x7': {
-        'desc': "Post Card / Photo",
-        'margins': {
-            'x':0.625,
-            'y':0.375,
-            'gutterX': 0,
-            'gutterY': 0
+        desc: "Post Card / Photo",
+        margins: {
+            x: 0.625,
+            y: 0.375,
+            dsYmargin: 0.125
         },
-        'images': {
-            'width': 7.25,
-            'height': 5.25,
-            "cutWidth": 7,
-            "cutHeight": 5
+        images: {
+            width: 7.25,
+            height: 5.25,
+            cutWidth: 7,
+            cutHeight: 5
         },
-        'layout': [1,2]
+        layout: {x: 1, y: 2}
     },
     '10x7f': {
-        'desc': "Greeting Card",
-        'margins': {
-            'x':0.625,
-            'y':0.5,
-            'gutterX': 0,
-            'gutterY': 0
+        desc: "Greeting Card",
+        margins: {
+            x: 0.625,
+            y: 0.375,
         },
-        'images': {
-            'width': 7.25,
-            'height': 10.25,
-            "cutWidth": 7,
-            "cutHeight": 10
+        images: {
+            width: 7.25,
+            height: 10.25,
+            cutWidth: 7,
+            cutHeight: 10
         },
-        'layout': [1,1]
+        layout: {x: 1, y: 1}
     }
 };
 
-import { getCropperData } from "./editor.mjs";
+import { getCropperData } from './editor.mjs';
 
 var images = [];
+let duplex = false;
 
 export const getPossibleFormats = function() {
     return new Promise(resolve => {
         let formats = [];
         for(let format of Object.keys(documentFormats)){
-            formats.push({size: format, desc: documentFormats[format].desc, example: "/imgs/hero/" + format + ".png"});
+            formats.push({size: format, desc: documentFormats[format].desc, example: "/imgs/ex/" + format + ".png"});
         }
         resolve(formats);
     });
@@ -141,7 +137,7 @@ export const getCutSize = function(format) {
 };
 
 export const generatePreview = (format) => {
-    const existingObject = document.querySelector("object"),
+    const existingObject = document.querySelector('object'),
     placeHolder = document.querySelector('#placeHolder');
 
     const pdf = createDocument(images, format.toLowerCase());
@@ -158,7 +154,7 @@ export const generatePreview = (format) => {
 };
 
 export const addPage = (format) => {
-    const imgsOnPage = documentFormats[format].layout[0] * documentFormats[format].layout[1];
+    const imgsOnPage = documentFormats[format].layout.x * documentFormats[format].layout.y;
     getCropperData()
     .then(base64Image => {
         let noImg = images.length;
@@ -179,6 +175,14 @@ export const addPhoto = (format) => {
         images.push(base64Image);
         generatePreview(format);
     });
+};
+
+export const enableDuplex = () => {
+    duplex = true;
+};
+
+export const disableDuplex = () => {
+    duplex = false;
 };
 
 export const clearPages = () => {
@@ -212,45 +216,52 @@ function createDocument(imgs, format) {
     });
 
     let imgPkgs = positionImages(imgs, format);
-    const imgsOnPage = documentFormats[format].layout[0] * documentFormats[format].layout[1];
+    const imgsOnPage = documentFormats[format].layout.x * documentFormats[format].layout.y;
     let i = 0;
     imgPkgs.forEach(pkg => {
         if (i % imgsOnPage == 0 && i > 0) {
             watermark(doc);
             doc.addPage();
         }
+        console.log(pkg);
         doc.addImage(pkg[0],pkg[1],pkg[2],pkg[3],pkg[4],pkg[5]);
         i++;
     });
-    watermark(doc);
+    watermark(doc, format);
     lastDocument = doc.output('bloburl');
     return(lastDocument + '#toolbar=0');
 }
 
-function watermark(doc) {
+function watermark(doc,size) {
     doc.setFontSize(12);
-    doc.text('Cut-Erator - Use actual size and 8.5" x 11" (Letter) paper - Load with black bar first.', 0.25, 2.25, {'angle': 270});
-    doc.rect(0.3125,0.1875,1.5,0.0625,'F'); //Cutter calibration strip
+    if(duplex == true) doc.text(size + '   -   DUPLEX   -   Print actual size on 8.5" x 11" (Letter) paper   -   Load into cutter with black bar first.', 0.25, 1.75, {'angle': 270});
+    else doc.text(size + '   -   SIMPLEX   -   Print actual size on 8.5" x 11" (Letter) paper   -   Load into cutter with black bar first.', 0.25, 1.75, {'angle': 270});
+    doc.rect(0.3125,0.125,1.5,0.0625,'F'); //Cutter calibration strip
 }
 
 function positionImages(imgs, format) {
-    var i = 0,
-        imgPkgs = [];
+    var imgPkgs = [];
     for(let img in imgs) {
-        let imgNo = img;
-        while (imgNo >= documentFormats[format].layout[0] * documentFormats[format].layout[1]) {
-            imgNo -= documentFormats[format].layout[0] * documentFormats[format].layout[1];
+        let pageNo = 0;
+        while (img >= documentFormats[format].layout.x * documentFormats[format].layout.y) {
+            img -= documentFormats[format].layout.x * documentFormats[format].layout.y;
+            pageNo++;
         }
-        const x = imgNo % documentFormats[format].layout[0];
-        const y = Math.floor(imgNo / documentFormats[format].layout[0]);
-        let pos = {'x': (documentFormats[format].margins.x + (documentFormats[format].margins.gutterX*x) + (documentFormats[format].images.width*x)), 
-                   'y': (documentFormats[format].margins.y + (documentFormats[format].margins.gutterY*y) + documentFormats[format].images.height*y)};
-        let dim = {'x': documentFormats[format].images.width,
-                   'y': documentFormats[format].images.height };
-        imgPkgs.push([imgs[i], 'PNG', pos.x, pos.y, dim.x, dim.y]);
-        if (i < imgs.length) {
-            i++;
+        const x = img % documentFormats[format].layout.x;
+        const y = Math.floor(img / documentFormats[format].layout.x);
+        const gutters = {x: documentFormats[format].margins.gutterX || 0, y: documentFormats[format].margins.gutterY || 0}
+
+        let yMargin = documentFormats[format].margins.y;
+        if (duplex == true && pageNo % 2 == 0 && documentFormats[format].margins.dsYmargin) {
+            yMargin = documentFormats[format].margins.dsYmargin;
         }
+        console.log(yMargin);
+
+        let pos = {x: (documentFormats[format].margins.x + (gutters.x*x) + (documentFormats[format].images.width*x)), 
+                   y: (yMargin + (gutters.y*y) + documentFormats[format].images.height*y)};
+        let dim = {x: documentFormats[format].images.width,
+                   y: documentFormats[format].images.height };
+        imgPkgs.push([imgs[img], 'PNG', pos.x, pos.y, dim.x, dim.y]);
     }
     return imgPkgs;
 }
