@@ -223,7 +223,6 @@ function createDocument(imgs, format) {
             watermark(doc, format);
             doc.addPage();
         }
-        console.log(pkg);
         doc.addImage(pkg[0],pkg[1],pkg[2],pkg[3],pkg[4],pkg[5]);
         i++;
     });
@@ -251,7 +250,7 @@ function positionImages(imgs, format) {
         const y = Math.floor(imageNo / documentFormats[format].layout.x);
         const gutters = {x: documentFormats[format].margins.gutterX || 0, y: documentFormats[format].margins.gutterY || 0};
         let pos = {x: (documentFormats[format].margins.x + (gutters.x*x) + (documentFormats[format].images.width*x)), 
-                   y: (yMargin + (gutters.y*y) + documentFormats[format].images.height*y)};
+                   y: (documentFormats[format].margins.y + (gutters.y*y) + documentFormats[format].images.height*y)};
         let dim = {x: documentFormats[format].images.width,
                    y: documentFormats[format].images.height };
         imgPkgs.push([imgs[img], 'PNG', pos.x, pos.y, dim.x, dim.y]);
