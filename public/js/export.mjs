@@ -249,12 +249,7 @@ function positionImages(imgs, format) {
         }
         const x = imageNo % documentFormats[format].layout.x;
         const y = Math.floor(imageNo / documentFormats[format].layout.x);
-        const gutters = {x: documentFormats[format].margins.gutterX || 0, y: documentFormats[format].margins.gutterY || 0}
-
-        let yMargin = documentFormats[format].margins.y;
-        
-        console.log(yMargin);
-
+        const gutters = {x: documentFormats[format].margins.gutterX || 0, y: documentFormats[format].margins.gutterY || 0};
         let pos = {x: (documentFormats[format].margins.x + (gutters.x*x) + (documentFormats[format].images.width*x)), 
                    y: (yMargin + (gutters.y*y) + documentFormats[format].images.height*y)};
         let dim = {x: documentFormats[format].images.width,
