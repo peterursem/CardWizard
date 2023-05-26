@@ -234,21 +234,21 @@ function createDocument(imgs, format) {
 
 function watermark(doc,size) {
     doc.setFontSize(12);
-    if(duplex == true) doc.text(size + '   -   DUPLEX   -   Print actual size on 8.5" x 11" (Letter) paper   -   Load into cutter with black bar first.', 0.25, 1.75, {'angle': 270});
-    else doc.text(size + '   -   SIMPLEX   -   Print actual size on 8.5" x 11" (Letter) paper   -   Load into cutter with black bar first.', 0.25, 1.75, {'angle': 270});
+    doc.text(size + '   -   Print actual size on 8.5" x 11" (Letter) paper   -   Load into cutter with black bar first.', 0.25, 1.75, {'angle': 270});
     doc.rect(0.3125,0.125,1.5,0.0625,'F'); //Cutter calibration strip
 }
 
 function positionImages(imgs, format) {
     var imgPkgs = [];
     for(let img in imgs) {
-        let pageNo = 0;
-        while (img >= documentFormats[format].layout.x * documentFormats[format].layout.y) {
-            img -= documentFormats[format].layout.x * documentFormats[format].layout.y;
+        let pageNo = 0,
+            imageNo = img;
+        while (imageNo >= documentFormats[format].layout.x * documentFormats[format].layout.y) {
+            imageNo -= documentFormats[format].layout.x * documentFormats[format].layout.y;
             pageNo++;
         }
-        const x = img % documentFormats[format].layout.x;
-        const y = Math.floor(img / documentFormats[format].layout.x);
+        const x = imageNo % documentFormats[format].layout.x;
+        const y = Math.floor(imageNo / documentFormats[format].layout.x);
         const gutters = {x: documentFormats[format].margins.gutterX || 0, y: documentFormats[format].margins.gutterY || 0}
 
         let yMargin = documentFormats[format].margins.y;
