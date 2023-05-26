@@ -1,10 +1,13 @@
-import { initCropper, destroyCropper } from './editor.mjs';
+import { switchCropperFormat, destroyCropper } from './editor.mjs';
 import { getPossibleFormats, addPage, addPhoto, clearPages, printPages } from './export.mjs';
 
 var selectedFormat;
 function formatSelected(format) {
-  clearPages();
+  if (selectedFormat == format){
+    return;
+  }
   selectedFormat = format;
+  clearPages();
   const existingSelection = document.querySelector('.selected'); 
   if (existingSelection) {
     existingSelection.classList.remove('selected');
@@ -15,7 +18,7 @@ function formatSelected(format) {
     destroyCropper();
     document.querySelector('#editor img').remove();
   }
-  initCropper(format);
+  switchCropperFormat(format);
 }
 
 getPossibleFormats()
@@ -45,4 +48,10 @@ document.getElementById('clear').addEventListener('click', () => {
 });
 document.getElementById('print').addEventListener('click', () => {
   printPages();
+});
+document.getElementById('rotateRight').addEventListener('click', () => {
+  manualRotate(90);
+});
+document.getElementById('rotateLeft').addEventListener('click', () => {
+  manualRotate(-90);
 });

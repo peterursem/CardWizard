@@ -1,44 +1,28 @@
 import { getAspectRatio, getCutSize } from "./export.mjs";
 import Cropper from "./cropper.esm.js";
+import { templatesBase64 } from "./templates.mjs";
 
 const editor = document.getElementById('editor');
-var cropper;
+var cropper,
+    currentFormat = '';
 
-export const initCropper = (format) => {
+export const switchCropperFormat = async (format) => {
+    currentFormat = format;
     let existingImg = document.querySelector('#editor img'),
-    editingImg = document.querySelector('.cropper-view-box img');
-    let image = 0;
+        image = 0;
     if (existingImg) {
         image = existingImg;
     }
     if(image == 0) {
         image = document.createElement('img');
-        image.src = '/imgs/templates/' + format + '.png';
+        image.src = templatesBase64[format];
         document.querySelector('#editor').appendChild(image);
     }
-
-    const aspect = getAspectRatio(format);
-    editor.style.setProperty('--aspectRatio', aspect);
-    cropper = new Cropper(image, {
-        aspectRatio: aspect,
-        ready() {
-            const formatDimensions = getCutSize(format),
-            cutBox = document.getElementById('cutBox');
-            cutBox.style.position = "absolute";
-            cutBox.style.width = "calc("+formatDimensions.width+"% - 3px)";
-            cutBox.style.height = "calc("+formatDimensions.height+"% - 3px)";
-            cutBox.style.left = formatDimensions.x + "%";
-            cutBox.style.top = formatDimensions.y + "%";
-        }
-    });
+    if(await needsRotation(image.src, format) == true){
+        image.src = await rotate(image.src);
+    };
+    drawCropper(format, image);
 }
-
-document.getElementById('rotateRight').addEventListener('click', () => {
-    cropper.rotate(90);
-});
-document.getElementById('rotateLeft').addEventListener('click', () => {
-    cropper.rotate(-90);
-});
 
 export const getCropperData = () => {
     return new Promise((res) => {
@@ -52,7 +36,63 @@ export const destroyCropper = () => {
     cropper.destroy();
 }
 
-let blobToBase64 = function(blob) {
+export const manualRotate = (deg) => {
+    cropper.rotate(deg);
+}
+
+function drawCropper(format, img) {
+    const aspect = getAspectRatio(format);
+    editor.style.setProperty('--aspectRatio', aspect);
+    cropper = new Cropper(img, {
+        aspectRatio: aspect,
+        ready() {
+            const formatDimensions = getCutSize(format),
+            cutBox = document.getElementById('cutBox');
+            cutBox.style.position = "absolute";
+            cutBox.style.width = "calc("+formatDimensions.width+"% - 3px)";
+            cutBox.style.height = "calc("+formatDimensions.height+"% - 3px)";
+            cutBox.style.left = formatDimensions.x + "%";
+            cutBox.style.top = formatDimensions.y + "%";
+        }
+    });
+}
+
+function needsRotation(data, format) {
+    return new Promise((res, rej) => {
+        let img = new Image();
+        img.src = data;
+        img.onload = () => {
+            let toRotate = false;
+            if(img.width > img.height && ['3.5x5','3.5x5f','10x7f'].indexOf(format) != -1) {
+                toRotate = true;
+            }
+            if(img.width < img.height && ['3.5x2','3.5x2.5','4x6','5x7'].indexOf(format) != -1) {
+                toRotate = true;
+            }
+            res(toRotate);
+        }
+    });
+}
+
+function rotate(data) {
+    return new Promise((res, rej) => {
+        let img = new Image();
+        img.src = data;
+        img.onload = () => {
+            let offScreenCanvas = document.createElement('canvas'),
+            offScreenCanvasCtx = offScreenCanvas.getContext('2d');
+            offScreenCanvas.height = img.width;
+            offScreenCanvas.width = img.height;
+            offScreenCanvasCtx.rotate(90 * Math.PI / 180);
+            offScreenCanvasCtx.translate(0, -offScreenCanvas.width);
+            offScreenCanvasCtx.drawImage(img, 0, 0); 
+
+            res(offScreenCanvas.toDataURL('image/jpeg',100));
+        }
+    });
+}
+
+function blobToBase64(blob) {
     return new Promise(resolve => {
       let reader = new FileReader();
       reader.onload = function() {
@@ -62,22 +102,27 @@ let blobToBase64 = function(blob) {
     });
 }
 
-//## Define drag + drop capability ##//
-
 const reader = new FileReader;
 export const read = (file) => {
     reader.readAsDataURL(file);
 }
 
 reader.addEventListener("load", () => {
-    const data = reader.result;
-    let img = document.createElement('img');
-    img.src = data;
+    processImageData(reader.result);
+}, false);
 
+async function processImageData(data) {
+    let img = document.createElement('img');
+    if (await needsRotation(data, currentFormat) == true) {
+        img.src = await rotate(data);
+    }
+    else {
+        img.src = data;
+    }
     let editingImg = document.querySelector('.cropper-view-box img');
     let droppedImg = document.querySelector('#editor img');
     if (editingImg) {
-        cropper.replace(data);
+        cropper.replace(img.src);
     }
     else if (droppedImg) {
         droppedImg.replaceWith(img);
@@ -85,14 +130,14 @@ reader.addEventListener("load", () => {
     else {
         document.getElementById('editor').appendChild(img);
     }
-}, false);
+}
 
 function drag(e) {
     e.stopPropagation();
     e.preventDefault();
-  }
+}
   
-  function drop(e) {
+function drop(e) {
     e.stopPropagation();
     e.preventDefault();
   
@@ -100,9 +145,9 @@ function drag(e) {
     const files = dt.files;
     
     read(files[0]);
-  }
+}
   
-  const dropbox = document.body;
-  dropbox.addEventListener("dragenter", drag, false);
-  dropbox.addEventListener("dragover", drag, false);
-  dropbox.addEventListener("drop", drop, false);
+const dropbox = document.body;
+dropbox.addEventListener("dragenter", drag, false);
+dropbox.addEventListener("dragover", drag, false);
+dropbox.addEventListener("drop", drop, false);
