@@ -96,7 +96,7 @@ const documentFormats = {
         desc: "Greeting Card",
         margins: {
             x: 0.625,
-            y: 0.375,
+            y: 0.65,
         },
         images: {
             width: 7.25,
@@ -252,9 +252,7 @@ function positionImages(imgs, format) {
         const gutters = {x: documentFormats[format].margins.gutterX || 0, y: documentFormats[format].margins.gutterY || 0}
 
         let yMargin = documentFormats[format].margins.y;
-        if (duplex == true && pageNo % 2 != 0 && documentFormats[format].margins.dsYmargin) {
-            yMargin = documentFormats[format].margins.dsYmargin;
-        }
+        
         console.log(yMargin);
 
         let pos = {x: (documentFormats[format].margins.x + (gutters.x*x) + (documentFormats[format].images.width*x)), 
