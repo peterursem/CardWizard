@@ -110,7 +110,9 @@ const documentFormats = {
 
 import { getCropperData } from './editor.mjs';
 
-var images = [];
+var images = [],
+lastDocument = '';
+
 
 export const getPossibleFormats = function() {
     return new Promise(resolve => {
@@ -192,12 +194,12 @@ export const clearPages = () => {
 };
 
 export const printPages = () => {
+    console.log(lastDocument);
     if(lastDocument != '') {
         window.open(lastDocument);
     }
 };
 
-let lastDocument = '';
 function createDocument(imgs, format) {
     const doc = new jspdf.jsPDF({
         orientation: "portrait",

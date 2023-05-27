@@ -20,10 +20,7 @@ function formatSelected(format) {
   switchCropperFormat(format);
 
   if (selectedFormat == ''){
-    const dropbox = document.body;
-    dropbox.addEventListener("dragenter", drag);
-    dropbox.addEventListener("dragover", drag);
-    dropbox.addEventListener("drop", drop);
+    document.body.addEventListener("drop", drop);
     document.getElementById('editorControls').classList.remove('hide');
     document.getElementById('exportControls').classList.remove('hide');
     document.getElementById('placeHolder').classList.remove('hide');
@@ -92,8 +89,10 @@ function drop(e) {
   }
 }
 
-document.getElementById('clear').addEventListener('click', clearPages());
-document.getElementById('print').addEventListener('click', printPages());
+document.body.addEventListener("dragenter", drag);
+document.body.addEventListener("dragover", drag);
+document.getElementById('clear').addEventListener('click', clearPages);
+document.getElementById('print').addEventListener('click', printPages);
 document.getElementById('rotateRight').addEventListener('click', () => {manualRotate(90)});
 document.getElementById('rotateLeft').addEventListener('click', () => {manualRotate(-90)});
 document.getElementById('addAll').addEventListener('click', () => {
@@ -104,6 +103,10 @@ document.getElementById('addOne').addEventListener('click', () => {
   startLoading();
   addPhoto(selectedFormat);
 });
+document.body.ondrop = (e) => {
+  e.stopPropagation();
+  e.preventDefault();
+};
 
 document.addEventListener('readystatechange', event => { 
   if (event.target.readyState === "complete") {

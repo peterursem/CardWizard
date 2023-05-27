@@ -1,7 +1,7 @@
 import { addPhotoSilently, generatePreview, getAspectRatio, getCutSize } from "./export.mjs";
 import Cropper from "./cropper.esm.js";
 import { templatesBase64 } from "./templates.mjs";
-import { checkRotation, autoCrop } from "./base64handler.mjs";
+import { checkRotation, autoCrop, isBase64UrlImage } from "./base64handler.mjs";
 
 const editor = document.getElementById('editor');
 var cropper;
@@ -14,7 +14,8 @@ export const switchCropperFormat = async (format) => {
 };
 
 export const processImageData = async (data, format) => {
-    if (cropper) {
+    console.log(await isBase64UrlImage(data));
+    if (cropper && await isBase64UrlImage(data)) {
         cropper.replace(await checkRotation(data, format));
     }
 };
@@ -22,17 +23,35 @@ export const processImageData = async (data, format) => {
 export const processBatch = (files, format) => {
     let index = 0;
     Array.from(files).forEach((file) => {
-            const reader = new FileReader();
-            reader.onload = async () => {
-                    const cropImg = await autoCrop(reader.result, getAspectRatio(format));
-                    addPhotoSilently(await checkRotation(cropImg));
+        const reader = new FileReader();
+        reader.onload = () => {
+            processBatchImg(reader.result, format)
+            .then(() => {
                     index++;
                     if(index == files.length) {
                         generatePreview(format);
                     }
-            }
-            reader.readAsDataURL(file);
+                });
+            };
+        reader.readAsDataURL(file);
     });
+}
+
+function processBatchImg(img,format) {
+    return new Promise(async (res, rej) => {
+        if (await isBase64UrlImage(img) == false){
+             rej();
+        }
+        autoCrop(img, getAspectRatio(format))
+        .then((cropped) => {
+            checkRotation(cropped)
+            .then((final) => {
+                addPhotoSilently(final);
+                res();
+            }); 
+        });
+    });
+    
 }
 
 export const getCropperData = () => {

@@ -51,7 +51,24 @@ export const autoCrop = (data, aspectRatio) => {
     
             img.src = data;
         });
-    }
+}
+
+export const isBase64UrlImage = async (base64String) => {
+        let image = new Image()
+        image.src = base64String
+        return await (new Promise((resolve)=>{
+          image.onload = function () {
+            if (image.height === 0 || image.width === 0) {
+              resolve(false);
+              return;
+            }
+            resolve(true)
+          }
+          image.onerror = () =>{
+            resolve(false)
+          }
+        }));
+}
     
 function rotate(data) {
         return new Promise((res) => {
