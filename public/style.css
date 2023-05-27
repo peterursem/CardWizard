@@ -30,6 +30,7 @@ body {
     height: 100vh;
     overflow: hidden;
     background-color: #ceba93;
+    background-image: url(/imgs/bglq.jpg);
     background-size: cover;
 }
 

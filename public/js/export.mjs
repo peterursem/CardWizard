@@ -176,6 +176,10 @@ export const addPhoto = (format) => {
     });
 };
 
+export const addPhotoSilently = (data) => {
+    images.push(data);
+}
+
 export const clearPages = () => {
     images = [];
     lastDocument = '';

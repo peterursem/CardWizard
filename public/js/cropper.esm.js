@@ -220,7 +220,7 @@ var DEFAULTS = {
   // Enable to zoom the image by wheeling mouse
   zoomOnWheel: true,
   // Define zoom ratio when zoom the image by wheeling mouse
-  wheelZoomRatio: 0.1,
+  wheelZoomRatio: 0.04,
   // Enable to move the crop box
   cropBoxMovable: false,
   // Enable to resize the crop box

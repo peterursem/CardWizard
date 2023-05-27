@@ -1,12 +1,11 @@
-import { switchCropperFormat, destroyCropper } from './editor.mjs';
+import { switchCropperFormat, destroyCropper, manualRotate, processImageData, processBatch } from './editor.mjs';
 import { getPossibleFormats, addPage, addPhoto, clearPages, printPages } from './export.mjs';
 
-var selectedFormat;
+var selectedFormat = '';
 function formatSelected(format) {
   if (selectedFormat == format){
     return;
   }
-  selectedFormat = format;
   clearPages();
   const existingSelection = document.querySelector('.selected'); 
   if (existingSelection) {
@@ -19,6 +18,18 @@ function formatSelected(format) {
     document.querySelector('#editor img').remove();
   }
   switchCropperFormat(format);
+
+  if (selectedFormat == ''){
+    const dropbox = document.body;
+    dropbox.addEventListener("dragenter", drag);
+    dropbox.addEventListener("dragover", drag);
+    dropbox.addEventListener("drop", drop);
+    document.getElementById('editorControls').classList.remove('hide');
+    document.getElementById('exportControls').classList.remove('hide');
+    document.getElementById('placeHolder').classList.remove('hide');
+    document.getElementById('editor').classList.remove('hide');
+  }
+  selectedFormat = format;
 }
 
 getPossibleFormats()
@@ -55,6 +66,36 @@ function startLoading() {
   document.querySelector('main').appendChild(elem);
 }
 
+function drag(e) {
+  e.stopPropagation();
+  e.preventDefault();
+}
+
+function drop(e) {
+  e.stopPropagation();
+  e.preventDefault();
+
+  const dt = e.dataTransfer;
+  const files = dt.files;
+
+  console.log(files);
+  if (files.length == 1) {
+      const reader = new FileReader;
+      reader.onload = () => {
+          processImageData(reader.result , selectedFormat);
+      };
+      reader.readAsDataURL(files[0]);
+  }
+  else {
+      startLoading();
+      processBatch(files, selectedFormat);
+  }
+}
+
+document.getElementById('clear').addEventListener('click', clearPages());
+document.getElementById('print').addEventListener('click', printPages());
+document.getElementById('rotateRight').addEventListener('click', () => {manualRotate(90)});
+document.getElementById('rotateLeft').addEventListener('click', () => {manualRotate(-90)});
 document.getElementById('addAll').addEventListener('click', () => {
   startLoading();
   addPage(selectedFormat);
@@ -62,18 +103,6 @@ document.getElementById('addAll').addEventListener('click', () => {
 document.getElementById('addOne').addEventListener('click', () => {
   startLoading();
   addPhoto(selectedFormat);
-});
-document.getElementById('clear').addEventListener('click', () => {
-  clearPages();
-});
-document.getElementById('print').addEventListener('click', () => {
-  printPages();
-});
-document.getElementById('rotateRight').addEventListener('click', () => {
-  manualRotate(90);
-});
-document.getElementById('rotateLeft').addEventListener('click', () => {
-  manualRotate(-90);
 });
 
 document.addEventListener('readystatechange', event => { 
