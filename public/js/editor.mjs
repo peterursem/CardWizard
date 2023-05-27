@@ -7,7 +7,6 @@ var cropper,
     currentFormat = '';
 
 export const switchCropperFormat = async (format) => {
-    currentFormat = format;
     let existingImg = document.querySelector('#editor img'),
         image = 0;
     if (existingImg) {
@@ -22,6 +21,17 @@ export const switchCropperFormat = async (format) => {
         image.src = await rotate(image.src);
     };
     drawCropper(format, image);
+
+    if (currentFormat == '') {
+        document.getElementById('editorControls').classList.remove('hide');
+        document.getElementById('exportControls').classList.remove('hide');
+        document.getElementById('placeHolder').classList.remove('hide');
+        document.getElementById('editor').classList.remove('hide');
+        reader.addEventListener("load", () => {
+            processImageData(reader.result);
+        }, false);
+    }
+    currentFormat = format;
 }
 
 export const getCropperData = () => {
@@ -107,10 +117,6 @@ export const read = (file) => {
     reader.readAsDataURL(file);
 }
 
-reader.addEventListener("load", () => {
-    processImageData(reader.result);
-}, false);
-
 async function processImageData(data) {
     let img = document.createElement('img');
     if (await needsRotation(data, currentFormat) == true) {
@@ -151,3 +157,11 @@ const dropbox = document.body;
 dropbox.addEventListener("dragenter", drag, false);
 dropbox.addEventListener("dragover", drag, false);
 dropbox.addEventListener("drop", drop, false);
+
+let timer;
+document.body.onresize = () => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+        cropper.reset();
+    }, 200);
+}

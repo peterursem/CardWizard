@@ -231,3 +231,16 @@ object, #placeHolder {
     margin-right: var(--outerMargin);
     margin-block: calc(48vh - (var(--previewWidth) * (6/8.5)));
 }
+
+#placeHolder {
+    display: flex;
+    justify-content: center;
+    color: var(--highlightColour);
+    font-size: large;
+    font-family: 'lulo';
+    text-align: center;
+}
+
+.hide {
+     display: none !important;
+}

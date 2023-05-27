@@ -37,10 +37,30 @@ getPossibleFormats()
   document.getElementById("formatBar").style.setProperty('--noFormats', i);
 });
 
+function startLoading() {
+  let elem = document.createElement('div');
+  elem.innerText = 'Loading...';
+  elem.id = 'placeHolder';
+  elem.classList.add('highlightBorder');
+
+  const existingObject = document.querySelector('object'),
+  placeHolder = document.querySelector('#placeHolder');
+
+  if(existingObject) {
+    existingObject.remove();
+  }
+  if(placeHolder) {
+      placeHolder.remove();
+  }
+  document.querySelector('main').appendChild(elem);
+}
+
 document.getElementById('addAll').addEventListener('click', () => {
+  startLoading();
   addPage(selectedFormat);
 });
 document.getElementById('addOne').addEventListener('click', () => {
+  startLoading();
   addPhoto(selectedFormat);
 });
 document.getElementById('clear').addEventListener('click', () => {
