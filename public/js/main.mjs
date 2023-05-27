@@ -55,3 +55,9 @@ document.getElementById('rotateRight').addEventListener('click', () => {
 document.getElementById('rotateLeft').addEventListener('click', () => {
   manualRotate(-90);
 });
+
+document.addEventListener('readystatechange', event => { 
+  if (event.target.readyState === "complete") {
+      document.body.style.backgroundImage = 'url(/imgs/bg.jpg)';
+  }
+});

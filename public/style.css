@@ -1,9 +1,4 @@
 @font-face {
-    font-family: Motiva-Regular;
-    src: url(/fonts/MotivaRegular.ttf);
-}
-
-@font-face {
     font-family: Motiva-Black;
     src: url(/fonts/MotivaBlack.ttf);
 }
@@ -27,16 +22,15 @@
     --headerHeight: max(3vh, 20px);
     --mainHeight: calc(100vh - var(--headerHeight) - 2vh);
 
-    background-image: url('/imgs/bg.jpg');
-    background-size: cover;
     color: var(--foregroundColour);
-    font-family: 'Motiva-Regular';
 }
 
 body {
     margin: 0;
     height: 100vh;
     overflow: hidden;
+    background-color: #ceba93;
+    background-size: cover;
 }
 
 header{

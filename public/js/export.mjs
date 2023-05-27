@@ -117,7 +117,7 @@ export const getPossibleFormats = function() {
     return new Promise(resolve => {
         let formats = [];
         for(let format of Object.keys(documentFormats)){
-            formats.push({size: format, desc: documentFormats[format].desc, example: "/imgs/ex/" + format + ".jpg"});
+            formats.push({size: format, desc: documentFormats[format].desc, example: "/imgs/ex/" + format + ".png"});
         }
         resolve(formats);
     });
