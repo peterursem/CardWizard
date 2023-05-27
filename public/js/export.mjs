@@ -111,7 +111,6 @@ const documentFormats = {
 import { getCropperData } from './editor.mjs';
 
 var images = [];
-let duplex = true;
 
 export const getPossibleFormats = function() {
     return new Promise(resolve => {
@@ -175,14 +174,6 @@ export const addPhoto = (format) => {
         images.push(base64Image);
         generatePreview(format);
     });
-};
-
-export const enableDuplex = () => {
-    duplex = true;
-};
-
-export const disableDuplex = () => {
-    duplex = false;
 };
 
 export const clearPages = () => {
