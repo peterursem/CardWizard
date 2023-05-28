@@ -14,7 +14,6 @@ export const switchCropperFormat = async (format) => {
 };
 
 export const processImageData = async (data, format) => {
-    console.log(await isBase64UrlImage(data));
     if (cropper && await isBase64UrlImage(data)) {
         cropper.replace(await checkRotation(data, format));
     }

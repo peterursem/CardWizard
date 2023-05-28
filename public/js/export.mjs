@@ -194,7 +194,6 @@ export const clearPages = () => {
 };
 
 export const printPages = () => {
-    console.log(lastDocument);
     if(lastDocument != '') {
         window.open(lastDocument);
     }

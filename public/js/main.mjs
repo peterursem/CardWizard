@@ -75,7 +75,6 @@ function drop(e) {
   const dt = e.dataTransfer;
   const files = dt.files;
 
-  console.log(files);
   if (files.length == 1) {
       const reader = new FileReader;
       reader.onload = () => {
