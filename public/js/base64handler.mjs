@@ -20,54 +20,21 @@ export function checkRotation(data, format) {
         });
 }
 
-export const autoCrop = (data, aspectRatio) => {
-        return new Promise((resolve) => {
-            const img = new Image();
-    
-            img.onload = () => {
-                const ogWidth = img.naturalWidth,
-                ogHeight = img.naturalHeight,
-                ogAspect = ogWidth / ogHeight;
-    
-                let newWidth = ogWidth,
-                newHeight = ogHeight;
-                if (ogAspect > aspectRatio) {
-                    newWidth = ogHeight * aspectRatio;
-                } else if (ogAspect < aspectRatio) {
-                    newHeight = ogWidth / aspectRatio;
-                }
-    
-                const outputX = (newWidth - ogWidth) * 0.5,
-                outputY = (newHeight - ogHeight) * 0.5,
-                newImg = document.createElement('canvas');
-    
-                newImg.width = newWidth;
-                newImg.height = newHeight;
-    
-                const ctx = newImg.getContext('2d');
-                ctx.drawImage(img, outputX, outputY);
-                resolve(newImg.toDataURL('image/jpeg',100));
-            };
-    
-            img.src = data;
-        });
-}
-
-export const isBase64UrlImage = async (base64String) => {
+export const isBase64UrlImage = (base64String) => {
         let image = new Image()
-        image.src = base64String
-        return await (new Promise((resolve)=>{
-          image.onload = function () {
-            if (image.height === 0 || image.width === 0) {
-              resolve(false);
-              return;
-            }
-            resolve(true)
-          }
-          image.onerror = () =>{
-            resolve(false)
-          }
-        }));
+        return new Promise((res, rej)=>{
+                image.onload = function () {
+                if (image.height === 0 || image.width === 0) {
+                        rej('0px height or width');
+                        return;
+                }
+                res(true);
+                }
+                image.onerror = () =>{
+                        rej('image load err');
+                }
+                image.src = base64String;
+        });        
 }
     
 function rotate(data) {

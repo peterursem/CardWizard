@@ -1,5 +1,7 @@
-import { switchCropperFormat, destroyCropper, manualRotate, processImageData, processBatch } from './editor.mjs';
-import { getPossibleFormats, addPage, addPhoto, clearPages, printPages } from './export.mjs';
+import { switchCropperFormat, destroyCropper, processImageData } from './editor.mjs';
+import processBatch from "./processBatch.mjs";
+import { clearPages, addPage, addPhoto } from './export.mjs';
+import { getPossibleFormats } from "./documentFormats.mjs";
 
 var selectedFormat = '';
 function formatSelected(format) {
@@ -45,7 +47,7 @@ getPossibleFormats()
   document.getElementById("formatBar").style.setProperty('--noFormats', i);
 });
 
-function startLoading() {
+export const startLoading = () => {
   let elem = document.createElement('div');
   elem.innerText = 'Loading...';
   elem.id = 'placeHolder';
@@ -90,10 +92,10 @@ function drop(e) {
 
 document.body.addEventListener("dragenter", drag);
 document.body.addEventListener("dragover", drag);
-document.getElementById('clear').addEventListener('click', clearPages);
-document.getElementById('print').addEventListener('click', printPages);
-document.getElementById('rotateRight').addEventListener('click', () => {manualRotate(90)});
-document.getElementById('rotateLeft').addEventListener('click', () => {manualRotate(-90)});
+document.body.ondrop = (e) => {
+  e.stopPropagation();
+  e.preventDefault();
+};
 document.getElementById('addAll').addEventListener('click', () => {
   startLoading();
   addPage(selectedFormat);
@@ -102,10 +104,6 @@ document.getElementById('addOne').addEventListener('click', () => {
   startLoading();
   addPhoto(selectedFormat);
 });
-document.body.ondrop = (e) => {
-  e.stopPropagation();
-  e.preventDefault();
-};
 
 document.addEventListener('readystatechange', event => { 
   if (event.target.readyState === "complete") {
