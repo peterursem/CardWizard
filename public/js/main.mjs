@@ -1,7 +1,7 @@
-import { switchCropperFormat, destroyCropper, processImageData } from './editor.mjs';
+import { switchCropperFormat, destroyCropper, processImageData } from './editor/editor.mjs';
 import processBatch from "./processBatch.mjs";
-import { clearPages, addPage, addPhoto } from './export.mjs';
-import { getPossibleFormats } from "./documentFormats.mjs";
+import { clearPages, addPage, addPhoto } from './export/export.mjs';
+import { getPossibleFormats } from "./export/documentFormats.mjs";
 
 var selectedFormat = '';
 function formatSelected(format) {

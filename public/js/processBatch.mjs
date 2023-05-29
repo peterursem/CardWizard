@@ -1,5 +1,5 @@
-import { addPhotoSilently, generatePreview } from "./export.mjs";
-import { documentFormats } from "./documentFormats.mjs";
+import { addPhotoSilently, generatePreview } from "./export/export.mjs";
+import { documentFormats } from "./export/documentFormats.mjs";
 import { checkRotation, isBase64UrlImage } from "./base64handler.mjs";
 
 

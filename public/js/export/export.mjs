@@ -1,6 +1,6 @@
 import { documentFormats } from './documentFormats.mjs';
-import { getCropperData } from './editor.mjs';
-
+import { getCropperData } from '../editor/editor.mjs';
+ 
 var images = [],
 lastDocument = '';
 
