@@ -1,5 +1,5 @@
 import { switchCropperFormat, destroyCropper, processImageData } from './editor/editor.mjs';
-import processBatch from "./processBatch.mjs";
+import processBatch from "./export/processBatch.mjs";
 import { clearPages, addPage, addPhoto } from './export/export.mjs';
 import { getPossibleFormats } from "./export/documentFormats.mjs";
 

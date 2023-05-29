@@ -1,13 +1,13 @@
-import { addPhotoSilently, generatePreview } from "./export/export.mjs";
-import { documentFormats } from "./export/documentFormats.mjs";
-import { checkRotation, isBase64UrlImage, blobToBase64 } from "./base64handler.mjs";
+import { addPhotoSilently, generatePreview } from "./export.mjs";
+import { documentFormats } from "./documentFormats.mjs";
+import { checkRotation, isBase64UrlImage, blobToBase64 } from "../base64handler.mjs";
 
 
 export default function processBatch(files, format) {
     const aspectRatio = documentFormats[format].editor.aspectRatio;
     let index = 0;
     Array.from(files).forEach((file) => {
-        processBatchImg(file, aspectRatio)
+        processBatchImg(file, aspectRatio, format)
             .then(() => {
                 index++;
                 if (index == files.length) {
@@ -20,7 +20,7 @@ export default function processBatch(files, format) {
     });
 };
 
-function processBatchImg(file, aspect) {
+function processBatchImg(file, aspect, format) {
     return new Promise(async (res, rej) => {
         const reader = new FileReader();
         reader.onload = () => {
@@ -30,7 +30,7 @@ function processBatchImg(file, aspect) {
                     return;
                 })
                 .then(async () => {
-                    const rotatedImg = await checkRotation(reader.result), 
+                    const rotatedImg = await checkRotation(reader.result, format), 
                     finalImg = await autoCrop(rotatedImg, aspect);
                     addPhotoSilently(finalImg);
                     res();
