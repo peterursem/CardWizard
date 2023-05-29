@@ -245,3 +245,19 @@ object, #placeHolder {
 .hide {
      display: none !important;
 }
+
+#overlay{
+    position: absolute;
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+#overlay p {
+    text-align: center;
+    font-family: 'Motiva-Black';
+    color: var(--highlightColour);
+}

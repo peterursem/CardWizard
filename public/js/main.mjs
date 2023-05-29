@@ -22,6 +22,7 @@ function formatSelected(format) {
   switchCropperFormat(format);
 
   if (selectedFormat == ''){
+    document.getElementById('overlay').remove();
     document.body.addEventListener("drop", drop);
     document.getElementById('editorControls').classList.remove('hide');
     document.getElementById('exportControls').classList.remove('hide');
