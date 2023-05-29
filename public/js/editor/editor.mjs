@@ -20,15 +20,7 @@ export const processImageData = async (data, format) => {
 };
 
 export const getCropperData = () => {
-    return new Promise((res) => {
-        let reader = new FileReader();
-        reader.onload = function() {
-            res(reader.result);
-        };
-        cropper.getCroppedCanvas().toBlob((blob) => {
-            reader.readAsDataURL(blob);
-        });
-    });
+    return cropper.getCroppedCanvas({fillColor: '#fff'}).toDataURL('image/jpeg', 0.8);
 };
 
 export const destroyCropper = () => {cropper.destroy();};

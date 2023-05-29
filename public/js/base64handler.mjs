@@ -36,6 +36,14 @@ export const isBase64UrlImage = (base64String) => {
                 image.src = base64String;
         });        
 }
+
+export const blobToBase64 = (blob) => {
+        return new Promise((resolve) => {
+          const reader = new FileReader();
+          reader.onloadend = () => resolve(reader.result);
+          reader.readAsDataURL(blob);
+        });
+}
     
 function rotate(data) {
         return new Promise((res) => {
@@ -50,7 +58,7 @@ function rotate(data) {
                 offScreenCanvasCtx.translate(0, -offScreenCanvas.width);
                 offScreenCanvasCtx.drawImage(img, 0, 0); 
     
-                res(offScreenCanvas.toDataURL('image/jpeg',100));
+                res(offScreenCanvas.toDataURL('image/jpeg', 1));
             }
         });
 }

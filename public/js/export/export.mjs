@@ -23,26 +23,21 @@ export const generatePreview = (format) => {
 
 export const addPage = (format) => {
     const imgsOnPage = documentFormats[format].layout.x * documentFormats[format].layout.y;
-    getCropperData()
-    .then(base64Image => {
-        let noImg = images.length;
-        while(noImg >= imgsOnPage) {
-            noImg -= imgsOnPage;
-        }
-        const remain = imgsOnPage - noImg;
-        for(let i = 0; i < remain; i++) {
-            images.push(base64Image);
-        }
-        generatePreview(format);
-    });
+    
+    let noImg = images.length;
+    while(noImg >= imgsOnPage) {
+        noImg -= imgsOnPage;
+    }
+    const remain = imgsOnPage - noImg;
+    for(let i = 0; i < remain; i++) {
+        images.push(getCropperData());
+    }
+    generatePreview(format);
 }
 
 export const addPhoto = (format) => {
-    getCropperData()
-    .then(base64Image => {
-        images.push(base64Image);
-        generatePreview(format);
-    });
+    images.push(getCropperData());
+    generatePreview(format);
 };
 
 export const addPhotoSilently = (data) => {

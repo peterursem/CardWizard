@@ -1,6 +1,6 @@
 import { addPhotoSilently, generatePreview } from "./export/export.mjs";
 import { documentFormats } from "./export/documentFormats.mjs";
-import { checkRotation, isBase64UrlImage } from "./base64handler.mjs";
+import { checkRotation, isBase64UrlImage, blobToBase64 } from "./base64handler.mjs";
 
 
 export default function processBatch(files, format) {
@@ -30,7 +30,8 @@ function processBatchImg(file, aspect) {
                     return;
                 })
                 .then(async () => {
-                    const rotatedImg = await checkRotation(reader.result), finalImg = await autoCrop(rotatedImg, aspect);
+                    const rotatedImg = await checkRotation(reader.result), 
+                    finalImg = await autoCrop(rotatedImg, aspect);
                     addPhotoSilently(finalImg);
                     res();
                 });
@@ -39,7 +40,7 @@ function processBatchImg(file, aspect) {
     });
 }
 
-function autoCrop(data, aspectRatio) {            
+function autoCrop(data, aspect) {            
     const img = new Image();
     return new Promise((resolve) => {
         img.onload = () => {
@@ -49,10 +50,10 @@ function autoCrop(data, aspectRatio) {
 
             let outputWidth = ogWidth,
             outputHeight = ogHeight;
-            if (ogAspect > aspectRatio) {
-                    outputWidth = ogHeight * aspectRatio;
-            } else if (ogAspect < aspectRatio) {
-                    outputHeight = ogWidth / aspectRatio;
+            if (ogAspect > aspect) {
+                    outputWidth = ogHeight * aspect;
+            } else if (ogAspect < aspect) {
+                    outputHeight = ogWidth / aspect;
             }
             const outputX = (outputWidth - ogWidth) * 0.5,
             outputY = (outputHeight - ogHeight) * 0.5;
@@ -65,13 +66,5 @@ function autoCrop(data, aspectRatio) {
             });
         };
         img.src = data;
-    });
-}
-
-function blobToBase64(blob) {
-    return new Promise((resolve) => {
-      const reader = new FileReader();
-      reader.onloadend = () => resolve(reader.result);
-      reader.readAsDataURL(blob);
     });
 }
