@@ -3,35 +3,6 @@ import processBatch from "./export/processBatch.mjs";
 import { clearPages, addPage, addPhoto } from './export/export.mjs';
 import { getPossibleFormats } from "./export/documentFormats.mjs";
 
-var selectedFormat = '';
-function formatSelected(format) {
-  if (selectedFormat == format){
-    return;
-  }
-  clearPages();
-  const existingSelection = document.querySelector('.selected'); 
-  if (existingSelection) {
-    existingSelection.classList.remove('selected');
-  }
-  document.getElementById(format).classList.add('selected');
-  const existingCropper = document.querySelector('.cropper-canvas');
-  if (existingCropper) {
-    destroyCropper();
-    document.querySelector('#editor img').remove();
-  }
-  switchCropperFormat(format);
-
-  if (selectedFormat == ''){
-    document.getElementById('overlay').remove();
-    document.body.addEventListener("drop", drop);
-    document.getElementById('editorControls').classList.remove('hide');
-    document.getElementById('exportControls').classList.remove('hide');
-    document.getElementById('placeHolder').classList.remove('hide');
-    document.getElementById('editor').classList.remove('hide');
-  }
-  selectedFormat = format;
-}
-
 getPossibleFormats()
 .then(formats => {
   let i = 0
@@ -48,7 +19,49 @@ getPossibleFormats()
   document.getElementById("formatBar").style.setProperty('--noFormats', i);
 });
 
-export const startLoading = () => {
+var selectedFormat = '';
+function formatSelected(format) {
+  if (selectedFormat == format) return;
+
+  clearPages();
+
+  const existingSelection = document.querySelector('.selected'); 
+  if (existingSelection) existingSelection.classList.remove('selected');
+  document.getElementById(format).classList.add('selected');
+
+  const existingCropper = document.querySelector('.cropper-canvas');
+  if (existingCropper) {
+    destroyCropper();
+    document.querySelector('#editor img').remove();
+  }
+  switchCropperFormat(format);
+
+  if (selectedFormat == '') showEditor();
+  selectedFormat = format;
+}
+
+function showEditor() {
+  document.getElementById('overlay').remove();
+  document.body.addEventListener("drop", drop);
+  document.getElementById('editorControls').classList.remove('hide');
+  document.getElementById('exportControls').classList.remove('hide');
+  document.getElementById('placeHolder').classList.remove('hide');
+  document.getElementById('editor').classList.remove('hide');
+}
+
+function switchLogo() {
+  const show = document.querySelectorAll('header .show'),
+  hide = document.querySelectorAll('header .hide');
+
+  show.forEach(elem => {
+    elem.classList.replace('show', 'hide');
+  });
+  hide.forEach(elem => {
+    elem.classList.replace('hide', 'show');
+  });
+}
+
+function startLoading() {
   let elem = document.createElement('div');
   elem.innerText = 'Loading...';
   elem.id = 'placeHolder';
@@ -57,12 +70,8 @@ export const startLoading = () => {
   const existingObject = document.querySelector('object'),
   placeHolder = document.querySelector('#placeHolder');
 
-  if(existingObject) {
-    existingObject.remove();
-  }
-  if(placeHolder) {
-      placeHolder.remove();
-  }
+  if(existingObject) existingObject.remove();
+  if(placeHolder) placeHolder.remove();
   document.querySelector('main').appendChild(elem);
 }
 
@@ -93,7 +102,8 @@ function drop(e) {
 
 document.body.addEventListener("dragenter", drag);
 document.body.addEventListener("dragover", drag);
-document.body.ondrop = (e) => {
+document.querySelector('header').addEventListener("click", switchLogo);
+document.body.ondrop = e => {
   e.stopPropagation();
   e.preventDefault();
 };

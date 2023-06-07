@@ -8,14 +8,19 @@ var cropper;
 
 export const switchCropperFormat = async (format) => {
     let image = new Image();
-    image.src = await checkRotation(templatesBase64[format], format);
+    image.src = templatesBase64[format];
     document.querySelector('#editor').appendChild(image);
     drawCropper(image, format);
 };
 
-export const processImageData = async (data, format) => {
-    if (cropper && await isBase64UrlImage(data)) {
-        cropper.replace(await checkRotation(data, format));
+export const processImageData = (data, format) => {
+    if (cropper) {
+        isBase64UrlImage(data).then(async (img) => {
+            cropper.replace(await checkRotation(img, format, 'dataURL'));
+        })
+        .catch(() => {
+            return;
+        });
     }
 };
 

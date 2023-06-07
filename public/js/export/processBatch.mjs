@@ -4,13 +4,16 @@ import { checkRotation, isBase64UrlImage, blobToBase64 } from "../base64handler.
 
 
 export default function processBatch(files, format) {
-    const aspectRatio = documentFormats[format].editor.aspectRatio;
+    const before = new Date(Date.now());
     let index = 0;
     Array.from(files).forEach((file) => {
-        processBatchImg(file, aspectRatio, format)
+        const now = new Date(Date.now());
+        processBatchImg(file, format)
             .then(() => {
+                console.info('Completley processed image in: ' + (Date.now() - now) + 'ms');
                 index++;
                 if (index == files.length) {
+                    console.info('Completley processed batch in: ' + (Date.now() - before) + 'ms');
                     generatePreview(format);
                 }
             })
@@ -20,7 +23,7 @@ export default function processBatch(files, format) {
     });
 };
 
-function processBatchImg(file, aspect, format) {
+function processBatchImg(file, format) {
     return new Promise(async (res, rej) => {
         const reader = new FileReader();
         reader.onload = () => {
@@ -29,9 +32,9 @@ function processBatchImg(file, aspect, format) {
                     rej(err);
                     return;
                 })
-                .then(async () => {
-                    const rotatedImg = await checkRotation(reader.result, format), 
-                    finalImg = await autoCrop(rotatedImg, aspect);
+                .then(async (img) => {
+                    const rotCanvas = await checkRotation(img, format, 'canvas'), 
+                    finalImg = await autoCrop(rotCanvas, format);
                     addPhotoSilently(finalImg);
                     res();
                 });
@@ -40,31 +43,34 @@ function processBatchImg(file, aspect, format) {
     });
 }
 
-function autoCrop(data, aspect) {            
-    const img = new Image();
-    return new Promise((resolve) => {
-        img.onload = () => {
-            const ogWidth = img.naturalWidth,
-            ogHeight = img.naturalHeight,
-            ogAspect = ogWidth / ogHeight;
+function autoCrop(canvas, format) {
+    const now = new Date(Date.now());           
+    return new Promise((res) => {
+        const aspect = documentFormats[format].editor.aspectRatio,
+        ogWidth = canvas.width,
+        ogHeight = canvas.height,
+        ogAspect = ogWidth / ogHeight;
 
-            let outputWidth = ogWidth,
-            outputHeight = ogHeight;
-            if (ogAspect > aspect) {
-                    outputWidth = ogHeight * aspect;
-            } else if (ogAspect < aspect) {
-                    outputHeight = ogWidth / aspect;
-            }
-            const outputX = (outputWidth - ogWidth) * 0.5,
-            outputY = (outputHeight - ogHeight) * 0.5;
-            const output = new OffscreenCanvas(outputWidth, outputHeight),
-            ctx = output.getContext('2d');
-            ctx.drawImage(img, outputX, outputY);
-            output.convertToBlob({type: 'image/jpeg', quality: 0.8})
-            .then(async (blob) => {
-                    resolve(await blobToBase64(blob));
-            });
-        };
-        img.src = data;
+        let width = ogWidth,
+        height = ogHeight;
+        if (ogAspect > aspect) {
+            width = height * aspect;
+        } else if (ogAspect < aspect) {
+            height = width / aspect;
+        }
+        
+        const x = (width - ogWidth) * 0.5,
+        y = (height - ogHeight) * 0.5,
+
+        output = new OffscreenCanvas(width, height),
+        ctx = output.getContext('2d');
+        ctx.drawImage(canvas, x, y);
+
+        output.convertToBlob({type: 'image/jpeg', quality: 0.8})
+        .then(async (blob) => {
+            const cropped = await blobToBase64(blob);
+            console.info('Cropped image in: ' + (Date.now() - now) + 'ms');
+            res(cropped);
+        });
     });
 }
