@@ -1,5 +1,5 @@
 import { documentFormats } from "../export/documentFormats.mjs";
-import Cropper from "../cropper.esm.js";
+import Cropper from "../lib/cropper.esm.js";
 import { templatesBase64 } from "./templates.mjs";
 import { checkRotation, isBase64UrlImage } from "../base64handler.mjs";
 
