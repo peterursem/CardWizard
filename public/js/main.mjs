@@ -4,20 +4,20 @@ import { clearPages, addPage, addPhoto } from './export/export.mjs';
 import { getPossibleFormats } from "./export/documentFormats.mjs";
 
 getPossibleFormats()
-        .then(formats => {
-                let i = 0
-                formats.forEach(format => {
-                        let newButton = document.createElement('button');
-                        newButton.id = format.size;
-                        newButton.innerHTML = '<h1>' + format.size.replace('f', '') + '</h1> <a>' + format.desc + '</a> <img src="' + format.example + '">';
-                        newButton.onclick = function () {
-                                formatSelected(format.size);
-                        };
-                        document.getElementById('formatBar').appendChild(newButton);
-                        i++;
-                });
-                document.getElementById("formatBar").style.setProperty('--noFormats', i);
+.then(formats => {
+        let i = 0
+        formats.forEach(format => {
+                let newButton = document.createElement('button');
+                newButton.id = format.size;
+                newButton.innerHTML = '<h1>' + format.size.replace('f', '') + '</h1> <a>' + format.desc + '</a> <img src="' + format.example + '">';
+                newButton.onclick = function () {
+                        formatSelected(format.size);
+                };
+                document.getElementById('formatBar').appendChild(newButton);
+                i++;
         });
+        document.getElementById("formatBar").style.setProperty('--noFormats', i);
+});
 
 var selectedFormat = '';
 function formatSelected(format) {
