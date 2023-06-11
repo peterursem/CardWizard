@@ -6,7 +6,7 @@ import { checkRotation, isBase64UrlImage } from "../base64handler.mjs";
 const editor = document.getElementById('editor');
 var cropper;
 
-export const switchCropperFormat = async (format) => {
+export const switchCropperFormat = async format => {
         let image = new Image();
         image.src = templatesBase64[format];
         document.querySelector('#editor').appendChild(image);

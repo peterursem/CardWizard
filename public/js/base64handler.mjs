@@ -36,7 +36,6 @@ export function checkRotation(img, format, retType) {
 }
 
 export const isBase64UrlImage = (base64String) => {
-        console.log(base64String);
         let image = new Image()
         return new Promise((res, rej)=>{
                 image.onload = function () {
