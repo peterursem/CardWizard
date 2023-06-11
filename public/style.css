@@ -19,7 +19,7 @@
     --editorWidth: 56vw;
     --previewWidth: 19vw;
 
-    --headerHeight: max(3vh, 20px);
+    --headerHeight: max(4vh, 20px);
     --mainHeight: calc(100vh - var(--headerHeight) - 2vh);
 
     color: var(--foregroundColour);
@@ -67,7 +67,7 @@ main {
     height: 100vh;
     width: var(--formatPickerWidth);
     min-width: 200px;
-    margin-top: min(-5vh, -20px);
+    margin-top: min(-6vh, -20px);
     border-right: 5px solid var(--foregroundColour);
     backdrop-filter: blur(20px);
 }
