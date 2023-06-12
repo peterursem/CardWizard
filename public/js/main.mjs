@@ -2,6 +2,7 @@ import { switchCropperFormat, destroyCropper, processImageData } from './editor/
 import processBatch from "./export/processBatch.mjs";
 import { clearPages, addPage, addPhoto } from './export/export.mjs';
 import { getPossibleFormats } from "./export/documentFormats.mjs";
+import { fileToBase64 } from './filehandler.mjs';
 
 getPossibleFormats()
 .then(formats => {
@@ -85,16 +86,13 @@ function drop(e) {
         e.preventDefault();
 
         const dt = e.dataTransfer;
-        const files = dt.files;
+        var files = dt.files;
 
         if (files.length == 1) {
-                const reader = new FileReader;
-                reader.onload = () => {
-                        processImageData(reader.result, selectedFormat);
-                };
-                reader.readAsDataURL(files[0]);
+                fileToBase64(files[0])
+                .then(data => processImageData(data, selectedFormat))
         }
-        else {
+        else if (files.length > 1) {
                 startLoading();
                 processBatch(files, selectedFormat);
         }

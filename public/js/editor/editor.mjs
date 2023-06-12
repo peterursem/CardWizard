@@ -1,7 +1,7 @@
 import { documentFormats } from "../export/documentFormats.mjs";
 import Cropper from "../lib/cropper.esm.js";
 import { templatesBase64 } from "./templates.mjs";
-import { checkRotation, isBase64UrlImage } from "../base64handler.mjs";
+import { checkRotation, isBase64Image } from "../base64handler.mjs";
 
 const editor = document.getElementById('editor');
 var cropper;
@@ -15,13 +15,13 @@ export const switchCropperFormat = async format => {
 
 export const processImageData = (data, format) => {
         if (cropper) {
-                isBase64UrlImage(data)
-                .then(async (img) => {
-                        cropper.replace(await checkRotation(img, format, 'dataURL'));
-                })
-                .catch(() => {
+                isBase64Image(data)
+                .catch(err => {
+                        console.warn(err);
                         return;
-                });
+                })
+                .then(img => checkRotation(img, format, 'dataURL'))
+                .then(r => cropper.replace(r))
         }
 };
 
