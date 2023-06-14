@@ -51,15 +51,10 @@ function showEditor() {
 }
 
 function switchLogo() {
-        const show = document.querySelectorAll('header .show'),
-                hide = document.querySelectorAll('header .hide');
-
-        show.forEach(elem => {
-                elem.classList.replace('show', 'hide');
-        });
-        hide.forEach(elem => {
-                elem.classList.replace('hide', 'show');
-        });
+        const show = document.querySelector('header .show'),
+        hide = document.querySelector('header .hide');
+        show.classList.replace('show', 'hide');
+        hide.classList.replace('hide', 'show');
 }
 
 function startLoading() {
