@@ -126,11 +126,11 @@ export const documentFormats = {
                         cutHeight: 5,
                 },
                 'editor': {
+                        aspectRatio: 1.380952380952381,
                         width: 96.55172413793103,
                         height: 95.23809523809523,
                         x: 1.7241379310344827,
-                        y: 2.380952380952381,
-                        aspectRatio: 1.380952380952381
+                        y: 2.380952380952381
                 },
                 layout: { x: 1, y: 2 }
         },
