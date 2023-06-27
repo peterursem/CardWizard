@@ -8,7 +8,7 @@ var cropper;
 
 export const switchCropperFormat = async format => {
         let image = new Image();
-        image.src = templatesBase64[format];
+        image.src = '/imgs/templates/'+format+'.jpg';
         document.querySelector('#editor').appendChild(image);
         drawCropper(image, format);
 };

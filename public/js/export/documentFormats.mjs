@@ -1,3 +1,29 @@
+/* Document Format properties
+Each format is defined as an object. The name of the object is the format size. If the size needs to be folded, adding an "f" to the end of the name helps denote it and is ignored when displaying it.
+desc: string - a description of the size that is displayed as subtext with the size on the sidebar
+margins:
+        (all numbers)
+        x: the margin on the left side of the page (portrait)
+        y: the margin on the top of the page (portrait)
+        gutterX: the margin in between the photos across the page
+        gutterY: the margin in between the photos down the page
+images:
+        (all numbers)
+        width: image print width
+        height: image print height
+        cutWidth: image cut width
+        cutHeight: image cut height
+editor:
+        (all numbers)
+        aspectRatio: the aspect ratio of the editor (width / height)
+        width: the width as a percentage of the inner crop box (images.width / images.cutWidth)
+        height: the height as a percentage of the inner crop box (images.height / images.cutHeight)
+        x: the offset between the left side of the editor and the crop box as a percentage ((images.width - images.cutWidth) / images.width / 2 * 100)
+        y: the offset between the top of the editor and the crop box as a percentage ((images.height - images.cutHeight) / images.height / 2 * 100)
+layout: the amount of images to put on the page in each dimension
+disableWatermark: removes top strip and text instructions on the side of the page
+*/
+
 export const documentFormats = {
         '3.5x2': {
                 desc: "Business Card",
@@ -154,6 +180,28 @@ export const documentFormats = {
                         y: 1.2195121951219512
                 },
                 layout: { x: 1, y: 1 }
+        },        
+        '8x10': {
+                desc: "Photo",
+                margins: {
+                        x: 0.25,
+                        y: 0.5,
+                },
+                images: {
+                        width: 8,
+                        height: 10,
+                        cutWidth: 8,
+                        cutHeight: 10,
+                },
+                'editor': {
+                        aspectRatio: 0.8,
+                        width: 100,
+                        height: 100,
+                        x: 0,
+                        y: 0
+                },
+                layout: { x: 1, y: 1 },
+                disableWatermark: true
         }
 };
 

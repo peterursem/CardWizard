@@ -113,9 +113,11 @@ function createDocument(imgs, format) {
 }
 
 function watermark(doc, size) {
-        doc.setFontSize(12);
-        doc.text(size + '   -   Print actual size on 8.5" x 11" (Letter) paper   -   Load into cutter with black bar first.', 0.25, 1.75, { 'angle': 270 });
-        doc.rect(0.3125, 0.125, 1.5, 0.0625, 'F'); //Cutter calibration strip
+        if(!documentFormats[size].disableWatermark){
+                doc.setFontSize(12);
+                doc.text(size + '   -   Print actual size on 8.5" x 11" (Letter) paper   -   Load into cutter with black bar first.', 0.25, 1.75, { 'angle': 270 });
+                doc.rect(0.3125, 0.125, 1.5, 0.0625, 'F'); //Cutter calibration strip
+        }
 }
 
 document.getElementById('clear').addEventListener('click', clearPages);
