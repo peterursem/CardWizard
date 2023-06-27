@@ -180,7 +180,7 @@ export const documentFormats = {
                         y: 1.2195121951219512
                 },
                 layout: { x: 1, y: 1 }
-        },        
+        }/*,        
         '8x10': {
                 desc: "Photo",
                 margins: {
@@ -203,6 +203,7 @@ export const documentFormats = {
                 layout: { x: 1, y: 1 },
                 disableWatermark: true
         }
+        */
 };
 
 export const getPossibleFormats = function () {
