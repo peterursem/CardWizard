@@ -21,6 +21,9 @@ function heicConvert(file) {
                         .then(blobRes => blobRes.blob())
                         .then(blob => heic2any({ blob, toType: "image/jpeg", quality: 1 }))
                         .then(newBlob => blobToBase64(newBlob))
-                        .then(data => res(data));
+                        .then(data => {
+                                gtag('event', 'heic_converted');
+                                res(data);
+                        });
         });
 };

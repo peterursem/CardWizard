@@ -32,7 +32,10 @@ function processBatchImg(file, format) {
                 .then(img => checkRotation(img, format, 'canvas'))
                 .then(rotated => autoCrop(rotated, format))
                 .then(final => addPhotoSilently(final))
-                .then(() => res());
+                .then(() => {
+                        gtag('event', 'batch_image_loaded');
+                        res();
+                });
         });
 }
 

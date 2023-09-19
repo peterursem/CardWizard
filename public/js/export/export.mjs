@@ -19,6 +19,7 @@ export const generatePreview = (format) => {
                 placeHolder.remove();
         }
         document.querySelector('main').appendChild(object);
+        gtag('event', 'preview_generated');
 };
 
 export const addPage = (format) => {

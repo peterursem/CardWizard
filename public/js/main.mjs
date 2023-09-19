@@ -39,6 +39,10 @@ function formatSelected(format) {
 
         if (selectedFormat == '') showEditor();
         selectedFormat = format;
+
+        gtag('event', 'format_changed', {
+                'format': format
+        });
 }
 
 function showEditor() {
@@ -64,7 +68,7 @@ function startLoading() {
         elem.classList.add('highlightBorder');
 
         const existingObject = document.querySelector('object'),
-                placeHolder = document.querySelector('#placeHolder');
+        placeHolder = document.querySelector('#placeHolder');
 
         if (existingObject) existingObject.remove();
         if (placeHolder) placeHolder.remove();
@@ -85,11 +89,13 @@ function drop(e) {
 
         if (files.length == 1) {
                 fileToBase64(files[0])
-                .then(data => processImageData(data, selectedFormat))
+                .then(data => processImageData(data, selectedFormat));
+                gtag('event', 'single_file_processed');
         }
         else if (files.length > 1) {
                 startLoading();
                 processBatch(files, selectedFormat);
+                gtag('event', 'batch_files_processed');
         }
 }
 
