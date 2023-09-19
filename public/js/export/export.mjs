@@ -20,7 +20,10 @@ export const generatePreview = (format) => {
                 placeHolder.remove();
         }
         document.querySelector('main').appendChild(object);
-        gtag('event', 'preview_generated');
+        gtag('event', 'preview_generated', {
+                'images': images.length,
+                'pages': pages
+        });
 };
 
 export const addPage = (format) => {
@@ -129,5 +132,8 @@ function watermark(doc, size) {
         }
 }
 
-document.getElementById('clear').addEventListener('click', clearPages);
+document.getElementById('clear').addEventListener('click', () => {
+        clearPages();
+        gtag('event', 'clear_pages');
+});
 document.getElementById('print').addEventListener('click', printPages);
