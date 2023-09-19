@@ -119,6 +119,7 @@ function createDocument(imgs, format) {
                 doc.addImage(pkg[0], pkg[1], pkg[2], pkg[3], pkg[4], pkg[5]);
                 i++;
         });
+        pages++;
         watermark(doc, format);
         lastDocument = doc.output('bloburl');
         return (lastDocument + '#toolbar=0');
