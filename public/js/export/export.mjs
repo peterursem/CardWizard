@@ -2,7 +2,8 @@ import { documentFormats } from './documentFormats.mjs';
 import { getCropperData } from '../editor/editor.mjs';
 
 var images = [],
-        lastDocument = '';
+lastDocument = '',
+pages = 0;
 
 export const generatePreview = (format) => {
         const existingObject = document.querySelector('object'),
@@ -58,6 +59,10 @@ export const clearPages = () => {
 
 export const printPages = () => {
         if (lastDocument != '') {
+                gtag('event', 'print_requested', {
+                        'images': images.length,
+                        'pages': pages
+                });
                 window.open(lastDocument);
         }
 };
@@ -86,6 +91,8 @@ function positionImages(imgs, format) {
 }
 
 function createDocument(imgs, format) {
+        pages = 0;
+
         const doc = new jspdf.jsPDF({
                 orientation: "portrait",
                 unit: "in",
@@ -104,6 +111,7 @@ function createDocument(imgs, format) {
                 if (i % imgsOnPage == 0 && i > 0) {
                         watermark(doc, format);
                         doc.addPage();
+                        pages++;
                 }
                 doc.addImage(pkg[0], pkg[1], pkg[2], pkg[3], pkg[4], pkg[5]);
                 i++;
