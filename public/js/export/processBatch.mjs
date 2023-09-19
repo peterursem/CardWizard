@@ -33,7 +33,7 @@ function processBatchImg(file, format) {
                 .then(rotated => autoCrop(rotated, format))
                 .then(final => addPhotoSilently(final))
                 .then(() => {
-                        gtag('event', 'batch_image_loaded');
+                        gtag('event', 'batch_image_processed');
                         res();
                 });
         });

@@ -90,12 +90,12 @@ function drop(e) {
         if (files.length == 1) {
                 fileToBase64(files[0])
                 .then(data => processImageData(data, selectedFormat));
-                gtag('event', 'single_file_processed');
+                gtag('event', 'single_file_uploaded');
         }
         else if (files.length > 1) {
                 startLoading();
                 processBatch(files, selectedFormat);
-                gtag('event', 'batch_files_processed');
+                gtag('event', 'batch_files_uploaded');
         }
 }
 
