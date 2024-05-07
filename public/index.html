@@ -1,74 +1,94 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CardWizard</title>
-    <link rel="preload" href="fonts/MotivaBlack.ttf" as="font" type="font/ttf" crossorigin>
-    <link rel="preload" href="fonts/Lulo_Clean_One_Bold.ttf" as="font" type="font/ttf" crossorigin>
-    <link rel="stylesheet" href="/style.css">
-    <link  href="/cropper.min.css" rel="stylesheet">
-    <link rel="apple-touch-icon" sizes="180x180" href="/favi/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favi/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favi/favicon-16x16.png">
-    <link rel="manifest" href="/favi/site.webmanifest">
-    <link rel="mask-icon" href="/favi/safari-pinned-tab.svg" color="#ce0000">
-    <link rel="shortcut icon" href="/favi/favicon.ico">
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="msapplication-config" content="/favi/browserconfig.xml">
-    <meta name="theme-color" content="#ffffff">
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZDGK56CL3H"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-ZDGK56CL3H');
-    </script>
-  </head>
-  <body>
-    <header>
-      <img src="/imgs/logos/logo.png" class="show" draggable="false" style="margin-top: -.5vh;">
-      <img src="/imgs/logos/peter.svg" class="hide" draggable="false">
-    </header>
-    <main>
-      <div id="formatBar">
-      </div>
-      <div id="editor" class="hide">
-      </div>
-      <div id="editorControls" class="controls hide">
-        <div id="topControls" class="innerControls">
-          <button id="rotateLeft">
-            <img src="/imgs/buttons/left.png" draggable="false">
-          </button>
-          <button id="rotateRight">
-            <img src="/imgs/buttons/right.png" draggable="false">
-          </button>
+<head>
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZDGK56CL3H"></script>
+        <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag() { dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-ZDGK56CL3H');
+        </script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>CardWizard</title>
+
+        <link rel="preload" href="fonts/MotivaBlack.ttf" as="font" type="font/ttf" crossorigin>
+        <link rel="preload" href="fonts/Lulo_Clean_One_Bold.ttf" as="font" type="font/ttf" crossorigin>
+        <link rel="stylesheet" href="/css/index.css">
+        <link rel="stylesheet" href="/css/style.css">
+
+        <link rel="apple-touch-icon" sizes="180x180" href="/favi/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favi/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favi/favicon-16x16.png">
+        <link rel="manifest" href="/favi/site.webmanifest">
+        <link rel="mask-icon" href="/favi/safari-pinned-tab.svg" color="#ce0000">
+        <link rel="shortcut icon" href="/favi/favicon.ico">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="msapplication-config" content="/favi/browserconfig.xml">
+        <meta name="theme-color" content="#ffffff">
+</head>
+
+<body>
+        <div id="nav">
+                <img src="/imgs/logos/logo.png" href="/" id="navLogo">
+                <a id="start" class="button" href="/app/"><span>Get Started</span></a>
         </div>
-        <div id="bottomControls" class="innerControls">
-          <button id="addOne">ADD ONE</button>
-          <button id="addAll">FILL PAGE</button>
+        <section id="cover">
+                <img id="coverLogo" src="/imgs/logos/comboLogo.png">
+                <p>An all in one ticketing solution for custom print layouts.</p>
+                <img id="screenshot" src="/imgs/index/screenshot.png">
+                <h2>Fast, Secure, Efficient. <br>CardWizard opens up a realm of new possibilities in the SolutionShop
+                </h2>
+        </section>
+        <div id="cspIntro">
+                <p>Designed from the ground up for the <span class="highlight">CSP</span> model, CardWizard boasts
+                        enhanced capabilities compared to the existing workflow. CardWizard enables associates to easily
+                        adhere to SolutionShop best practices and provide a smoother experience in store. Empowering our
+                        great SolutionShop associates we can help customers to feel more confident in their orders.</p>
         </div>
-      </div>
-      <div id="exportControls" class="controls hide">
-        <div>
-          <button id="clear">
-            <img src="/imgs/buttons/clear.png" draggable="false">
-          </button>
-          <button id="print">
-            <img src="/imgs/buttons/print.png" draggable="false">
-          </button>
-        </div>
-      </div>
-      <div id="placeHolder" class="highlightBorder hide">
-      </div>
-      <div id="overlay">
-        <p>To start, select a format. <br> Then drag your image(s) here to add them to your document.</p>
-      </div>
-    </main>
-    <script src="/js/lib/jspdf.umd.min.js"></script>
-    <script src="/js/lib/heic2any.min.js"></script>
-    <script src="/js/main.mjs" type="module"></script>
-  </body>
+        <section id="csp">
+                <div id="connect">
+                        <img src="imgs/index/csp_connect.png">
+                        <h2>CONNECT</h2>
+                        <p>CardWizard opens many possibilities for SolutionShops across the country. The platform allows
+                                stores to offer many more <span class="highlight">1-Hour Services</span>, including:</p>
+                        <ul>
+                                <li>Business Cards</li>
+                                <li>Post Cards</li>
+                                <li>Greeting Cards</li>
+                                <li>Tent Cards</li>
+                                <li>Photos</li>
+                        </ul>
+                </div>
+                <div id="share">
+                        <img src="imgs/index/csp_share.png">
+                        <h2>SHARE</h2>
+                        <p>With substantially reduced production times CardWizard enables <span class="highlight">Active
+                                        Sampling</span> in store. <br><br>Customers can try out different card designs
+                                and paper types before committing to a larger batch, and associates are better able to
+                                recommend products.</p>
+                </div>
+                <div id="partner">
+                        <img src="imgs/index/csp_partner.png">
+                        <h2>PARTNER</h2>
+                        <p>Errors can be corrected immediately using CardWizard. Improperly folded cards, design errors,
+                                and quality concerns can be effectively and quickly resolved in-store rather than
+                                waiting for another production run from the hub. <br><br>This helps stores keep up the
+                                <span class="highlight">Big Print Promise</span> and deliver cards done right and on
+                                time.</p>
+                </div>
+        </section>
+        <section id="benefitCarousel">
+                <div id="slide1"></div>
+                <div id="slide2"></div>
+                <div id="slide3"></div>
+                <div id="slide4"></div>
+                <div id="slide5"></div>
+                <div id="slide6"></div>
+        </section>
+        <div id="bottomBumper"></div>
+</body>
+
 </html>

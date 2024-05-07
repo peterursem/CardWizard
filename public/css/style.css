@@ -1,0 +1,26 @@
+@font-face {
+    font-family: Motiva-Black;
+    src: url(/fonts/MotivaBlack.ttf);
+}
+
+@font-face {
+    font-family: Motiva-Medium;
+    src: url(/fonts/MotivaMedium.ttf);
+}
+
+@font-face {
+    font-family: lulo;
+    src: url(/fonts/Lulo_Clean_One_Bold.ttf);
+}
+
+:root {
+    --foregroundColour: #fff;
+    --backgroundColour: #222;
+    --highlightColour: #CE0000;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+}

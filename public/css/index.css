@@ -1,0 +1,169 @@
+:root {
+        --navHeight: max(6vh, 20px);
+}
+
+body {
+        font-family: Motiva-Medium;
+        color: var(--backgroundColour);
+}
+
+.button {
+        border: 2px solid var(--highlightColour);
+        background-color: var(--highlightColour);
+        color: var(--foregroundColour);
+        margin-block: auto;
+        margin-right: 1vw;
+        padding-inline: 1vw;
+        text-align: center;
+}
+
+.highlight {
+        color: var(--highlightColour);
+}
+
+/* NAV BAR */
+
+#nav {
+        position: sticky;
+        top: 0;
+        left: 0;
+        z-index: 5;
+        display: flex;
+        justify-content: space-between;
+        height: var(--navHeight);
+        width: 100vw;
+        background-color: rgba(32, 32, 32, 0.8);
+        backdrop-filter: blur(10px);
+}
+
+#navLogo {
+        vertical-align: middle;
+        margin-block: auto;
+        margin-left: 1vw;
+        max-height: calc(var(--navHeight) * 0.75);
+        max-width: 20vw;
+}
+
+#start {
+        display: inline-block;
+        vertical-align: middle;
+        font-size: calc(var(--navHeight) * 0.4);
+}
+
+/* COVER SECTION */
+
+#cover {
+        padding-block: 5vh;
+        width: 100vw;
+        text-align: center;
+}
+
+#coverLogo {
+        margin: auto;
+        max-width: 70vw;
+        max-height: 10vh;
+        margin-bottom: 2vh;
+}
+
+#screenshot {
+        max-width: 80vw;
+        max-height: 65vh;
+        -webkit-filter: drop-shadow(5px 5px 20px #222);
+        filter: drop-shadow(5px 5px 20px #222);
+        margin-top: -1vh;
+        margin-bottom: 5vh;
+}
+
+/* CSP SECTION */
+
+#cspIntro {
+        text-align: center;
+        width: 60vw;
+        margin: auto;
+}
+
+#csp {
+        margin: auto;
+        margin-block: 4vh;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        width: 95vw;
+        gap: 2%;
+}
+
+#csp div {
+        width: calc(calc(90vw / 3) - 1vw);
+        text-align: center;
+        padding-inline: 2vw;
+        padding-top: 5vh;
+        padding-bottom: 2vh;
+        background-color: #f9f9f9;
+}
+
+#csp img {
+        width: 25%;
+}
+
+#csp h2 {
+        font-family: lulo;
+        color: var(--highlightColour);
+}
+
+#csp div ul {
+        display: inline-block;
+        text-align: left;
+}
+
+/* Benefit Carousel */
+
+#benefitCarousel {
+        height: 60vh;
+        padding-inline: 35vw;
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+}
+
+#benefitCarousel div {
+        scroll-snap-align: center;
+        flex-shrink: 0;
+        width: 60vw;
+        height: 80%;
+        margin-left: 5vw;
+        margin-block: auto;
+        border-radius: 10px;
+        background: #eee;
+        transform-origin: center center;
+        transform: scale(1);
+        transition: transform 0.5s;
+        position: relative;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 100px;
+
+        border: 5px solid var(--highlightColour);
+}
+
+#benefitCarousel::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+}
+
+#benefitCarousel::-webkit-scrollbar-thumb {
+        background: black;
+        border-radius: 10px;
+}
+
+#benefitCarousel::-webkit-scrollbar-track {
+        background: transparent;
+}
+
+#bottomBumper {
+        height: 10vh;
+}
