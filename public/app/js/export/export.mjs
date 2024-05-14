@@ -125,7 +125,7 @@ function createDocument(imgs, format) {
         pages++;
         watermark(doc, format);
         lastDocument = doc.output('bloburl');
-        return (lastDocument + '#toolbar=0');
+        return (lastDocument + '#toolbar=0&navpanes=0&scrollbar=0');
 }
 
 function watermark(doc, size) {

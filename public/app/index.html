@@ -51,6 +51,7 @@
         </button>
       </div>
       <div id="bottomControls" class="innerControls">
+        <input type="range" id="rotation" name="rotation" min="-45" max="45" value="0" step="1" />
         <button id="addOne">ADD ONE</button>
         <button id="addAll">FILL PAGE</button>
       </div>
@@ -60,17 +61,9 @@
         <button id="clear">
           <img src="/app/imgs/buttons/clear.png" draggable="false">
         </button>
-        <input type="range" id="quality" name="quality" min="0" max="1" value="0.9" step="0.01" />
         <button id="print">
           <img src="/app/imgs/buttons/print.png" draggable="false">
         </button>
-        <datalist id="qualities">
-          <option value="0" label="0"></option>
-          <option value=".7" label="70"></option>
-          <option value=".8" label="80"></option>
-          <option value=".9" label="90"></option>
-          <option value="1" label="100"></option>
-        </datalist>
       </div>
     </div>
     <div id="placeHolder" class="highlightBorder hide">

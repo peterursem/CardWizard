@@ -49,6 +49,7 @@ main {
 }
 
 #formatBar {
+        z-index: 1;
         --noFormats: 1;
         display: inline;
         height: 100vh;
@@ -118,6 +119,7 @@ main {
 }
 
 #editor {
+        z-index: 1;
         position: relative;
         display: block;
         height: calc(var(--editorWidth) / var(--aspectRatio));
@@ -148,7 +150,49 @@ img {
         margin: 0;
         justify-content: center;
         align-items: center;
+}
+
+.controls img {
         pointer-events: none;
+}
+
+input[type="range"] {
+        position:relative;
+        --trackHeight: 0.5rem;
+        --thumbHeight: 0.8rem;
+        -webkit-appearance: none;
+        appearance: none;
+        background: transparent;
+        cursor: pointer;
+        width: 15rem;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+        background: var(--highlightColour);
+        height: var(--trackHeight);
+        border-radius: calc(var(--trackHeight)/2);
+}
+input[type="range"]::-moz-range-track {
+        background: var(--highlightColour);
+        height: var(--trackHeight);
+        border-radius: calc(var(--trackHeight)/2);
+}
+
+input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        margin-top: calc(calc(var(--trackHeight)/2) - calc(var(--thumbHeight)/2));
+        height: var(--thumbHeight);
+        width: var(--thumbHeight);
+        border-radius: calc(var(--thumbHeight)/2);
+        background-color: var(--foregroundColour);
+}
+input[type="range"]::-moz-range-thumb {
+        border: none;
+        border-radius: 0;
+        height: var(--thumbHeight);
+        width: var(--thumbHeight);
+        border-radius: calc(var(--thumbHeight)/2);
+        background-color: var(--foregroundColour);
 }
 
 .controls button,
@@ -163,6 +207,7 @@ img {
 .innerControls {
         display: flex;
         justify-content: center;
+        flex-wrap: wrap;
         width: 50%;
         margin-inline: -25%;
 }
@@ -183,7 +228,12 @@ img {
         height: 5vh;
         width: 40%;
         font-family: 'lulo';
-        font-size: min(2vh, 2vw);
+        font-size: 2vmin;
+}
+
+#bottomControls input {
+        width: 100%;
+        margin-bottom: 3%;
 }
 
 #addOne {

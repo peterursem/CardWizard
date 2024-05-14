@@ -10,6 +10,7 @@ export const switchCropperFormat = async format => {
         image.src = '/app/imgs/templates/'+format+'.jpg';
         document.querySelector('#editor').appendChild(image);
         drawCropper(image, format);
+        rotateImg('rst');
 };
 
 export const processImageData = (data, format) => {
@@ -21,6 +22,7 @@ export const processImageData = (data, format) => {
                 })
                 .then(img => checkRotation(img, format, 'dataURL'))
                 .then(r => cropper.replace(r))
+                .then(() => rotateImg('rst'));
         }
 };
 
@@ -46,13 +48,29 @@ function drawCropper(img, format) {
         });
 }
 
-document.getElementById('rotateRight').addEventListener('click', () => { cropper.rotate(90) });
-document.getElementById('rotateLeft').addEventListener('click', () => { cropper.rotate(-90) });
+var rot = 0,
+abs = 0;
+function rotateImg(mode, deg) {
+        console.log(rot, deg, abs);
+        if (mode == 'rel') rot += deg;
+        if (mode == 'abs') abs = deg;
+        if (mode == 'rst') {
+                abs = 0;
+                rot = 0;
+                document.getElementById('rotation').value = 0;
+        }
+        if(cropper) cropper.rotateTo(rot+abs);
+}
+
+document.getElementById('rotateRight').addEventListener('click', () => {rotateImg('rel', 90);});
+document.getElementById('rotateLeft').addEventListener('click', () => {rotateImg('rel', -90);});
+document.getElementById('rotation').addEventListener('input', (e) => {rotateImg('abs', parseInt(e.target.value));});
 
 let timer;
 document.body.onresize = () => {
         clearTimeout(timer);
         timer = setTimeout(() => {
                 cropper.reset();
+                rotateImg();
         }, 200);
 }

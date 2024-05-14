@@ -9,7 +9,7 @@ export function checkRotation(img, format, retType) {
                 }
                 
                 if (toRotate == true) {
-                        rotate(img, retType)
+                        autoRotate(img, retType)
                         .then(rotated => res(rotated))
                         return;
                 }
@@ -53,7 +53,7 @@ export const blobToBase64 = blob => {
         });
 }
     
-function rotate(img, retType) {
+function autoRotate(img, retType) {
         return new Promise(res => {
                 let canvas = new OffscreenCanvas(img.height, img.width),
                 ctx = canvas.getContext('2d');
