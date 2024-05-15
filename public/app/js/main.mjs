@@ -1,23 +1,32 @@
 import { switchCropperFormat, destroyCropper, processImageData } from './editor/editor.mjs';
 import processBatch from "./export/processBatch.mjs";
 import { clearPages, addPage, addPhoto } from './export/export.mjs';
-import { getPossibleFormats } from "./export/documentFormats.mjs";
+import { getCutterFormats } from "./export/documentFormats.mjs";
 import { fileToBase64 } from './filehandler.mjs';
 
-getPossibleFormats()
+getCutterFormats()
 .then(formats => {
-        let i = 0
+        let i =0,
+        f = 0,
+        e = 0;
         formats.forEach(format => {
                 let newButton = document.createElement('button');
                 newButton.id = format.size;
                 newButton.innerHTML = '<h1>' + format.size.replace('f', '') + '</h1> <a>' + format.desc + '</a> <img src="' + format.example + '">';
-                newButton.onclick = function () {
-                        formatSelected(format.size);
-                };
-                document.getElementById('formatBar').appendChild(newButton);
+                if(format.size != 'Other') newButton.onclick = () => {formatSelected(format.size);};
+                if(format.size == 'Other') newButton.onclick = (e) => {showExtFormats(e);};
+                if(format.ext == false) {
+                        document.getElementById('formats').appendChild(newButton);
+                        f++;
+                }
+                if(format.ext == true) {
+                        document.getElementById('extFormats').appendChild(newButton);
+                        e++;
+                }
                 i++;
         });
-        document.getElementById("formatBar").style.setProperty('--noFormats', i);
+        document.getElementById("formats").style.setProperty('--noFormats', f);
+        document.getElementById("extFormats").style.setProperty('--noFormats', e);
 });
 
 var selectedFormat = '';
@@ -30,11 +39,12 @@ function formatSelected(format) {
         if (existingSelection) existingSelection.classList.remove('selected');
         document.getElementById(format).classList.add('selected');
 
-        const existingCropper = document.querySelector('.cropper-canvas');
-        if (existingCropper) {
-                destroyCropper();
-                document.querySelector('#editor img').remove();
-        }
+        //If cropper already exists
+        if (document.querySelector('.cropper-canvas')) destroyCropper();
+
+        const existingImg = document.querySelector('#editor img');
+        if(existingImg) existingImg.remove();
+        
         switchCropperFormat(format);
 
         if (selectedFormat == '') showEditor();
@@ -43,6 +53,15 @@ function formatSelected(format) {
         gtag('event', 'format_changed', {
                 'format': format
         });
+}
+
+function showExtFormats (e) {
+        e.stopImmediatePropagation();
+        document.getElementById('extFormats').classList.remove('hide');
+        document.body.addEventListener('click', () => {
+                console.log('hiding');
+                document.getElementById('extFormats').classList.add('hide');
+        }, {once: true});
 }
 
 function showEditor() {

@@ -25,13 +25,24 @@ header {
         margin-block: 1vh;
         overflow: hidden;
         text-align: center;
+        font-size: 2.5vh;
+        font-family: 'Motiva-Black';
 }
 
-header img {
+header img,
+header div {
         display: inline-block;
-        width: auto;
         height: 100%;
+        width: auto;
         fill: white;
+}
+
+header div a,
+header div img {
+        height: 100%;
+        width: auto;
+        vertical-align: middle;
+        margin-inline: 0.5vw;
 }
 
 #line {
@@ -48,9 +59,46 @@ main {
         justify-content: space-between;
 }
 
-#formatBar {
+#settings {
+        font-family: 'lulo';
+        position: absolute;
+        right: 2%;
+        top: 1vh;
+        border: 0;
+        background-color: var(--highlightColour);
+        color: var(--foregroundColour);
+        font-size: 1vmin;
+        min-width: 6vw;
+        height: var(--headerHeight);
+}
+
+#settingsModal {
+        display: flex;
+        position: absolute;
+        z-index: 2;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.7);
+}
+
+#settingsPane {
+        width: 50vw;
+        height: 70vh;
+        margin: auto;
+        background-color: var(--backgroundColour);
+        text-align: center;
+        font-family: 'Motiva-Medium';
+}
+
+#settingsPane h1 {
+        font-family: 'lulo';
+        font-size: 3vh;
+}
+
+.formatBar {
         z-index: 1;
-        --noFormats: 1;
         display: inline;
         height: 100vh;
         width: var(--formatPickerWidth);
@@ -60,7 +108,7 @@ main {
         backdrop-filter: blur(20px);
 }
 
-#formatBar button {
+.formatBar button {
         position: relative;
         display: flex;
         height: calc(100% / var(--noFormats));
@@ -72,7 +120,7 @@ main {
         color: var(--foregroundColour);
 }
 
-#formatBar button h1 {
+.formatBar button h1 {
         margin: 0;
         float: left;
         font-family: 'Motiva-Black';
@@ -80,7 +128,7 @@ main {
         font-weight: normal;
 }
 
-#formatBar button a {
+.formatBar button a {
         position: absolute;
         left: 6px;
         top: calc(30vh / var(--noFormats) + 6px);
@@ -89,7 +137,7 @@ main {
         color: #ffffff99;
 }
 
-#formatBar button img {
+.formatBar button img {
         position: absolute;
         bottom: -15%;
         right: 0;
@@ -100,22 +148,28 @@ main {
 }
 
 @media screen and (max-aspect-ratio: 1.5/1) {
-        #formatBar button img {
+        .formatBar button img {
                 max-height: 100%;
                 right: -10%;
         }
 }
 
-#formatBar :last-child {
+.formatBar :last-child {
         border: none;
 }
 
-#formatBar .selected {
+.formatBar .selected {
         color: var(--highlightColour);
 }
 
-#formatBar .selected a {
+.formatBar .selected a {
         color: #CE000099;
+}
+
+#extFormats {
+        position: absolute;
+        z-index: 2;
+        left: calc(var(--formatPickerWidth) + 5px);
 }
 
 #editor {
@@ -202,18 +256,79 @@ input[type="range"]::-moz-range-thumb {
         padding: 0;
         height: 6vh;
         width: 6vh;
+        vertical-align: middle;
+}
+
+.controls button img{
+        margin: 0;
+        padding: 0;
+        border: 3px solid;
+}
+
+input[type="color"] {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        border: 3px solid var(--highlightColour);
+        padding: 0;
+        height: 6.9vh;
+        width: 6.9vh;
+        margin-left: -1.5vw;
+        vertical-align: middle;
+        background-color: var(--foregroundColour);
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+}
+
+input[type="color"]::-webkit-color-swatch-wrapper {
+        appearance: none;
+        padding: 0;
+        margin: 0;
+        width: 4vh;
+        height: 4vh;
+}
+
+input[type="color"]::-webkit-color-swatch {
+        appearance: none;
+        mask-image: url(./imgs/buttons/color.svg);
+        mask-size: contain;
+        mask-position: center;
+        mask-repeat: no-repeat;
+        border: 0;
+        width: 100%;
+        height: 100%;
+}
+
+input[type="color"]::-moz-color-swatch {
+        -moz-appearance: none;
+        mask-image: url(./imgs/buttons/color.svg);
+        mask-size: contain;
+        mask-position: center;
+        mask-repeat: no-repeat;
+        border: 0;
+        width: 4vh;
+        height: 4vh;
 }
 
 .innerControls {
         display: flex;
+        align-content: center;
         justify-content: center;
         flex-wrap: wrap;
         width: 50%;
         margin-inline: -25%;
+        gap: 5%;
 }
 
 #topControls {
         margin-bottom: 80vh;
+}
+
+#topControls button,
+#topControls button img,
+input[type="color"] {
+        border-color: var(--highlightColour);
 }
 
 #rotateLeft {
@@ -238,7 +353,6 @@ input[type="range"]::-moz-range-thumb {
 
 #addOne {
         margin-right: 20px;
-
         border: 3px solid var(--highlightColour);
         background-color: var(--foregroundColour);
         color: var(--highlightColour);
@@ -248,6 +362,14 @@ input[type="range"]::-moz-range-thumb {
         border: none;
         background-color: var(--highlightColour);
         color: var(--foregroundColour);
+}
+
+#clear img {
+        border-color: var(--highlightColour);
+}
+
+#print img {
+        border: 0;
 }
 
 #editorControls {

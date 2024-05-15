@@ -1,4 +1,4 @@
-import { documentFormats } from './documentFormats.mjs';
+import { cutterFormats } from './documentFormats.mjs';
 import { getCropperData } from '../editor/editor.mjs';
 
 var images = [],
@@ -29,7 +29,7 @@ export const generatePreview = (format) => {
 };
 
 export const addPage = (format) => {
-        const imgsOnPage = documentFormats[format].layout.x * documentFormats[format].layout.y;
+        const imgsOnPage = cutterFormats[format].layout.x * cutterFormats[format].layout.y;
 
         let noImg = images.length;
         while (noImg >= imgsOnPage) {
@@ -77,19 +77,19 @@ function positionImages(imgs, format) {
         var imgPkgs = [];
         for (let img in imgs) {
                 let imageNo = img;
-                while (imageNo >= documentFormats[format].layout.x * documentFormats[format].layout.y) {
-                        imageNo -= documentFormats[format].layout.x * documentFormats[format].layout.y;
+                while (imageNo >= cutterFormats[format].layout.x * cutterFormats[format].layout.y) {
+                        imageNo -= cutterFormats[format].layout.x * cutterFormats[format].layout.y;
                 }
-                const x = imageNo % documentFormats[format].layout.x;
-                const y = Math.floor(imageNo / documentFormats[format].layout.x);
-                const gutters = { x: documentFormats[format].margins.gutterX || 0, y: documentFormats[format].margins.gutterY || 0 };
+                const x = imageNo % cutterFormats[format].layout.x;
+                const y = Math.floor(imageNo / cutterFormats[format].layout.x);
+                const gutters = { x: cutterFormats[format].margins.gutterX || 0, y: cutterFormats[format].margins.gutterY || 0 };
                 let pos = {
-                        x: (documentFormats[format].margins.x + (gutters.x * x) + (documentFormats[format].images.width * x)),
-                        y: (documentFormats[format].margins.y + (gutters.y * y) + documentFormats[format].images.height * y)
+                        x: (cutterFormats[format].margins.x + (gutters.x * x) + (cutterFormats[format].images.width * x)),
+                        y: (cutterFormats[format].margins.y + (gutters.y * y) + cutterFormats[format].images.height * y)
                 };
                 let dim = {
-                        x: documentFormats[format].images.width,
-                        y: documentFormats[format].images.height
+                        x: cutterFormats[format].images.width,
+                        y: cutterFormats[format].images.height
                 };
                 imgPkgs.push([imgs[img], 'PNG', pos.x, pos.y, dim.x, dim.y]);
         }
@@ -111,7 +111,7 @@ function createDocument(imgs, format) {
         });
 
         let imgPkgs = positionImages(imgs, format);
-        const imgsOnPage = documentFormats[format].layout.x * documentFormats[format].layout.y;
+        const imgsOnPage = cutterFormats[format].layout.x * cutterFormats[format].layout.y;
         let i = 0;
         imgPkgs.forEach(pkg => {
                 if (i % imgsOnPage == 0 && i > 0) {
@@ -129,7 +129,7 @@ function createDocument(imgs, format) {
 }
 
 function watermark(doc, size) {
-        if(!documentFormats[size].disableWatermark){
+        if(!cutterFormats[size].disableWatermark){
                 doc.setFontSize(12);
                 doc.text(size + '   -   Print actual size on 8.5" x 11" (Letter) paper   -   Load into cutter with black bar first.', 0.25, 1.75, { 'angle': 270 });
                 doc.rect(0.3125, 0.125, 1.5, 0.0625, 'F'); //Cutter calibration strip

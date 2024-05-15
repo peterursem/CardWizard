@@ -1,9 +1,10 @@
-import { documentFormats } from "../export/documentFormats.mjs";
+import { cutterFormats } from "../export/documentFormats.mjs";
 import Cropper from "../lib/cropper.esm.js";
 import { checkRotation, isBase64Image } from "../base64handler.mjs";
 
 const editor = document.getElementById('editor');
 var cropper;
+var bgColor = '#fff';
 
 export const switchCropperFormat = async format => {
         let image = new Image();
@@ -27,13 +28,13 @@ export const processImageData = (data, format) => {
 };
 
 export const getCropperData = () => {
-        return cropper.getCroppedCanvas({ fillColor: '#fff' }).toDataURL('image/jpeg', 0.8);
+        return cropper.getCroppedCanvas({ fillColor: bgColor }).toDataURL('image/jpeg', 0.8);
 };
 
 export const destroyCropper = () => { cropper.destroy(); };
 
 function drawCropper(img, format) {
-        const formatDimensions = documentFormats[format].editor;
+        const formatDimensions = cutterFormats[format].editor;
         editor.style.setProperty('--aspectRatio', formatDimensions.aspectRatio);
         cropper = new Cropper(img, {
                 aspectRatio: formatDimensions.aspectRatio,
@@ -65,6 +66,8 @@ function rotateImg(mode, deg) {
 document.getElementById('rotateRight').addEventListener('click', () => {rotateImg('rel', 90);});
 document.getElementById('rotateLeft').addEventListener('click', () => {rotateImg('rel', -90);});
 document.getElementById('rotation').addEventListener('input', (e) => {rotateImg('abs', parseInt(e.target.value));});
+
+document.getElementById('bgColor').addEventListener('input', (e) => {bgColor = e.target.value;});
 
 let timer;
 document.body.onresize = () => {

@@ -1,6 +1,7 @@
 /* Document Format properties
 Each format is defined as an object. The name of the object is the format size. If the size needs to be folded, adding an "f" to the end of the name helps denote it and is ignored when displaying it.
 desc: string - a description of the size that is displayed as subtext with the size on the sidebar
+ext: boolean - t/f, wether or not the format is an extended (non docucutter) format
 margins:
         (all numbers)
         x: the margin on the left side of the page (portrait)
@@ -24,9 +25,10 @@ layout: the amount of images to put on the page in each dimension
 disableWatermark: removes top strip and text instructions on the side of the page
 */
 
-export const documentFormats = {
+export const cutterFormats = {
         '3.5x2': {
                 desc: "Business Card",
+                ext: false,
                 margins: {
                         x: 0.375,
                         y: 0.1875,
@@ -49,6 +51,7 @@ export const documentFormats = {
         },
         '3.5x2.5': {
                 desc: "Trading Card",
+                ext: false,
                 margins: {
                         x: 0.375,
                         y: 0.25,
@@ -71,6 +74,7 @@ export const documentFormats = {
         },
         '3.5x5': {
                 desc: "Note Card",
+                ext: false,
                 margins: {
                         x: 0.375,
                         y: 0.375,
@@ -92,8 +96,10 @@ export const documentFormats = {
                 },
                 layout: { x: 2, y: 2 }
         },
+
         '3.5x5f': {
                 desc: "Tent Card",
+                ext: false,
                 margins: {
                         x: 0.375,
                         y: 0.375,
@@ -117,6 +123,7 @@ export const documentFormats = {
         },
         '4x6': {
                 desc: "Post Card / Photo",
+                ext: false,
                 margins: {
                         x: 1.125,
                         y: 0.375,
@@ -140,6 +147,7 @@ export const documentFormats = {
         },
         '5x7': {
                 desc: "Post Card / Photo",
+                ext: false,
                 margins: {
                         x: 0.625,
                         y: 0.375,
@@ -162,6 +170,7 @@ export const documentFormats = {
         },
         '10x7f': {
                 desc: "Greeting Card",
+                ext: false,
                 margins: {
                         x: 0.625,
                         y: 0.65,
@@ -180,9 +189,14 @@ export const documentFormats = {
                         y: 1.2195121951219512
                 },
                 layout: { x: 1, y: 1 }
-        },        
+        }, 
+        'Other': {
+                desc: "Custom Sizes",
+                ext: false
+        },
         '8x10': {
                 desc: "Photo",
+                ext: true,
                 margins: {
                         x: 0.25,
                         y: 0.5,
@@ -202,15 +216,22 @@ export const documentFormats = {
                 },
                 layout: { x: 1, y: 1 },
                 disableWatermark: true
+        },
+        'Passport': {
+                desc: "Canadian passport photos",
+                ext: true
+        },
+        'Custom Size': {
+                desc: "Enter custom dimensions",
+                ext: true
         }
-        
 };
 
-export const getPossibleFormats = function () {
+export const getCutterFormats = function () {
         return new Promise(resolve => {
                 let formats = [];
-                for (let format of Object.keys(documentFormats)) {
-                        formats.push({ size: format, desc: documentFormats[format].desc, example: "/app/imgs/ex/" + format + ".png" });
+                for (let format of Object.keys(cutterFormats)) {
+                        formats.push({ size: format, desc: cutterFormats[format].desc, ext: cutterFormats[format].ext, example: "/app/imgs/ex/" + format + ".png" });
                 }
                 resolve(formats);
         });

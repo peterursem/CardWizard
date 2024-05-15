@@ -34,10 +34,23 @@
 <body>
   <header>
     <img src="/imgs/logos/logo.png" class="show" draggable="false" style="margin-top: -.5vh;">
-    <img src="/imgs/logos/peter.svg" class="hide" draggable="false">
+    <div class="hide">
+      <a>Cut-Erator: Project Warlock</a>
+      <a>|</a>
+      <img src="/imgs/logos/peter.svg" draggable="false">
+    </div>
   </header>
   <main>
-    <div id="formatBar">
+    <button id="settings">SETTINGS</button>
+    <div id="settingsModal" class="hide">
+      <div id="settingsPane">
+        <h1>Settings</h1>
+        <p>CardWizard (Cut-Erator) V2.0Beta: Project Warlock | Peter Ursem 2024</p>
+      </div>
+    </div>
+    <div id="formats" class="formatBar">
+    </div>
+    <div id="extFormats" class="formatBar hide">
     </div>
     <div id="editor" class="hide">
     </div>
@@ -46,6 +59,7 @@
         <button id="rotateLeft">
           <img src="/app/imgs/buttons/left.png" draggable="false">
         </button>
+        <input id="bgColor" type="color" value="#000000">
         <button id="rotateRight">
           <img src="/app/imgs/buttons/right.png" draggable="false">
         </button>

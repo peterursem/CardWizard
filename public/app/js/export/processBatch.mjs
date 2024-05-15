@@ -1,5 +1,5 @@
 import { addPhotoSilently, generatePreview } from "./export.mjs";
-import { documentFormats } from "./documentFormats.mjs";
+import { cutterFormats } from "./documentFormats.mjs";
 import { checkRotation, isBase64Image, blobToBase64 } from "../base64handler.mjs";
 import { fileToBase64 } from "../filehandler.mjs";
 
@@ -41,7 +41,7 @@ function processBatchImg(file, format) {
 
 function autoCrop(canvas, format) {
         return new Promise((res) => {
-                const aspect = documentFormats[format].editor.aspectRatio,
+                const aspect = cutterFormats[format].editor.aspectRatio,
                 ogWidth = canvas.width,
                 ogHeight = canvas.height,
                 ogAspect = ogWidth / ogHeight;
