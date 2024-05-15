@@ -115,6 +115,10 @@ document.getElementById('addOne').addEventListener('click', () => {
         addPhoto(selectedFormat);
 });
 
+document.addEventListener('click', () => {
+        document.getElementById('alert').classList.add('hide');
+});
+
 document.addEventListener('readystatechange', event => {
         if (event.target.readyState === "complete") {
                 document.body.style.backgroundImage = 'url(/imgs/bg.jpg)';
