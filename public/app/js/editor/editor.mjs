@@ -67,7 +67,12 @@ document.getElementById('rotateRight').addEventListener('click', () => {rotateIm
 document.getElementById('rotateLeft').addEventListener('click', () => {rotateImg('rel', -90);});
 document.getElementById('rotation').addEventListener('input', (e) => {rotateImg('abs', parseInt(e.target.value));});
 
-document.getElementById('bgColor').addEventListener('input', (e) => {bgColor = e.target.value;});
+function updateColor(e) {
+        bgColor = e.target.value;
+        document.getElementsByClassName("cropper-crop-box")[0].style.backgroundColor = e.target.value;
+}
+document.getElementById('bgColor').addEventListener('input', (e) => updateColor(e));
+document.getElementById('bgColor').addEventListener('click', (e) => updateColor(e));
 
 let timer;
 document.body.onresize = () => {

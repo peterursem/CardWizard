@@ -14,7 +14,7 @@ getCutterFormats()
                 newButton.id = format.size;
                 newButton.innerHTML = '<h1>' + format.size.replace('f', '') + '</h1> <a>' + format.desc + '</a> <img src="' + format.example + '">';
                 if(format.size != 'Other') newButton.onclick = () => {formatSelected(format.size);};
-                if(format.size == 'Other') newButton.onclick = (e) => {showExtFormats(e);};
+                if(format.size == 'Other') newButton.onclick = (e) => {showToggleElement(e,'extFormats');};
                 if(format.ext == false) {
                         document.getElementById('formats').appendChild(newButton);
                         f++;
@@ -26,7 +26,10 @@ getCutterFormats()
                 i++;
         });
         document.getElementById("formats").style.setProperty('--noFormats', f);
-        document.getElementById("extFormats").style.setProperty('--noFormats', e);
+        document.getElementById("extFormats").style.setProperty('--noFormats', Math.max(e,6));
+        if (e >= 6) {
+                document.getElementById("extFormats").lastChild.style.border = 'none';
+        }
 });
 
 var selectedFormat = '';
@@ -44,7 +47,7 @@ function formatSelected(format) {
 
         const existingImg = document.querySelector('#editor img');
         if(existingImg) existingImg.remove();
-        
+
         switchCropperFormat(format);
 
         if (selectedFormat == '') showEditor();
@@ -55,12 +58,11 @@ function formatSelected(format) {
         });
 }
 
-function showExtFormats (e) {
+function showToggleElement (e, target) {
         e.stopImmediatePropagation();
-        document.getElementById('extFormats').classList.remove('hide');
+        document.getElementById(target).classList.remove('hide');
         document.body.addEventListener('click', () => {
-                console.log('hiding');
-                document.getElementById('extFormats').classList.add('hide');
+                document.getElementById(target).classList.add('hide');
         }, {once: true});
 }
 
@@ -133,6 +135,8 @@ document.getElementById('addOne').addEventListener('click', () => {
         startLoading();
         addPhoto(selectedFormat);
 });
+
+document.getElementById('settings').addEventListener('click', (e) => {showToggleElement(e,'settingsModal')})
 
 document.addEventListener('readystatechange', event => {
         if (event.target.readyState === "complete") {
