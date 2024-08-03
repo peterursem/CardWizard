@@ -216,23 +216,15 @@ export const cutterFormats = {
                 },
                 layout: { x: 1, y: 1 },
                 disableWatermark: true
-        },
-        'Passport': {
-                desc: "Canadian passport photos",
-                ext: true
-        },
-        'Custom Size': {
-                desc: "Enter custom dimensions",
-                ext: true
         }
 };
 
 export const getCutterFormats = function () {
-        return new Promise(resolve => {
+        return new Promise(res => {
                 let formats = [];
                 for (let format of Object.keys(cutterFormats)) {
                         formats.push({ size: format, desc: cutterFormats[format].desc, ext: cutterFormats[format].ext, example: "/app/imgs/ex/" + format + ".png" });
                 }
-                resolve(formats);
+                res(formats);
         });
 };

@@ -1,11 +1,11 @@
 @font-face {
-    font-family: Motiva-Black;
-    src: url(/fonts/MotivaBlack.ttf);
+    font-family: TTNorms_Bold;
+    src: url(/fonts/TTNorms_Bold.ttf);
 }
 
 @font-face {
-    font-family: Motiva-Medium;
-    src: url(/fonts/MotivaMedium.ttf);
+    font-family: TTNorms_Regular;
+    src: url(/fonts/TTNorms_Regular.ttf);
 }
 
 @font-face {
@@ -23,4 +23,8 @@ body {
     margin: 0;
     padding: 0;
     width: 100vw;
+}
+
+.bold {
+    font-family: "TTNorms_Bold";
 }

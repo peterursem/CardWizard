@@ -14,7 +14,7 @@ getCutterFormats()
                 newButton.id = format.size;
                 newButton.innerHTML = '<h1>' + format.size.replace('f', '') + '</h1> <a>' + format.desc + '</a> <img src="' + format.example + '">';
                 if(format.size != 'Other') newButton.onclick = () => {formatSelected(format.size);};
-                if(format.size == 'Other') newButton.onclick = (e) => {showToggleElement(e,'extFormats');};
+                if(format.size == 'Other') newButton.onclick = (e) => {showToggleElement(e,'extFormats','body');};
                 if(format.ext == false) {
                         document.getElementById('formats').appendChild(newButton);
                         f++;
@@ -58,10 +58,10 @@ function formatSelected(format) {
         });
 }
 
-function showToggleElement (e, target) {
+function showToggleElement (e, target, close) {
         e.stopImmediatePropagation();
         document.getElementById(target).classList.remove('hide');
-        document.body.addEventListener('click', () => {
+        document.getElementById(close).addEventListener('click', () => {
                 document.getElementById(target).classList.add('hide');
         }, {once: true});
 }
@@ -136,7 +136,7 @@ document.getElementById('addOne').addEventListener('click', () => {
         addPhoto(selectedFormat);
 });
 
-document.getElementById('settings').addEventListener('click', (e) => {showToggleElement(e,'settingsModal')})
+document.getElementById('settings').addEventListener('click', (e) => {showToggleElement(e,'settingsModal','settingsModal')})
 
 document.addEventListener('readystatechange', event => {
         if (event.target.readyState === "complete") {

@@ -3,8 +3,12 @@
 }
 
 body {
-        font-family: Motiva-Medium;
+        font-family: "TTNorms_Regular";
         color: var(--backgroundColour);
+}
+
+p {
+        font-size: medium;
 }
 
 .button {
@@ -119,42 +123,40 @@ body {
 /* Benefit Carousel */
 
 #benefitCarousel {
-        height: 60vh;
-        padding-inline: 35vw;
-
+        height: 100vh;
+        width: 90vw;
+        margin-left: 5vw;
         display: flex;
-        flex-direction: row;
-
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        scroll-behavior: smooth;
-        -webkit-overflow-scrolling: touch;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-content: space-between;
+        overflow: hidden;
 }
 
 .slide {
-        width: 60vw;
-        height: 80%;
-        margin-left: 5vw;
-        margin-block: auto;
-        padding: 5%;
+        width: 47.5%;
+        height: 46%;
+        padding: 1%;
 
         display: flex;
         align-items: center;
         justify-content: center;
         
-        border-radius: 10px;
-        border: 5px solid var(--highlightColour);
 
         scroll-snap-align: center;
         flex-shrink: 0;
 
-        background: #eee;
+        background: #f9f9f9;
         transform-origin: center center;
         transform: scale(1);
         transition: transform 0.5s;
         position: relative;
 
         overflow: hidden;
+}
+
+.full {
+        flex-grow: 2;
 }
 
 .slideImg {
@@ -176,13 +178,19 @@ body {
         max-height: 7.5vh;
 }
 
+.slideText {
+        overflow-x: hidden;
+        overflow-y: scroll;
+}
+
 .slide h2 {
-        font-size: 5vmin;
+        font-size: 4vmin;
         white-space: nowrap;
 }
 
 .slide p {
         width: 100%;
+        height: 80%;
         font-size: 2vmin;
         text-align: center;
 }

@@ -14,8 +14,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>CardWizard</title>
 
-        <link rel="preload" href="fonts/MotivaBlack.ttf" as="font" type="font/ttf" crossorigin>
-        <link rel="preload" href="fonts/Lulo_Clean_One_Bold.ttf" as="font" type="font/ttf" crossorigin>
         <link rel="stylesheet" href="/css/index.css">
         <link rel="stylesheet" href="/css/style.css">
 
@@ -25,7 +23,7 @@
         <link rel="manifest" href="/favi/site.webmanifest">
         <link rel="mask-icon" href="/favi/safari-pinned-tab.svg" color="#ce0000">
         <link rel="shortcut icon" href="/favi/favicon.ico">
-        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="msapplication-TileColor" content="#ce0000">
         <meta name="msapplication-config" content="/favi/browserconfig.xml">
         <meta name="theme-color" content="#ffffff">
 </head>
@@ -33,14 +31,13 @@
 <body>
         <div id="nav">
                 <img src="/imgs/logos/logo.png" href="/" id="navLogo">
-                <a id="start" class="button" href="/app/"><span>Get Started</span></a>
+                <a id="start" class="button" href="/auth/verifyuser.html"><span>Get Started</span></a>
         </div>
         <section id="cover">
                 <img id="coverLogo" src="/imgs/logos/comboLogo.png">
-                <p>An all in one ticketing solution for custom print layouts.</p>
+                <p>An all in preflighting solution for custom print layouts.</p>
                 <img id="screenshot" src="/imgs/index/screenshot.png">
-                <h2>Fast, Secure, Efficient. <br>CardWizard opens up a realm of new possibilities in the SolutionShop
-                </h2>
+                <h2>Fast, Secure, Efficient. <br>CardWizard opens up a realm of new possibilities in the SolutionShop</h2>
         </section>
         <div class="interlude">
                 <p>Designed from the ground up for the <span class="highlight">CSP</span> model, CardWizard boasts
@@ -94,16 +91,27 @@
                                         <img src="/imgs/index/security.png">
                                         <h2>Security at it's Core.</h2>
                                 </div>
-                                <p>Staples is no stranger to cyberattacks. The more we send over the network the more
+                                <p>We all need to be diligent to mitigate cyber attacks. The more we send over the network the more
                                         vulnerable
                                         our customers' information is. Currently, SolutionBuilder photo orders are
                                         uploaded to a
-                                        central server where they are available publicly without any authentication. The
+                                        central server where they are available publicly without any authentication.
                                         CardWizard keeps customer info secure offline.</p>
                         </div>
 
                 </div>
-                <div id="slide2" class="slide">
+                <div id="slide2" class="slide ">
+                        <img src="" class="slideImg">
+                        <div class="slideText">
+                                <div class="slideHeader">
+                                        <img src="/imgs/index/cost.png">
+                                        <h2>It all makes cents.</h2>
+                                </div>
+                                <p>By processing information on the computers already installed in SolutionShop, server costs are greatly reduced. The only hosting required for CardWizard are static assets which can
+                                        be cached internally, provided at a low cost from any basic web server, or installed right on SolutionShop PCs.</p>
+                        </div>
+                </div>
+                <div id="slide3" class="slide full">
                         <img src="/imgs/index/speedcomp.png" class="slideImg">
                         <div class="slideText">
                                 <div class="slideHeader">
@@ -114,17 +122,6 @@
                                         files to our
                                         print server is a major bottleneck in the ordering process. By reducing preflight time CardWizard
                                         makes these products available for 1-Hour production windows.</p>
-                        </div>
-                </div>
-                <div id="slide3" class="slide">
-                        <img src="" class="slideImg">
-                        <div class="slideText">
-                                <div class="slideHeader">
-                                        <img src="/imgs/index/cost.png">
-                                        <h2>It all makes cents.</h2>
-                                </div>
-                                <p>By processing information on the computers already installed in SolutionShop, server costs are greatly reduced. The only hosting required for CardWizard are static assets which can
-                                        be cached internally, provided at a low cost from any basic web server, or installed right on SolutionShop PCs.</p>
                         </div>
                 </div>
         </section>

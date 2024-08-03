@@ -7,6 +7,7 @@ pages = 0,
 rev = 1;
 
 export const generatePreview = (format) => {
+        if(!firebase.auth().currentUser) return;
         const existingObject = document.querySelector('object'),
         placeHolder = document.querySelector('#placeHolder');
 
@@ -29,6 +30,7 @@ export const generatePreview = (format) => {
 };
 
 export const addPage = (format) => {
+        if(!firebase.auth().currentUser) return;
         const imgsOnPage = cutterFormats[format].layout.x * cutterFormats[format].layout.y;
 
         let noImg = images.length;
@@ -43,15 +45,18 @@ export const addPage = (format) => {
 }
 
 export const addPhoto = (format) => {
+        if(!firebase.auth().currentUser) return;
         images.push(getCropperData());
         generatePreview(format);
 };
 
 export const addPhotoSilently = (data) => {
+        if(!firebase.auth().currentUser) return;
         images.push(data);
 }
 
 export const clearPages = () => {
+        if(!firebase.auth().currentUser) return;
         rev = 1;
         images = [];
         lastDocument = '';
@@ -64,6 +69,7 @@ export const clearPages = () => {
 };
 
 export const printPages = () => {
+        if(!firebase.auth().currentUser) return;
         if (lastDocument != '') {
                 gtag('event', 'print_requested', {
                         'images': images.length,
@@ -74,6 +80,7 @@ export const printPages = () => {
 };
 
 function positionImages(imgs, format) {
+        if(!firebase.auth().currentUser) return;
         var imgPkgs = [];
         for (let img in imgs) {
                 let imageNo = img;
@@ -97,6 +104,7 @@ function positionImages(imgs, format) {
 }
 
 function createDocument(imgs, format) {
+        if(!firebase.auth().currentUser) return;
         pages = 0;
 
         const doc = new jspdf.jsPDF({

@@ -7,6 +7,7 @@ var cropper;
 var bgColor = '#fff';
 
 export const switchCropperFormat = async format => {
+        if(!firebase.auth().currentUser) return;
         let image = new Image();
         image.src = '/app/imgs/templates/'+format+'.jpg';
         document.querySelector('#editor').appendChild(image);
@@ -15,7 +16,8 @@ export const switchCropperFormat = async format => {
 };
 
 export const processImageData = (data, format) => {
-        if (cropper) {
+        if(!firebase.auth().currentUser) return;
+        if (cropper && firebase.auth().currentUser) {
                 isBase64Image(data)
                 .catch(err => {
                         console.warn(err);
@@ -28,12 +30,14 @@ export const processImageData = (data, format) => {
 };
 
 export const getCropperData = () => {
+        if(!firebase.auth().currentUser) return;
         return cropper.getCroppedCanvas({ fillColor: bgColor }).toDataURL('image/jpeg', 0.8);
 };
 
 export const destroyCropper = () => { cropper.destroy(); };
 
 function drawCropper(img, format) {
+        if(!firebase.auth().currentUser) return;
         const formatDimensions = cutterFormats[format].editor;
         editor.style.setProperty('--aspectRatio', formatDimensions.aspectRatio);
         cropper = new Cropper(img, {
@@ -52,6 +56,7 @@ function drawCropper(img, format) {
 var rot = 0,
 abs = 0;
 function rotateImg(mode, deg) {
+        if(!firebase.auth().currentUser) return;
         console.log(rot, deg, abs);
         if (mode == 'rel') rot += deg;
         if (mode == 'abs') abs = deg;
@@ -63,16 +68,23 @@ function rotateImg(mode, deg) {
         if(cropper) cropper.rotateTo(rot+abs);
 }
 
-document.getElementById('rotateRight').addEventListener('click', () => {rotateImg('rel', 90);});
-document.getElementById('rotateLeft').addEventListener('click', () => {rotateImg('rel', -90);});
-document.getElementById('rotation').addEventListener('input', (e) => {rotateImg('abs', parseInt(e.target.value));});
-
-function updateColor(e) {
-        bgColor = e.target.value;
-        document.getElementsByClassName("cropper-crop-box")[0].style.backgroundColor = e.target.value;
-}
-document.getElementById('bgColor').addEventListener('input', (e) => updateColor(e));
-document.getElementById('bgColor').addEventListener('click', (e) => updateColor(e));
+firebase.auth().onAuthStateChanged((user) => {
+        if(user) {
+                document.getElementById('rotateRight').addEventListener('click', () => {rotateImg('rel', 90);});
+                document.getElementById('rotateLeft').addEventListener('click', () => {rotateImg('rel', -90);});
+                document.getElementById('rotation').addEventListener('input', (e) => {rotateImg('abs', parseInt(e.target.value));});
+                
+                function updateColor(e) {
+                        bgColor = e.target.value;
+                        document.getElementsByClassName("cropper-crop-box")[0].style.backgroundColor = e.target.value;
+                }
+                document.getElementById('bgColor').addEventListener('input', (e) => updateColor(e));
+                document.getElementById('bgColor').addEventListener('click', (e) => updateColor(e));
+        }
+        else{
+                window.location.href = '/';
+        }
+});
 
 let timer;
 document.body.onresize = () => {

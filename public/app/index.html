@@ -14,8 +14,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>CardWizard</title>
 
-  <link rel="preload" href="fonts/MotivaBlack.ttf" as="font" type="font/ttf" crossorigin>
-  <link rel="preload" href="fonts/Lulo_Clean_One_Bold.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/app/style.css">
   <link href="/cropper.min.css" rel="stylesheet">
@@ -31,7 +29,7 @@
   <meta name="theme-color" content="#ffffff">
 </head>
 
-<body>
+<body id="body">
   <header>
     <img src="/imgs/logos/logo.png" class="show" draggable="false" style="margin-top: -.5vh;">
     <div class="hide">
@@ -40,12 +38,13 @@
       <img src="/imgs/logos/peter.svg" draggable="false">
     </div>
   </header>
-  <main>
+  <main id="main">
     <button id="settings">SETTINGS</button>
     <div id="settingsModal" class="hide">
       <div id="settingsPane">
         <h1>Settings</h1>
-        <p>Cut-Erator V2.0Beta: Project Warlock | Peter Ursem 2024</p>
+        <p>Cut-Erator: Project Warlock | Peter Ursem 2024</p>
+        <button id="logout">Log Out</button>
       </div>
     </div>
     <div id="formats" class="formatBar">
@@ -87,9 +86,14 @@
     </div>
   </main>
 
+  <script src="/__/firebase/8.10.1/firebase-app.js"></script>
+  <script src="/__/firebase/8.10.1/firebase-auth.js"></script>
+  <script src="/__/firebase/8.10.1/firebase-firestore.js"></script>
+  <script src="/__/firebase/init.js"></script>
   <script src="/app/js/lib/jspdf.umd.min.js"></script>
   <script src="/app/js/lib/heic2any.min.js"></script>
   <script src="/app/js/main.mjs" type="module"></script>
+  <script src="/auth/authprovider.mjs" type="module"></script>
 </body>
 
 </html>
