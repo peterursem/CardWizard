@@ -82,6 +82,9 @@ function switchLogo() {
         hide = document.querySelector('header .hide');
         show.classList.replace('show', 'hide');
         hide.classList.replace('hide', 'show');
+        setTimeout(() => {
+                window.location.href = '/';
+        }, 500);
 }
 
 function startLoading() {
