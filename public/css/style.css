@@ -23,8 +23,67 @@ body {
     margin: 0;
     padding: 0;
     width: 100vw;
+    overflow-x: hidden;
+    font-family: "TTNorms_Regular";
 }
+
+/* Technical Styling */
+
+.hide {
+    display: none !important;
+}
+
+.border {
+    border: 3px solid;
+}
+
+.flex{
+    display: flex;
+}
+
+.noclick{
+    pointer-events: none;
+}
+
+/* Text Styling */
 
 .bold {
     font-family: "TTNorms_Bold";
+}
+
+.highlight, .link {
+    text-decoration: none;
+    color: var(--highlightColour);
+}
+
+.center {
+    text-align: center;
+}
+
+/* Button Styles */
+
+button {
+    border: 0;
+}
+
+.button {
+    padding: 3px 1vw;
+    border-radius: 18px;
+    border: 2px solid var(--highlightColour);
+    margin-block: auto;
+    text-align: center;
+    text-decoration: none;
+}
+
+.white-btn {
+    color: var(--highlightColour);
+    border-color: var(--highlightColour);
+    background-color: #fff;
+
+}
+
+.highlight-btn {
+    color: #fff;
+    border-color: #fff;
+    background-color: var(--highlightColour);
 }

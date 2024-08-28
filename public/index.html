@@ -14,6 +14,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>CardWizard</title>
 
+        <link rel="preload" href="/fonts/TTNorms_Regular.ttf">
+        <link rel="preload" href="/fonts/TTNorms_Bold.ttf">
         <link rel="stylesheet" href="/css/index.css">
         <link rel="stylesheet" href="/css/style.css">
 
@@ -28,39 +30,44 @@
         <meta name="theme-color" content="#ffffff">
 </head>
 
-<body>
-        <div id="nav">
-                <img src="/imgs/logos/logo.png" href="/" id="navLogo">
-                <a id="start" class="button" href="/auth/verifyuser.html"><span>Get Started</span></a>
+<body class="hide-excess">
+        <div id="nav" class="sink-down flex anim">
+                <img src="/imgs/logos/blackLogo.png" href="/" id="nav-logo">
+                <a id="start" class="button link" href="/auth/verifyuser.html"><span>Get Started</span></a>
         </div>
-        <section id="cover">
-                <img id="coverLogo" src="/imgs/logos/comboLogo.png">
-                <p>An all in preflighting solution for custom print layouts.</p>
-                <img id="screenshot" src="/imgs/index/screenshot.png">
-                <h2>Fast, Secure, Efficient. <br>CardWizard opens up a realm of new possibilities in the SolutionShop</h2>
+        <section id="cover" class="center">
+                <div id="logo-container">
+                        <div id="logo-bg" class="flex anim unloaded noclick"><img id="square-logo" class="unloaded" src="/imgs/logos/squarelogo.png"></div>
+                        <img id="long-logo" class="slide-in anim hidden-load hide noclick" src="/imgs/logos/blackLogo.png">
+                </div>
+                <h1 class="bold slide-in anim hidden-load hide">Fast, Secure, Efficient. <br>CardWizard works wonders in the SolutionShop.</h1>
+                <p class="slide-in anim hidden-load hide"><a class="button white-btn" id="small-cta" href="mailto:sales@cardwizard.ca">Get in touch</a> <br><br>or <br> <a href='/auth/verifyuser.html' class="link">Get started with an invite code</a></p>
+                <div id="screenshot-container" class="slide-in anim hidden-load hide">
+                        <img id="screenshot" class="noclick screenshot" src="/imgs/index/cover/screenshot.png">
+                        <img style="--angle: 75;  --distance: 1200;" class="screenshot-bg noclick screenshot" src="/imgs/index/cover/bg1.png">
+                        <img style="--angle: 98;  --distance: 1000;" class="screenshot-bg noclick screenshot" src="/imgs/index/cover/bg7.png">
+                        <img style="--angle: 103; --distance: 700;"  class="screenshot-bg noclick screenshot" src="/imgs/index/cover/bg2.png">
+                        <img style="--angle: 154; --distance: 900;"  class="screenshot-bg noclick screenshot" src="/imgs/index/cover/bg3.png">
+                        <img style="--angle: 206; --distance: 800;"  class="screenshot-bg noclick screenshot" src="/imgs/index/cover/bg4.png">
+                        <img style="--angle: 257; --distance: 800;"  class="screenshot-bg noclick screenshot" src="/imgs/index/cover/bg5.png">
+                        <img style="--angle: 309; --distance: 1000;" class="screenshot-bg noclick screenshot" src="/imgs/index/cover/bg6.png">
+                </div>
         </section>
-        <div class="interlude">
-                <p>Designed from the ground up for the <span class="highlight">CSP</span> model, CardWizard boasts
-                        enhanced capabilities compared to the existing workflow. CardWizard enables associates to easily
-                        adhere to SolutionShop best practices and provide a smoother experience in store. Empowering our
-                        great SolutionShop associates we can help customers to feel more confident in their orders.</p>
-        </div>
-        <section id="csp">
+        <section id="highlights" class="flex hidden-load hide">
+                <h1 class="fade-in center bold"><span class="highlight">Fast processing</span> provides a strong foundation for excellent customer service.</h1>
+                <h1 class="fade-in center bold"><span class="highlight">Unmatched security</span> with on-device processing to keep data out of attackers hands.</h1>
+                <h1 class="fade-in center bold"><span class="highlight">Simple drag and drop controls</span> make learning a breeze.</h1>
+                <h1 class="fade-in center bold"><span class="highlight">Smart tools</span> to tackle projects big and small.</h1>
+        </section>
+        <section id="csp" class="flex center hidden-load hide">
                 <div id="connect">
-                        <img src="imgs/index/csp_connect.png">
+                        <img src="imgs/index/csp_connect.png" >
                         <h2>CONNECT</h2>
                         <p>CardWizard opens many possibilities for SolutionShops across the country. The platform allows
-                                stores to offer many more <span class="highlight">1-Hour Services</span>, including:</p>
-                        <ul>
-                                <li>Business Cards</li>
-                                <li>Post Cards</li>
-                                <li>Greeting Cards</li>
-                                <li>Tent Cards</li>
-                                <li>Photos</li>
-                        </ul>
+                                stores to offer many more <span class="highlight">1-Hour Services</span> for customers to come in and try. <br><br> Curious customers are more likely to invest their time creating orders online after being shown the possibilities in store.</p>
                 </div>
                 <div id="share">
-                        <img src="imgs/index/csp_share.png">
+                        <img src="imgs/index/csp_share.png" >
                         <h2>SHARE</h2>
                         <p>With substantially reduced production times CardWizard enables <span class="highlight">Active
                                         Sampling</span> in store. <br><br>Customers can try out different card designs
@@ -68,64 +75,69 @@
                                 recommend products.</p>
                 </div>
                 <div id="partner">
-                        <img src="imgs/index/csp_partner.png">
+                        <img src="imgs/index/csp_partner.png" >
                         <h2>PARTNER</h2>
                         <p>Errors can be corrected immediately using CardWizard. Improperly folded cards, design errors,
                                 and quality concerns can be effectively and quickly resolved in-store rather than
                                 waiting for another production run from the hub. <br><br>This helps stores keep up the
-                                <span class="highlight">Big Print Promise</span> and deliver cards done right and on
+                                <span class="highlight">Big Print Promise</span> and deliver products done right and on
                                 time.
                         </p>
                 </div>
         </section>
-        <div class="interlude">
-                <p>While our effect on customer's experience is profound, it doesn't end there. CardWizard packs a
-                        punch under the hood, and has a number of distinct advantages over the tools currently in use.
-                </p>
-        </div>
-        <section id="benefitCarousel">
-                <div id="slide1" class="slide">
-                        <img src="" class="slideImg">
-                        <div class="slideText">
-                                <div class="slideHeader">
-                                        <img src="/imgs/index/security.png">
-                                        <h2>Security at it's Core.</h2>
-                                </div>
-                                <p>We all need to be diligent to mitigate cyber attacks. The more we send over the network the more
-                                        vulnerable
-                                        our customers' information is. Currently, SolutionBuilder photo orders are
-                                        uploaded to a
-                                        central server where they are available publicly without any authentication.
-                                        CardWizard keeps customer info secure offline.</p>
+        <section id="deepDives" class="flex hidden-load hide">
+                <div id="newSKUs" class="flex full bold">
+                        <div>
+                                <h2>Creating more, printed in store.</h2>
+                                <p>CardWizard allows far greater flexibility for customers and associates across the country. The platform allows stores to offer many great 1-Hour Services and expand their existing Same-Day line up with many different formats, including automatic creasing and support for:</p>
+                                <ul>
+                                        <li>Business Cards</li>
+                                        <li>Post Cards</li>
+                                        <li>Greeting Cards</li>
+                                        <li>Tent Cards</li>
+                                        <li>Photos</li>
+                                </ul>
                         </div>
-
+                        <img src="/imgs/index/newSKUs.png" >
                 </div>
-                <div id="slide2" class="slide ">
-                        <img src="" class="slideImg">
-                        <div class="slideText">
-                                <div class="slideHeader">
-                                        <img src="/imgs/index/cost.png">
-                                        <h2>It all makes cents.</h2>
-                                </div>
-                                <p>By processing information on the computers already installed in SolutionShop, server costs are greatly reduced. The only hosting required for CardWizard are static assets which can
-                                        be cached internally, provided at a low cost from any basic web server, or installed right on SolutionShop PCs.</p>
+                <div id="sampling" class="flex half bold">
+                        <div>
+                                <h2>Confident Creation.</h2>
+                                <p>CardWizard enables customers and associates to play with different designs and make adjustments before submitting a final design for production. Customers will be confident the products they're designing will turn out exactly as they requested, and can discover different products to match their needs.</p>
                         </div>
                 </div>
-                <div id="slide3" class="slide full">
-                        <img src="/imgs/index/speedcomp.png" class="slideImg">
-                        <div class="slideText">
-                                <div class="slideHeader">
-                                        <img src="/imgs/index/speed.png">
-                                        <h2>Bullet time.</h2>
-                                </div>
-                                <p>One of the biggest problems plagueing SolutionShops is slow network speeds. Uploading
-                                        files to our
-                                        print server is a major bottleneck in the ordering process. By reducing preflight time CardWizard
-                                        makes these products available for 1-Hour production windows.</p>
+                <div id="ease" class="flex half bold">
+                        <div>
+                                <h2>Easy does it.</h2>
+                                <p>Associates will feel at home with an interface that is very familiar for those with SolutionShop experience. The program's many powerful features are easy for new users to pick up. Batch uploading allows large orders to be automatically laid out, background coloring allows designs to be expanded, and cropping and rotation are built in to perfectly align photos and cards.</p>
+                        </div>
+                </div>
+                <div id="time" class="flex full bold">
+                        <div>
+                                <h2>Bullet time.</h2>
+                                <p>One of the biggest problems plagueing SolutionShops is slow network speeds. Uploading files to our print server is a major bottleneck in the ordering process. By reducing preflight time CardWizard makes these products available for 1-Hour production windows.</p>
+                        </div>
+                        <img src="/imgs/index/speedcomp.png" >
+                </div>
+                <div id="security" class="flex half bold">
+                        <div>
+                                <h2>Security at its Core.</h2>
+                                <p>We all need to be diligent to mitigate cyber attacks. The more we send over the internet, the more vulnerable our customers' information is. Currently, SolutionBuilder photo orders are uploaded to a central server where they are available publicly without any authentication. CardWizard keeps customer info secure offline.</p>
+                        </div>
+                </div>
+                <div id="cost" class="flex half bold">
+                        <div>
+                                <h2>It all makes cents.</h2>
+                                <p>By processing information on the computers already installed in SolutionShop, server costs are greatly reduced. The only resources required for CardWizard are static assets which can be cached internally, provided at a low cost from any basic web server, or installed right on SolutionShop PCs.</p>
                         </div>
                 </div>
         </section>
-        <div id="bottomBumper"></div>
+        
+        <section id="large-cta" class="highlight-btn flex hidden-load hide">
+                <h1 class="center bold">Ready to work some magic?</h1>
+                <button class="button highlight-btn">Contact us to get started</button>
+        </section>
 </body>
+<script src="/js/index.js"></script>
 
 </html>

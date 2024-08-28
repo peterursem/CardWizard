@@ -1,13 +1,14 @@
 const auth = firebase.auth(),
 registrationForm = document.getElementById('registration'),
 loginForm = document.getElementById('login'),
-logout = document.getElementById('logout');
+logout = document.getElementById('logout'),
+submit = document.getElementById('submit');
 
 export let uid = 'nope';
 
 if(registrationForm){
         const db = firebase.firestore();
-        registrationForm.addEventListener('submit', (e) => {
+        submit.addEventListener('click', (e) => {
                 e.preventDefault();
 
                 const email = document.getElementById('email').value,
@@ -44,7 +45,7 @@ if(registrationForm){
 }
 
 if(loginForm){
-        loginForm.addEventListener('submit', (e) => {
+        submit.addEventListener('click', (e) => {
                 e.preventDefault();
 
                 const email = document.getElementById('email').value,

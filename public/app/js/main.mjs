@@ -14,21 +14,21 @@ getCutterFormats()
                 newButton.id = format.size;
                 newButton.innerHTML = '<h1>' + format.size.replace('f', '') + '</h1> <a>' + format.desc + '</a> <img src="' + format.example + '">';
                 if(format.size != 'Other') newButton.onclick = () => {formatSelected(format.size);};
-                if(format.size == 'Other') newButton.onclick = (e) => {showToggleElement(e,'extFormats','body');};
+                if(format.size == 'Other') newButton.onclick = (e) => {showToggleElement(e,'ext-formats','body');};
                 if(format.ext == false) {
                         document.getElementById('formats').appendChild(newButton);
                         f++;
                 }
                 if(format.ext == true) {
-                        document.getElementById('extFormats').appendChild(newButton);
+                        document.getElementById('ext-formats').appendChild(newButton);
                         e++;
                 }
                 i++;
         });
         document.getElementById("formats").style.setProperty('--noFormats', f);
-        document.getElementById("extFormats").style.setProperty('--noFormats', Math.max(e,6));
+        document.getElementById("ext-formats").style.setProperty('--noFormats', Math.max(e,6));
         if (e >= 6) {
-                document.getElementById("extFormats").lastChild.style.border = 'none';
+                document.getElementById("ext-formats").lastChild.style.border = 'none';
         }
 });
 
@@ -60,18 +60,20 @@ function formatSelected(format) {
 
 function showToggleElement (e, target, close) {
         e.stopImmediatePropagation();
+        var closeElem;
+        if (close = 'body') closeElem = document.body;
+        else closeElem = document.getElementById(close);
         document.getElementById(target).classList.remove('hide');
-        document.getElementById(close).addEventListener('click', () => {
+        closeElem.addEventListener('click', () => {
                 document.getElementById(target).classList.add('hide');
         }, {once: true});
 }
 
 function showEditor() {
-        document.getElementById('overlay').remove();
         document.body.addEventListener("drop", drop);
-        document.getElementById('editorControls').classList.remove('hide');
-        document.getElementById('exportControls').classList.remove('hide');
-        document.getElementById('placeHolder').classList.remove('hide');
+        document.getElementById('editor-controls').classList.remove('hide');
+        document.getElementById('export-controls').classList.remove('hide');
+        document.getElementById('placeholder').classList.remove('hide');
         document.getElementById('editor').classList.remove('hide');
 }
 
@@ -83,16 +85,17 @@ function switchLogo() {
 }
 
 function startLoading() {
-        let elem = document.createElement('div');
+        const elem = document.createElement('div');
         elem.innerText = 'Loading...';
-        elem.id = 'placeHolder';
-        elem.classList.add('highlightBorder');
+        elem.id = 'placeholder';
+        elem.classList.add('highlight');
+        elem.classList.add('border');
 
         const existingObject = document.querySelector('object'),
-        placeHolder = document.querySelector('#placeHolder');
+        placeholder = document.querySelector('#placeholder');
 
         if (existingObject) existingObject.remove();
-        if (placeHolder) placeHolder.remove();
+        if (placeholder) placeholder.remove();
         document.querySelector('main').appendChild(elem);
 }
 
@@ -105,8 +108,8 @@ function drop(e) {
         e.stopPropagation();
         e.preventDefault();
 
-        const dt = e.dataTransfer;
-        var files = dt.files;
+        const dt = e.dataTransfer,
+        files = dt.files;
 
         if (files.length == 1) {
                 fileToBase64(files[0])
@@ -127,19 +130,23 @@ document.body.ondrop = e => {
         e.stopPropagation();
         e.preventDefault();
 };
-document.getElementById('addAll').addEventListener('click', () => {
+document.getElementById('add-all').addEventListener('click', () => {
         startLoading();
         addPage(selectedFormat);
 });
-document.getElementById('addOne').addEventListener('click', () => {
+document.getElementById('add-one').addEventListener('click', () => {
         startLoading();
         addPhoto(selectedFormat);
 });
 
-document.getElementById('settings').addEventListener('click', (e) => {showToggleElement(e,'settingsModal','settingsModal')})
+document.getElementById('settings-btn').addEventListener('click', (e) => {showToggleElement(e,'settings-modal','settings-modal');});
 
 document.addEventListener('readystatechange', event => {
         if (event.target.readyState === "complete") {
-                document.body.style.backgroundImage = 'url(/app/imgs/bg/bg.jpg)';
+                document.body.style.background = 'center / cover no-repeat url(/app/imgs/bg/bg.jpg)';
         }
 });
+
+document.addEventListener('click', () => {
+        document.getElementById('intro').remove();
+},{once: true})

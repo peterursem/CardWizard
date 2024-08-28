@@ -29,60 +29,58 @@
   <meta name="theme-color" content="#ffffff">
 </head>
 
-<body id="body">
-  <header>
+<body class="hide-excess">
+  <header class="hide-excess">
     <img src="/imgs/logos/logo.png" class="show" draggable="false" style="margin-top: -.5vh;">
     <div class="hide">
       <a>Cut-Erator: Project Warlock</a>
-      <a>|</a>
-      <img src="/imgs/logos/peter.svg" draggable="false">
     </div>
   </header>
-  <main id="main">
-    <button id="settings">SETTINGS</button>
-    <div id="settingsModal" class="hide">
-      <div id="settingsPane">
-        <h1>Settings</h1>
+  <main class="full-height">
+    <button id="settings-btn" class="highlight-btn">SETTINGS</button>
+    <div id="settings-modal" class="hide overlay">
+      <div id="settings-pane">
+        <h2>Settings</h2>
         <p>Cut-Erator: Project Warlock | Peter Ursem 2024</p>
         <button id="logout">Log Out</button>
       </div>
     </div>
-    <div id="formats" class="formatBar">
+    <div id="formats" class="format-bar">
     </div>
-    <div id="extFormats" class="formatBar hide">
+    <div id="ext-formats" class="format-bar hide">
     </div>
     <div id="editor" class="hide">
     </div>
-    <div id="editorControls" class="controls hide">
-      <div id="topControls" class="innerControls">
-        <button id="rotateLeft">
-          <img src="/app/imgs/buttons/left.png" draggable="false">
+    <div id="editor-controls" class="controls hide full-height">
+      <div id="top-controls" class="inner-controls">
+        <button id="rotate-left">
+          <img src="/app/imgs/buttons/left.png" class="no-pointer white-btn border" draggable="false">
         </button>
-        <input id="bgColor" type="color" value="#000000">
-        <button id="rotateRight">
-          <img src="/app/imgs/buttons/right.png" draggable="false">
+        <input id="bg-color" type="color" value="#000000">
+        <button id="rotate-right">
+          <img src="/app/imgs/buttons/right.png" class="no-pointer white-btn border" draggable="false">
         </button>
       </div>
-      <div id="bottomControls" class="innerControls">
+      <div id="bottom-controls" class="inner-controls">
         <input type="range" id="rotation" name="rotation" min="-45" max="45" value="0" step="1" />
-        <button id="addOne">ADD ONE</button>
-        <button id="addAll">FILL PAGE</button>
+        <button id="add-one" class="white-btn border">ADD ONE</button>
+        <button id="add-all" class="highlight-btn">FILL PAGE</button>
       </div>
     </div>
-    <div id="exportControls" class="controls hide">
+    <div id="export-controls" class="controls hide">
       <div>
         <button id="clear">
-          <img src="/app/imgs/buttons/clear.png" draggable="false">
+          <img src="/app/imgs/buttons/clear.png" class="no-pointer white-btn border" draggable="false">
         </button>
         <button id="print">
-          <img src="/app/imgs/buttons/print.png" draggable="false">
+          <img src="/app/imgs/buttons/print.png" class="no-pointer highlight border" draggable="false">
         </button>
       </div>
     </div>
-    <div id="placeHolder" class="highlightBorder hide">
+    <div id="placeholder" class="border hide">
     </div>
-    <div id="overlay">
-      <p>To start, select a format. <br> Then drag your image(s) here to add them to your document.</p>
+    <div id="intro" class="no-pointer">
+      <p>To start, select a format and drag your image(s) here.</p>
     </div>
   </main>
 

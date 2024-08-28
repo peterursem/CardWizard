@@ -7,42 +7,48 @@
 
         --headerHeight: max(4vh, 20px);
         --mainHeight: calc(100vh - var(--headerHeight) - 2vh);
-
-        color: var(--foregroundColour);
 }
 
 body {
-        height: 100vh;
-        overflow: hidden;
         background-color: #ceba93;
-        background-image: url(/app/imgs/bg/bglq.jpg);
-        background-size: cover;
+        background: cover no-repeat url(/app/imgs/bg/bglq.jpg);
+}
+
+* {
+        color: #fff;
+        font-family: 'lulo';
 }
 
 header {
-        width: 100%;
         height: var(--headerHeight);
         margin-block: 1vh;
-        overflow: hidden;
         text-align: center;
-        font-size: 2.5vh;
-        font-family: 'TTNorms_Bold';
 }
+
+.full-height {
+        display: flex;
+        height: var(--mainHeight);
+}
+
+main {
+        justify-content: space-between;
+}
+
+.hide-excess {
+        overflow: hidden;
+}
+
+.no-pointer {
+        pointer-events: none;
+}
+
+/*--------------------     Top Bar     --------------------*/
 
 header img,
-header div {
-        display: inline-block;
-        height: 100%;
-        width: auto;
-        fill: white;
-}
-
 header div a,
 header div img {
         height: 100%;
-        width: auto;
         vertical-align: middle;
-        margin-inline: 0.5vw;
 }
 
 #line {
@@ -53,37 +59,28 @@ header div img {
         background-color: white;
 }
 
-main {
-        display: flex;
-        height: var(--mainHeight);
-        justify-content: space-between;
+/*--------------------     Settings Pane     --------------------*/
+
+h2 {
+        font-size: 3vh;
 }
 
-#settings {
-        font-family: 'lulo';
+#settings-btn {
         position: absolute;
         right: 2%;
         top: 1vh;
         border: 0;
-        background-color: var(--highlightColour);
-        color: var(--foregroundColour);
         font-size: 1vmin;
         min-width: 6vw;
         height: var(--headerHeight);
 }
 
-#settingsModal {
+#settings-modal {
         display: flex;
-        position: absolute;
-        z-index: 2;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
         background-color: rgba(0, 0, 0, 0.7);
 }
 
-#settingsPane {
+#settings-pane {
         width: 50vw;
         height: 70vh;
         margin: auto;
@@ -92,63 +89,55 @@ main {
         font-family: 'TTNorms_Regular';
 }
 
-#settingsPane h1 {
-        font-family: 'lulo';
-        font-size: 3vh;
+/*--------------------     Format Bar     --------------------*/
+
+h1 {
+        margin: 0;
+        font-family: 'TTNorms_Bold';
+        font-size: calc(30vh / var(--noFormats));
 }
 
-.formatBar {
+.format-bar {
         z-index: 1;
         display: inline;
         height: 100vh;
         width: var(--formatPickerWidth);
         min-width: 200px;
         margin-top: min(-6vh, -20px);
-        border-right: 5px solid var(--foregroundColour);
+        border-right: 5px solid #fff;
         backdrop-filter: blur(20px);
 }
 
-.formatBar button {
+.format-bar button {
         position: relative;
         display: flex;
         height: calc(100% / var(--noFormats));
         width: 100%;
         overflow: hidden;
-        border: none;
-        border-bottom: 5px solid var(--foregroundColour);
+        border-bottom: 5px solid #fff;
         background-color: #ffffff15;
-        color: var(--foregroundColour);
+        color: #fff;
 }
 
-.formatBar button h1 {
-        margin: 0;
-        float: left;
-        font-family: 'TTNorms_Bold';
-        font-size: calc(30vh / var(--noFormats));
-        font-weight: normal;
-}
-
-.formatBar button a {
+.format-bar button * {
         position: absolute;
-        left: 6px;
+}
+
+.format-bar button a {
         top: calc(30vh / var(--noFormats) + 6px);
-        font-family: 'lulo';
         font-size: calc(6vh / var(--noFormats));
         color: #ffffff99;
 }
 
-.formatBar button img {
-        position: absolute;
+.format-bar button img {
         bottom: -15%;
         right: 0;
-        height: auto;
-        width: auto;
         max-height: 115%;
         z-index: -1;
 }
 
 @media screen and (max-aspect-ratio: 1.5/1) {
-        .formatBar button img {
+        .format-bar button img {
                 max-height: 100%;
                 right: -10%;
         }
@@ -158,42 +147,25 @@ main {
         border: none;
 }
 
-.formatBar .selected {
+.formatBar .selected,
+.formatBar .selected * {
         color: var(--highlightColour);
 }
 
-.formatBar .selected a {
-        color: #CE000099;
-}
-
-#extFormats {
-        position: absolute;
+#ext-formats {
         z-index: 2;
+        position: absolute;
         left: calc(var(--formatPickerWidth) + 5px);
 }
 
+/*--------------------     Editor     --------------------*/
+
 #editor {
         z-index: 1;
-        position: relative;
-        display: block;
+        margin: auto var(--innerMargin) auto var(--innerMargin);
+        width: var(--editorWidth);
         height: calc(var(--editorWidth) / var(--aspectRatio));
         max-height: 70%;
-        width: var(--editorWidth);
-        margin: auto var(--innerMargin) auto var(--innerMargin);
-        overflow: hidden;
-}
-
-img {
-        display: block;
-        width: 100%;
-}
-
-#cutBox {
-        pointer-events: none;
-}
-
-.highlightBorder {
-        border: 2px solid var(--highlightColour);
 }
 
 .controls {
@@ -206,9 +178,58 @@ img {
         align-items: center;
 }
 
-.controls img {
-        pointer-events: none;
+.controls button,
+.controls button img {
+        pointer-events: all;
+        padding: 0;
+        height: 6vh;
+        width: 6vh;
+        vertical-align: middle;
 }
+
+.inner-controls {
+        display: flex;
+        flex-wrap: wrap;
+        align-content: center;
+        justify-content: center;
+        width: 50%;
+        margin-inline: -25%;
+        gap: 5%;
+}
+
+#top-controls {
+        margin-bottom: 80vh;
+}
+
+#bottom-controls {
+        margin-top: 80vh;
+}
+
+#rotate-left {
+        margin-right: 20px;
+}
+
+#bottom-controls button {
+        height: 5vh;
+        width: 40%;
+        font-size: 2vmin;
+}
+
+#bottom-controls input {
+        width: 100%;
+        margin-bottom: 3%;
+}
+
+#add-one {
+        margin-right: 20px;
+
+}
+
+#editor-controls {
+        width: 100%;
+}
+
+/*--------------------     Tilt Slider     --------------------*/
 
 input[type="range"] {
         position:relative;
@@ -234,11 +255,11 @@ input[type="range"]::-moz-range-track {
 
 input[type="range"]::-webkit-slider-thumb {
         -webkit-appearance: none;
-        margin-top: calc(calc(var(--trackHeight)/2) - calc(var(--thumbHeight)/2));
+        margin-top: calc((var(--trackHeight)/2) - (var(--thumbHeight)/2));
         height: var(--thumbHeight);
         width: var(--thumbHeight);
         border-radius: calc(var(--thumbHeight)/2);
-        background-color: var(--foregroundColour);
+        background-color: #fff;
 }
 input[type="range"]::-moz-range-thumb {
         border: none;
@@ -246,24 +267,10 @@ input[type="range"]::-moz-range-thumb {
         height: var(--thumbHeight);
         width: var(--thumbHeight);
         border-radius: calc(var(--thumbHeight)/2);
-        background-color: var(--foregroundColour);
+        background-color: #fff;
 }
 
-.controls button,
-.controls button img {
-        pointer-events: all;
-        border: 0;
-        padding: 0;
-        height: 6vh;
-        width: 6vh;
-        vertical-align: middle;
-}
-
-.controls button img{
-        margin: 0;
-        padding: 0;
-        border: 3px solid;
-}
+/*--------------------     COLOR SELECTOR     --------------------*/
 
 input[type="color"] {
         display: flex;
@@ -275,7 +282,7 @@ input[type="color"] {
         width: 6.9vh;
         margin-left: -1.5vw;
         vertical-align: middle;
-        background-color: var(--foregroundColour);
+        background-color: #fff;
         -webkit-appearance: none;
         -moz-appearance: none;
         appearance: none;
@@ -311,125 +318,52 @@ input[type="color"]::-moz-color-swatch {
         height: 4vh;
 }
 
-.innerControls {
-        display: flex;
-        align-content: center;
-        justify-content: center;
-        flex-wrap: wrap;
-        width: 50%;
-        margin-inline: -25%;
-        gap: 5%;
-}
-
-#topControls {
-        margin-bottom: 80vh;
-}
-
-#topControls button,
-#topControls button img,
-input[type="color"] {
-        border-color: var(--highlightColour);
-}
-
-#rotateLeft {
-        margin-right: 20px;
-}
-
-#bottomControls {
-        margin-top: 80vh;
-}
-
-#bottomControls button {
-        height: 5vh;
-        width: 40%;
-        font-family: 'lulo';
-        font-size: 2vmin;
-}
-
-#bottomControls input {
-        width: 100%;
-        margin-bottom: 3%;
-}
-
-#addOne {
-        margin-right: 20px;
-        border: 3px solid var(--highlightColour);
-        background-color: var(--foregroundColour);
-        color: var(--highlightColour);
-}
-
-#addAll {
-        border: none;
-        background-color: var(--highlightColour);
-        color: var(--foregroundColour);
-}
-
-#clear img {
-        border-color: var(--highlightColour);
-}
-
-#print img {
-        border: 0;
-}
-
-#editorControls {
-        width: 100%;
-        left: 0;
-}
-
-#exportControls {
+#export-controls {
         right: var(--outerMargin);
         width: var(--previewWidth);
 }
 
-#exportControls div {
+#export-controls div {
         width: 7vh;
 }
 
-#exportControls div button {
-        height: 7vh;
-        width: 7vh;
+#export-controls div button {
         margin-block: 36vh;
 }
 
-#exportControls div button img {
-        height: 7vh;
-        width: 7vh;
-}
 
 object,
-#placeHolder {
+#placeholder {
+        display: flex;
+        justify-content: center;
+        color: var(--highlightColour);
+        font-size: large;
+        text-align: center;
         width: var(--previewWidth);
         height: calc(var(--previewWidth) * (12/8.5));
         margin-right: var(--outerMargin);
         margin-block: calc(48vh - (var(--previewWidth) * (6/8.5)));
 }
 
-#placeHolder {
-        display: flex;
-        justify-content: center;
-        color: var(--highlightColour);
-        font-size: large;
-        font-family: 'lulo';
-        text-align: center;
-}
-
-.hide {
-        display: none !important;
-}
-
-#overlay {
+.overlay {
         position: absolute;
-        display: flex;
-        width: 100%;
+        z-index: 2;
+        top: 0;
+        left: 0;
+        width: 100vw;
         height: 100vh;
+
+        display: flex;
         align-items: center;
         justify-content: center;
-        pointer-events: none;
 }
 
-#overlay p {
+#intro {
         text-align: center;
         font-family: 'TTNorms_Bold';
         color: var(--highlightColour);
+        position: absolute;
+        left: var(--formatPickerWidth);
+        right: var(--previewWidth);
+        top: 40%;
 }

@@ -2,7 +2,6 @@ import { addPhotoSilently, generatePreview } from "./export.mjs";
 import { cutterFormats } from "./documentFormats.mjs";
 import { checkRotation, isBase64Image, blobToBase64 } from "../base64handler.mjs";
 import { fileToBase64 } from "../filehandler.mjs";
-import { uid } from "../../../auth/authprovider.mjs";
 
 
 export default function processBatch(files, format) {
@@ -45,7 +44,6 @@ function processBatchImg(file, format) {
 function autoCrop(canvas, format) {
         if(!firebase.auth().currentUser) return;
         return new Promise((res) => {
-                console.log(firebase.firestore().collection.doc(uid).get({documentFormats}));
                 const aspect = cutterFormats[format].editor.aspectRatio,
                 ogWidth = canvas.width,
                 ogHeight = canvas.height,

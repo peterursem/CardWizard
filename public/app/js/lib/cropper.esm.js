@@ -243,7 +243,7 @@ var DEFAULTS = {
   zoom: null
 };
 
-var TEMPLATE = '<div class="cropper-container" touch-action="none">' + '<div class="cropper-wrap-box">' + '<div class="cropper-canvas"></div>' + '</div>' + '<div class="cropper-drag-box"></div>' + '<div class="cropper-crop-box">' + '<span class="cropper-view-box"></span>' + '<span class="cropper-center"></span>' + '<span class="cropper-face"></span>' + '<div id="cutBox" class="highlightBorder"></div>' + '</div>' + '</div>';
+var TEMPLATE = '<div class="cropper-container" touch-action="none">' + '<div class="cropper-wrap-box">' + '<div class="cropper-canvas"></div>' + '</div>' + '<div class="cropper-drag-box"></div>' + '<div class="cropper-crop-box">' + '<span class="cropper-view-box"></span>' + '<span class="cropper-center"></span>' + '<span class="cropper-face"></span>' + '<div id="cut-box" class="highlight border"></div>' + '</div>' + '</div>';
 
 /**
  * Check if the given value is not a number.

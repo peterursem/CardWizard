@@ -82,11 +82,11 @@ form input {
         border-radius: 8px;
         border-color: var(--highlightColour);
         color: var(--highlightColour);
-        background-color: var(--foregroundColour);
+        background-color: #fff;
 }
 
 #submit:hover {
-        color: var(--foregroundColour);
+        color: #fff;
         background-color: var(--highlightColour);
 }
 

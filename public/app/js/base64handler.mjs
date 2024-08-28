@@ -10,8 +10,7 @@ export function checkRotation(img, format, retType) {
                 
                 if (toRotate == true) {
                         autoRotate(img, retType)
-                        .then(rotated => res(rotated))
-                        return;
+                        .then(rotated => res(rotated));
                 }
 
                 switch (retType) {

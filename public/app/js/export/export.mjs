@@ -9,7 +9,7 @@ rev = 1;
 export const generatePreview = (format) => {
         if(!firebase.auth().currentUser) return;
         const existingObject = document.querySelector('object'),
-        placeHolder = document.querySelector('#placeHolder');
+        placeholder = document.querySelector('#placeholder');
 
         const pdf = createDocument(images, format.toLowerCase());
         let object = document.createElement('object');
@@ -18,8 +18,8 @@ export const generatePreview = (format) => {
         if (existingObject) {
                 existingObject.remove();
         }
-        if (placeHolder) {
-                placeHolder.remove();
+        if (placeholder) {
+                placeholder.remove();
         }
         document.querySelector('main').appendChild(object);
         gtag('event', 'preview_generated', {
@@ -61,10 +61,11 @@ export const clearPages = () => {
         images = [];
         lastDocument = '';
         if (document.querySelector('object')) {
-                let placeHolder = document.createElement('div');
-                placeHolder.id = 'placeHolder';
-                placeHolder.classList.add('highlightBorder');
-                document.querySelector('object').replaceWith(placeHolder);
+                let placeholder = document.createElement('div');
+                placeholder.id = 'placeholder';
+                placeholder.classList.add('highlight');
+                placeholder.classList.add('border');
+                document.querySelector('object').replaceWith(placeholder);
         }
 };
 
@@ -133,7 +134,7 @@ function createDocument(imgs, format) {
         pages++;
         watermark(doc, format);
         lastDocument = doc.output('bloburl');
-        return (lastDocument + '#toolbar=0&navpanes=0&scrollbar=0');
+        return (lastDocument);
 }
 
 function watermark(doc, size) {
