@@ -8,18 +8,18 @@ import { checkImageFormat } from "../editor/editor.mjs";
 export const processBatch = (files, format) => {
         if(!firebase.auth().currentUser) return;
         const start = new Date(Date.now());
-        let index = 0;
+        let index = 1;
         Array.from(files).forEach((file) => {
                 const now = new Date(Date.now());
                 processBatchImg(file, format)
                 .then(() => {
-                        console.info('Processed image in: ' + (Date.now() - now) + 'ms');
                         if (index == files.length) {
                                 console.info('Completley processed batch in: ' + (Date.now() - start) + 'ms');
                                 generatePreview(format);
                         }
+                        index++;
                 });
-                index++;
+                
         });
 };
 
@@ -39,7 +39,6 @@ function processBatchImg(file, format) {
 
 function autoCrop(canvas, format) {
         if(!firebase.auth().currentUser) return;
-        console.log(canvas);
         return new Promise((res) => {
                 const aspect = cutterFormats[format].editor.aspectRatio,
                 ogWidth = canvas.width,
