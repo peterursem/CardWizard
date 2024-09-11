@@ -1,10 +1,11 @@
 import { addPhotoSilently, generatePreview } from "./export.mjs";
 import { cutterFormats } from "./documentFormats.mjs";
-import { checkRotation, isBase64Image, blobToBase64 } from "../base64handler.mjs";
+import { blobToBase64, validateBase64Img } from "../base64handler.mjs";
 import { fileToBase64 } from "../filehandler.mjs";
+import { checkImageFormat } from "../editor/editor.mjs";
 
 
-export default function processBatch(files, format) {
+export const processBatch = (files, format) => {
         if(!firebase.auth().currentUser) return;
         const start = new Date(Date.now());
         let index = 0;
@@ -26,13 +27,8 @@ function processBatchImg(file, format) {
         if(!firebase.auth().currentUser) return;
         return new Promise(res => {
                 fileToBase64(file)
-                .then(data => isBase64Image(data))
-                .catch(err => {
-                        console.warn(err);
-                        return;
-                })
-                .then(img => checkRotation(img, format, 'canvas'))
-                .then(rotated => autoCrop(rotated, format))
+                .then(data => validateBase64Img(data, checkImageFormat(format)))
+                .then(rotated => autoCrop(rotated.canvas, format))
                 .then(final => addPhotoSilently(final))
                 .then(() => {
                         gtag('event', 'batch_image_processed');
@@ -43,6 +39,7 @@ function processBatchImg(file, format) {
 
 function autoCrop(canvas, format) {
         if(!firebase.auth().currentUser) return;
+        console.log(canvas);
         return new Promise((res) => {
                 const aspect = cutterFormats[format].editor.aspectRatio,
                 ogWidth = canvas.width,

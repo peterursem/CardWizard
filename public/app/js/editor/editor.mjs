@@ -1,6 +1,6 @@
 import { cutterFormats } from "../export/documentFormats.mjs";
 import Cropper from "../lib/cropper.esm.js";
-import { checkRotation, isBase64Image } from "../base64handler.mjs";
+import { validateBase64Img } from "../base64handler.mjs";
 
 const editor = document.getElementById('editor');
 var cropper;
@@ -15,16 +15,16 @@ export const switchCropperFormat = async format => {
         rotateImg('rst');
 };
 
+export const checkImageFormat =  (format) => {
+        if (["3.5x2","3.5x2.5","4x6","5x7",].indexOf(format) != -1) return "landscape";
+        return "portrait";
+};
+
 export const processImageData = (data, format) => {
         if(!firebase.auth().currentUser) return;
-        if (cropper && firebase.auth().currentUser) {
-                isBase64Image(data)
-                .catch(err => {
-                        console.warn(err);
-                        return;
-                })
-                .then(img => checkRotation(img, format, 'dataURL'))
-                .then(r => cropper.replace(r))
+        if (cropper) {
+                validateBase64Img(data,checkImageFormat(format))
+                .then(r => cropper.replace(r.base64))
                 .then(() => rotateImg('rst'));
         }
 };
