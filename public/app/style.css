@@ -1,0 +1,369 @@
+:root {
+        --outerMargin: 1vw;
+        --innerMargin: 1vw;
+        --formatPickerWidth: 20vw;
+        --editorWidth: 56vw;
+        --previewWidth: 19vw;
+
+        --headerHeight: max(4vh, 20px);
+        --mainHeight: calc(100vh - var(--headerHeight) - 2vh);
+}
+
+body {
+        background-color: #ceba93;
+        background: cover no-repeat url(/app/imgs/bg/bglq.jpg);
+}
+
+* {
+        color: #fff;
+        font-family: 'lulo';
+}
+
+header {
+        height: var(--headerHeight);
+        margin-block: 1vh;
+        text-align: center;
+}
+
+.full-height {
+        display: flex;
+        height: var(--mainHeight);
+}
+
+main {
+        justify-content: space-between;
+}
+
+.hide-excess {
+        overflow: hidden;
+}
+
+.no-pointer {
+        pointer-events: none;
+}
+
+/*--------------------     Top Bar     --------------------*/
+
+header img,
+header div a,
+header div img {
+        height: 100%;
+        vertical-align: middle;
+}
+
+#line {
+        display: inline-block;
+        width: 2px;
+        height: 100%;
+        margin-inline: 2vw;
+        background-color: white;
+}
+
+/*--------------------     Settings Pane     --------------------*/
+
+h2 {
+        font-size: 3vh;
+}
+
+#settings-btn {
+        position: absolute;
+        right: 2%;
+        top: 1vh;
+        border: 0;
+        font-size: 1vmin;
+        min-width: 6vw;
+        height: var(--headerHeight);
+}
+
+#settings-modal {
+        display: flex;
+        background-color: rgba(0, 0, 0, 0.7);
+}
+
+#settings-pane {
+        width: 50vw;
+        height: 70vh;
+        margin: auto;
+        background-color: var(--backgroundColour);
+        text-align: center;
+        font-family: 'TTNorms_Regular';
+}
+
+/*--------------------     Format Bar     --------------------*/
+
+h1 {
+        margin: 0;
+        font-family: 'TTNorms_Bold';
+        font-size: calc(30vh / var(--noFormats));
+}
+
+.format-bar {
+        z-index: 1;
+        display: inline;
+        height: 100vh;
+        width: var(--formatPickerWidth);
+        min-width: 200px;
+        margin-top: min(-6vh, -20px);
+        border-right: 5px solid #fff;
+        backdrop-filter: blur(20px);
+}
+
+.format-bar button {
+        position: relative;
+        display: flex;
+        height: calc(100% / var(--noFormats));
+        width: 100%;
+        overflow: hidden;
+        border-bottom: 5px solid #fff;
+        background-color: #ffffff15;
+        color: #fff;
+}
+
+.format-bar button * {
+        position: absolute;
+}
+
+.format-bar button a {
+        top: calc(30vh / var(--noFormats) + 6px);
+        font-size: calc(6vh / var(--noFormats));
+        color: #ffffff99;
+}
+
+.format-bar button img {
+        bottom: -15%;
+        right: 0;
+        max-height: 115%;
+        z-index: -1;
+}
+
+@media screen and (max-aspect-ratio: 1.5/1) {
+        .format-bar button img {
+                max-height: 100%;
+                right: -10%;
+        }
+}
+
+#formats :last-child {
+        border: none;
+}
+
+.formatBar .selected,
+.formatBar .selected * {
+        color: var(--highlightColour);
+}
+
+#ext-formats {
+        z-index: 2;
+        position: absolute;
+        left: calc(var(--formatPickerWidth) + 5px);
+}
+
+/*--------------------     Editor     --------------------*/
+
+#editor {
+        z-index: 1;
+        margin: auto var(--innerMargin) auto var(--innerMargin);
+        width: var(--editorWidth);
+        height: calc(var(--editorWidth) / var(--aspectRatio));
+        max-height: 70%;
+}
+
+.controls {
+        position: absolute;
+        display: flex;
+        top: calc(var(--headerHeight) + 2vh);
+        height: var(--mainHeight);
+        margin: 0;
+        justify-content: center;
+        align-items: center;
+}
+
+.controls button,
+.controls button img {
+        pointer-events: all;
+        padding: 0;
+        height: 6vh;
+        width: 6vh;
+        vertical-align: middle;
+}
+
+.inner-controls {
+        display: flex;
+        flex-wrap: wrap;
+        align-content: center;
+        justify-content: center;
+        width: 50%;
+        margin-inline: -25%;
+        gap: 5%;
+}
+
+#top-controls {
+        margin-bottom: 80vh;
+}
+
+#bottom-controls {
+        margin-top: 80vh;
+}
+
+#rotate-left {
+        margin-right: 20px;
+}
+
+#bottom-controls button {
+        height: 5vh;
+        width: 40%;
+        font-size: 2vmin;
+}
+
+#bottom-controls input {
+        width: 100%;
+        margin-bottom: 3%;
+}
+
+#add-one {
+        margin-right: 20px;
+
+}
+
+#editor-controls {
+        width: 100%;
+}
+
+/*--------------------     Tilt Slider     --------------------*/
+
+input[type="range"] {
+        position:relative;
+        --trackHeight: 0.5rem;
+        --thumbHeight: 0.8rem;
+        -webkit-appearance: none;
+        appearance: none;
+        background: transparent;
+        cursor: pointer;
+        width: 15rem;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+        background: var(--highlightColour);
+        height: var(--trackHeight);
+        border-radius: calc(var(--trackHeight)/2);
+}
+input[type="range"]::-moz-range-track {
+        background: var(--highlightColour);
+        height: var(--trackHeight);
+        border-radius: calc(var(--trackHeight)/2);
+}
+
+input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        margin-top: calc((var(--trackHeight)/2) - (var(--thumbHeight)/2));
+        height: var(--thumbHeight);
+        width: var(--thumbHeight);
+        border-radius: calc(var(--thumbHeight)/2);
+        background-color: #fff;
+}
+input[type="range"]::-moz-range-thumb {
+        border: none;
+        border-radius: 0;
+        height: var(--thumbHeight);
+        width: var(--thumbHeight);
+        border-radius: calc(var(--thumbHeight)/2);
+        background-color: #fff;
+}
+
+/*--------------------     COLOR SELECTOR     --------------------*/
+
+input[type="color"] {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        border: 3px solid var(--highlightColour);
+        padding: 0;
+        height: 6.9vh;
+        width: 6.9vh;
+        margin-left: -1.5vw;
+        vertical-align: middle;
+        background-color: #fff;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+}
+
+input[type="color"]::-webkit-color-swatch-wrapper {
+        appearance: none;
+        padding: 0;
+        margin: 0;
+        width: 4vh;
+        height: 4vh;
+}
+
+input[type="color"]::-webkit-color-swatch {
+        appearance: none;
+        mask-image: url(./imgs/buttons/color.svg);
+        mask-size: contain;
+        mask-position: center;
+        mask-repeat: no-repeat;
+        border: 0;
+        width: 100%;
+        height: 100%;
+}
+
+input[type="color"]::-moz-color-swatch {
+        -moz-appearance: none;
+        mask-image: url(./imgs/buttons/color.svg);
+        mask-size: contain;
+        mask-position: center;
+        mask-repeat: no-repeat;
+        border: 0;
+        width: 4vh;
+        height: 4vh;
+}
+
+#export-controls {
+        right: var(--outerMargin);
+        width: var(--previewWidth);
+}
+
+#export-controls div {
+        width: 7vh;
+}
+
+#export-controls div button {
+        margin-block: 36vh;
+}
+
+
+object,
+#placeholder {
+        display: flex;
+        justify-content: center;
+        color: var(--highlightColour);
+        font-size: large;
+        text-align: center;
+        width: var(--previewWidth);
+        height: calc(var(--previewWidth) * (12/8.5));
+        margin-right: var(--outerMargin);
+        margin-block: calc(48vh - (var(--previewWidth) * (6/8.5)));
+}
+
+.overlay {
+        position: absolute;
+        z-index: 2;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+}
+
+#intro {
+        text-align: center;
+        font-family: 'TTNorms_Bold';
+        color: var(--highlightColour);
+        position: absolute;
+        left: var(--formatPickerWidth);
+        right: var(--previewWidth);
+        top: 40%;
+}

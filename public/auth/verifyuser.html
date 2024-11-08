@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZDGK56CL3H"></script>
+        <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag() { dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-ZDGK56CL3H');
+        </script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Loading...</title>
+
+        <link rel="stylesheet" href="/auth/css/style.css">
+        <link rel="stylesheet" href="/css/style.css">
+
+        <link rel="apple-touch-icon" sizes="180x180" href="/favi/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favi/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favi/favicon-16x16.png">
+        <link rel="manifest" href="/favi/site.webmanifest">
+        <link rel="mask-icon" href="/favi/safari-pinned-tab.svg" color="#ce0000">
+        <link rel="shortcut icon" href="/favi/favicon.ico">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="msapplication-config" content="/favi/browserconfig.xml">
+        <meta name="theme-color" content="#ffffff">
+</head>
+
+<body>
+        <script src="/__/firebase/8.10.1/firebase-app.js"></script>
+        <script src="/__/firebase/8.10.1/firebase-auth.js"></script>
+        <script src="/__/firebase/init.js"></script>
+        <script type="module">
+                firebase.auth().onAuthStateChanged((user) => {
+                        if(user) {
+                                window.location.href = '/app/';
+                        }
+                        else {
+                                window.location.href = '/auth/register.html';
+                        }
+                });
+        </script>
+</body>
+
+</html>

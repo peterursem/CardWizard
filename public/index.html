@@ -1,79 +1,143 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CardWizard</title>
-    <link rel="preload" href="fonts/MotivaBlack.ttf" as="font" type="font/ttf" crossorigin>
-    <link rel="preload" href="fonts/Lulo_Clean_One_Bold.ttf" as="font" type="font/ttf" crossorigin>
-    <link rel="stylesheet" href="/style.css">
-    <link  href="/cropper.min.css" rel="stylesheet">
-    <link rel="apple-touch-icon" sizes="180x180" href="/favi/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favi/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favi/favicon-16x16.png">
-    <link rel="manifest" href="/favi/site.webmanifest">
-    <link rel="mask-icon" href="/favi/safari-pinned-tab.svg" color="#ce0000">
-    <link rel="shortcut icon" href="/favi/favicon.ico">
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="msapplication-config" content="/favi/browserconfig.xml">
-    <meta name="theme-color" content="#ffffff">
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZDGK56CL3H"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-ZDGK56CL3H');
-    </script>
-  </head>
-  <body>
-    <header>
-      <img src="/imgs/logos/logo.png" class="show" draggable="false" style="margin-top: -.5vh;">
-      <img src="/imgs/logos/peter.svg" class="hide" draggable="false">
-    </header>
-    <main>
-      <div id="alert">
-        <h1>Hey there!</h1>
-        <p>We're testing new features for CardWizard, click below to visit our</p>
-        <a href="https://cut-erator--warlock-86x5zfhe.web.app">Test site</a>
-      </div>
-      <div id="formatBar">
-      </div>
-      <div id="editor" class="hide">
-      </div>
-      <div id="editorControls" class="controls hide">
-        <div id="topControls" class="innerControls">
-          <button id="rotateLeft">
-            <img src="/imgs/buttons/left.png" draggable="false">
-          </button>
-          <button id="rotateRight">
-            <img src="/imgs/buttons/right.png" draggable="false">
-          </button>
+<head>
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZDGK56CL3H"></script>
+        <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag() { dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-ZDGK56CL3H');
+        </script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>CardWizard</title>
+
+        <link rel="preload" href="/fonts/TTNorms_Regular.ttf" as="font" crossorigin>
+        <link rel="preload" href="/fonts/TTNorms_Bold.ttf" as="font" crossorigin>
+        <link rel="stylesheet" href="/css/index.css">
+        <link rel="stylesheet" href="/css/style.css">
+
+        <link rel="apple-touch-icon" sizes="180x180" href="/favi/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favi/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favi/favicon-16x16.png">
+        <link rel="manifest" href="/favi/site.webmanifest">
+        <link rel="mask-icon" href="/favi/safari-pinned-tab.svg" color="#ce0000">
+        <link rel="shortcut icon" href="/favi/favicon.ico">
+        <meta name="msapplication-TileColor" content="#ce0000">
+        <meta name="msapplication-config" content="/favi/browserconfig.xml">
+        <meta name="theme-color" content="#ffffff">
+</head>
+
+<body class="hide-excess">
+        <div id="nav" class="sink-down flex anim">
+                <img src="/imgs/logos/blackLogo.png" href="/" id="nav-logo">
+                <a id="start" class="button link" href="/auth/verifyuser.html"><span>Get Started</span></a>
         </div>
-        <div id="bottomControls" class="innerControls">
-          <button id="addOne">ADD ONE</button>
-          <button id="addAll">FILL PAGE</button>
-        </div>
-      </div>
-      <div id="exportControls" class="controls hide">
-        <div>
-          <button id="clear">
-            <img src="/imgs/buttons/clear.png" draggable="false">
-          </button>
-          <button id="print">
-            <img src="/imgs/buttons/print.png" draggable="false">
-          </button>
-        </div>
-      </div>
-      <div id="placeHolder" class="highlightBorder hide">
-      </div>
-      <div id="overlay">
-        <p>To start, select a format. <br> Then drag your image(s) here to add them to your document.</p>
-      </div>
-    </main>
-    <script src="/js/lib/jspdf.umd.min.js"></script>
-    <script src="/js/lib/heic2any.min.js"></script>
-    <script src="/js/main.mjs" type="module"></script>
-  </body>
+        <section id="cover" class="center">
+                <div id="logo-container">
+                        <div id="logo-bg" class="flex anim unloaded noclick"><img id="square-logo" class="unloaded" src="/imgs/logos/squarelogo.png"></div>
+                        <img id="long-logo" class="slide-in anim hidden-load hide noclick" src="/imgs/logos/blackLogo.png">
+                </div>
+                <h1 class="bold slide-in anim hidden-load hide">Fast, Secure, Efficient. <br>CardWizard works wonders in the SolutionShop.</h1>
+                <p class="slide-in anim hidden-load hide"><a class="button white-btn" id="small-cta" href="mailto:sales@cardwizard.ca">Get in touch</a> <br><br>or <br> <a href='/auth/verifyuser.html' class="link">Get started with an invite code</a></p>
+                <div id="screenshot-container" class="slide-in anim hidden-load hide">
+                        <img id="screenshot" class="noclick screenshot" src="/imgs/index/cover/screenshot.png">
+                        <img style="--angle: 75;  --distance: 1200;" class="screenshot-bg noclick screenshot" src="/imgs/index/cover/bg1.png">
+                        <img style="--angle: 98;  --distance: 1000;" class="screenshot-bg noclick screenshot" src="/imgs/index/cover/bg7.png">
+                        <img style="--angle: 103; --distance: 700;"  class="screenshot-bg noclick screenshot" src="/imgs/index/cover/bg2.png">
+                        <img style="--angle: 154; --distance: 900;"  class="screenshot-bg noclick screenshot" src="/imgs/index/cover/bg3.png">
+                        <img style="--angle: 206; --distance: 800;"  class="screenshot-bg noclick screenshot" src="/imgs/index/cover/bg4.png">
+                        <img style="--angle: 257; --distance: 800;"  class="screenshot-bg noclick screenshot" src="/imgs/index/cover/bg5.png">
+                        <img style="--angle: 309; --distance: 1000;" class="screenshot-bg noclick screenshot" src="/imgs/index/cover/bg6.png">
+                </div>
+        </section>
+        <section id="highlights" class="flex hidden-load hide">
+                <h1 class="fade-in center bold"><span class="highlight">Fast processing</span> provides a strong foundation for excellent customer service.</h1>
+                <h1 class="fade-in center bold"><span class="highlight">Unmatched security</span> with on-device processing to keep data out of attackers hands.</h1>
+                <h1 class="fade-in center bold"><span class="highlight">Simple drag and drop controls</span> make learning a breeze.</h1>
+                <h1 class="fade-in center bold"><span class="highlight">Smart tools</span> to tackle projects big and small.</h1>
+        </section>
+        <section id="csp" class="flex center hidden-load hide">
+                <div id="connect">
+                        <img src="imgs/index/csp_connect.png" >
+                        <h2>CONNECT</h2>
+                        <p>CardWizard opens many possibilities for SolutionShops across the country. The platform allows
+                                stores to offer many more <span class="highlight">1-Hour Services</span> for customers to come in and try. <br><br> Curious customers are more likely to invest their time creating orders online after being shown the possibilities in store.</p>
+                </div>
+                <div id="share">
+                        <img src="imgs/index/csp_share.png" >
+                        <h2>SHARE</h2>
+                        <p>With substantially reduced production times CardWizard enables <span class="highlight">Active
+                                        Sampling</span> in store. <br><br>Customers can try out different card designs
+                                and paper types before committing to a larger batch, and associates are better able to
+                                recommend products.</p>
+                </div>
+                <div id="partner">
+                        <img src="imgs/index/csp_partner.png" >
+                        <h2>PARTNER</h2>
+                        <p>Errors can be corrected immediately using CardWizard. Improperly folded cards, design errors,
+                                and quality concerns can be effectively and quickly resolved in-store rather than
+                                waiting for another production run from the hub. <br><br>This helps stores keep up the
+                                <span class="highlight">Big Print Promise</span> and deliver products done right and on
+                                time.
+                        </p>
+                </div>
+        </section>
+        <section id="deepDives" class="flex hidden-load hide">
+                <div id="newSKUs" class="flex full bold">
+                        <div>
+                                <h2>Creating more, printed in store.</h2>
+                                <p>CardWizard allows far greater flexibility for customers and associates across the country. The platform allows stores to offer many great 1-Hour Services and expand their existing Same-Day line up with many different formats, including automatic creasing and support for:</p>
+                                <ul>
+                                        <li>Business Cards</li>
+                                        <li>Post Cards</li>
+                                        <li>Greeting Cards</li>
+                                        <li>Tent Cards</li>
+                                        <li>Photos</li>
+                                </ul>
+                        </div>
+                        <img src="/imgs/index/newSKUs.png" >
+                </div>
+                <div id="sampling" class="flex half bold">
+                        <div>
+                                <h2>Confident Creation.</h2>
+                                <p>CardWizard enables customers and associates to play with different designs and make adjustments before submitting a final design for production. Customers will be confident the products they're designing will turn out exactly as they requested, and can discover different products to match their needs.</p>
+                        </div>
+                </div>
+                <div id="ease" class="flex half bold">
+                        <div>
+                                <h2>Easy does it.</h2>
+                                <p>Associates will feel at home with an interface that is very familiar for those with SolutionShop experience. The program's many powerful features are easy for new users to pick up. Batch uploading allows large orders to be automatically laid out, background coloring allows designs to be expanded, and cropping and rotation are built in to perfectly align photos and cards.</p>
+                        </div>
+                </div>
+                <div id="time" class="flex full bold">
+                        <div>
+                                <h2>Bullet time.</h2>
+                                <p>One of the biggest problems plagueing SolutionShops is slow network speeds. Uploading files to our print server is a major bottleneck in the ordering process. By reducing preflight time CardWizard makes these products available for 1-Hour production windows.</p>
+                        </div>
+                        <img src="/imgs/index/speedcomp.png" >
+                </div>
+                <div id="security" class="flex half bold">
+                        <div>
+                                <h2>Security at its Core.</h2>
+                                <p>We all need to be diligent to mitigate cyber attacks. The more we send over the internet, the more vulnerable our customers' information is. Currently, SolutionBuilder photo orders are uploaded to a central server where they are available publicly without any authentication. CardWizard keeps customer info secure offline.</p>
+                        </div>
+                </div>
+                <div id="cost" class="flex half bold">
+                        <div>
+                                <h2>It all makes cents.</h2>
+                                <p>By processing information on the computers already installed in SolutionShop, server costs are greatly reduced. The only resources required for CardWizard are static assets which can be cached internally, provided at a low cost from any basic web server, or installed right on SolutionShop PCs.</p>
+                        </div>
+                </div>
+        </section>
+        
+        <section id="large-cta" class="highlight-btn flex hidden-load hide">
+                <h1 class="center bold">Ready to work some magic?</h1>
+                <button class="button highlight-btn">Contact us to get started</button>
+        </section>
+</body>
+<script src="/js/index.js"></script>
+
 </html>

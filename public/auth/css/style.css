@@ -1,0 +1,102 @@
+#content {
+        font-family: "TTNorms_Regular";
+        width: 100vw;
+}
+
+#logo {
+        margin-inline: 37.5vw;
+        width: 25vw;
+        height: auto;
+}
+
+h1 {
+        text-align: center;
+        width: 100vw;
+        display: block;
+        margin-top: 4vh;
+        margin-bottom: 0;
+}
+
+p {
+        text-align: center;
+        width: 100vw;
+        display: block;
+        margin-bottom: 0;    
+}
+
+p a {
+        color:var(--highlightColour)
+}
+
+form {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+}
+
+form a {
+        margin-top: 2vh;
+        margin-inline: -5%;
+}
+
+form ul {
+        list-style-type: none;
+        padding: 0;
+        margin-inline: 10%;
+        margin-block: 2%;
+}
+
+.half {
+        width: 20%;
+}
+
+.full {
+        width: 42%;
+}
+
+form li {
+        margin-block: 1vh;
+}
+
+form label {
+        display: block;
+}
+
+form input {
+        width: 100%;
+        height: 3vh;
+        border-radius: 0;
+        border-width: 1px;
+        border-color: #cecece;
+        border-style: solid;
+}
+
+#submit {
+        height: 5vh;
+        width: 40%;
+        margin-inline: 30%;
+        font-size: 2vh;
+        font-family: "TTNorms_Regular";
+        margin-block: 4vh;
+        border-radius: 8px;
+        border-color: var(--highlightColour);
+        color: var(--highlightColour);
+        background-color: #fff;
+}
+
+#submit:hover {
+        color: #fff;
+        background-color: var(--highlightColour);
+}
+
+.smallLink {
+        width: 100%;
+        margin-inline: auto;
+        text-align: center;
+}
+
+.smallLink a {
+        text-decoration: none;
+        color: var(--highlightColour);
+}

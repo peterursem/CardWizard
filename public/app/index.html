@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZDGK56CL3H"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-ZDGK56CL3H');
+  </script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CardWizard</title>
+
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/app/style.css">
+  <link href="/cropper.min.css" rel="stylesheet">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/favi/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favi/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favi/favicon-16x16.png">
+  <link rel="manifest" href="/favi/site.webmanifest">
+  <link rel="mask-icon" href="/favi/safari-pinned-tab.svg" color="#ce0000">
+  <link rel="shortcut icon" href="/favi/favicon.ico">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-config" content="/favi/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+</head>
+
+<body class="hide-excess">
+  <header class="hide-excess">
+    <img src="/imgs/logos/logo.png" class="show" draggable="false" style="margin-top: -.5vh;">
+    <div class="hide">
+      <a>Cut-Erator: Project Warlock</a>
+    </div>
+  </header>
+  <main class="full-height">
+    <button id="settings-btn" class="highlight-btn">SETTINGS</button>
+    <div id="settings-modal" class="hide overlay">
+      <div id="settings-pane">
+        <h2>Settings</h2>
+        <p>Cut-Erator: Project Warlock | Peter Ursem 2024</p>
+        <button id="logout">Log Out</button>
+      </div>
+    </div>
+    <div id="formats" class="format-bar">
+    </div>
+    <div id="ext-formats" class="format-bar hide">
+    </div>
+    <div id="editor" class="hide">
+    </div>
+    <div id="editor-controls" class="controls hide full-height">
+      <div id="top-controls" class="inner-controls">
+        <button id="rotate-left">
+          <img src="/app/imgs/buttons/left.png" class="no-pointer white-btn border" draggable="false">
+        </button>
+        <input id="bg-color" type="color" value="#000000">
+        <button id="rotate-right">
+          <img src="/app/imgs/buttons/right.png" class="no-pointer white-btn border" draggable="false">
+        </button>
+      </div>
+      <div id="bottom-controls" class="inner-controls">
+        <input type="range" id="rotation" name="rotation" min="-45" max="45" value="0" step="1" />
+        <button id="add-one" class="white-btn border">ADD ONE</button>
+        <button id="add-all" class="highlight-btn">FILL PAGE</button>
+      </div>
+    </div>
+    <div id="export-controls" class="controls hide">
+      <div>
+        <button id="clear">
+          <img src="/app/imgs/buttons/clear.png" class="no-pointer white-btn border" draggable="false">
+        </button>
+        <button id="print">
+          <img src="/app/imgs/buttons/print.png" class="no-pointer highlight border" draggable="false">
+        </button>
+      </div>
+    </div>
+    <div id="placeholder" class="border hide">
+    </div>
+    <div id="intro" class="no-pointer">
+      <p>To start, select a format and drag your image(s) here.</p>
+    </div>
+  </main>
+
+  <script src="/__/firebase/8.10.1/firebase-app.js"></script>
+  <script src="/__/firebase/8.10.1/firebase-auth.js"></script>
+  <script src="/__/firebase/8.10.1/firebase-firestore.js"></script>
+  <script src="/__/firebase/init.js"></script>
+  <script src="/app/js/lib/jspdf.umd.min.js"></script>
+  <script src="/app/js/lib/heic2any.min.js"></script>
+  <script src="/app/js/main.mjs" type="module"></script>
+  <script src="/auth/authprovider.mjs" type="module"></script>
+</body>
+
+</html>
