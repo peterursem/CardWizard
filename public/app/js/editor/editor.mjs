@@ -1,4 +1,4 @@
-import { cutterFormats } from "../export/documentFormats.mjs";
+import { cutterFormats, formatOrientation } from "../export/documentFormats.mjs";
 import Cropper from "../lib/cropper.esm.js";
 import { validateBase64Img } from "../base64handler.mjs";
 
@@ -8,22 +8,21 @@ var bgColor = '#fff';
 
 export const switchCropperFormat = async format => {
         if(!firebase.auth().currentUser) return;
-        let image = new Image();
+
+        const image = new Image();
         image.src = '/app/imgs/templates/'+format+'.jpg';
+
         document.querySelector('#editor').appendChild(image);
+
         drawCropper(image, format);
         rotateImg('rst');
 };
 
-export const checkImageFormat =  (format) => {
-        if (["3.5x2","3.5x2.5","4x6","5x7",].indexOf(format) != -1) return "landscape";
-        return "portrait";
-};
-
 export const processImageData = (data, format) => {
         if(!firebase.auth().currentUser) return;
+
         if (cropper) {
-                validateBase64Img(data,checkImageFormat(format))
+                validateBase64Img(data, formatOrientation(format))
                 .then(r => cropper.replace(r.base64))
                 .then(() => rotateImg('rst'));
         }
@@ -31,13 +30,15 @@ export const processImageData = (data, format) => {
 
 export const getCropperData = () => {
         if(!firebase.auth().currentUser) return;
-        return cropper.getCroppedCanvas({ fillColor: bgColor }).toDataURL('image/jpeg', 0.8);
+
+        return cropper.getCroppedCanvas({ fillColor: bgColor }).toDataURL('image/jpeg', 1);
 };
 
 export const destroyCropper = () => { cropper.destroy(); };
 
 function drawCropper(img, format) {
         if(!firebase.auth().currentUser) return;
+
         const formatDimensions = cutterFormats[format].editor;
         editor.style.setProperty('--aspectRatio', formatDimensions.aspectRatio);
         cropper = new Cropper(img, {
@@ -58,7 +59,7 @@ var rot = 0,
 abs = 0;
 function rotateImg(mode, deg) {
         if(!firebase.auth().currentUser) return;
-        console.log(rot, deg, abs);
+
         if (mode == 'rel') rot += deg;
         if (mode == 'abs') abs = deg;
         if (mode == 'rst') {
@@ -82,9 +83,7 @@ firebase.auth().onAuthStateChanged((user) => {
                 document.getElementById('bg-color').addEventListener('input', (e) => updateColor(e));
                 document.getElementById('bg-color').addEventListener('click', (e) => updateColor(e));
         }
-        else{
-                window.location.href = '/';
-        }
+        else window.location.href = '/';
 });
 
 let timer;

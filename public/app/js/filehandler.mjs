@@ -15,7 +15,6 @@ export const fileToBase64 = (file) => {
 
 function heicConvert(file) {
         return new Promise(res => {
-                console.log(file);
                 const blobURL = URL.createObjectURL(file);
                 fetch(blobURL)
                         .then(blobRes => blobRes.blob())

@@ -14,8 +14,11 @@
 }
 
 :root {
-    --foregroundColour: #fff;
-    --backgroundColour: #222;
+    --foregroundColour: #222;
+    --midColour: #666;
+    --grey: #666;
+    --backgroundColour: #eee;
+    --pureBackgroundColour: #fff;
     --highlightColour: #CE0000;
 }
 
@@ -78,12 +81,11 @@ button {
 .white-btn {
     color: var(--highlightColour);
     border-color: var(--highlightColour);
-    background-color: #fff;
-
+    background-color: var(--backgroundColour);
 }
 
 .highlight-btn {
-    color: #fff;
-    border-color: #fff;
+    color: var(--backgroundColour);
+    border-color: var(--backgroundColour);
     background-color: var(--highlightColour);
 }

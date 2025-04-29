@@ -27,9 +27,7 @@ getCutterFormats()
         });
         document.getElementById("formats").style.setProperty('--noFormats', f);
         document.getElementById("ext-formats").style.setProperty('--noFormats', Math.max(e,6));
-        if (e >= 6) {
-                document.getElementById("ext-formats").lastChild.style.border = 'none';
-        }
+        if (e >= 6) document.getElementById("ext-formats").lastChild.style.border = 'none';
 });
 
 var selectedFormat = '';

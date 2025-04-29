@@ -1,18 +1,18 @@
-import { cutterFormats } from './documentFormats.mjs';
+import { cutterFormats, pageOrientation } from './documentFormats.mjs';
 import { getCropperData } from '../editor/editor.mjs';
 
 var images = [],
 lastDocument = '',
-pages = 0,
-rev = 1;
+pages = 1;
 
 export const generatePreview = (format) => {
         if(!firebase.auth().currentUser) return;
-        const existingObject = document.querySelector('object'),
-        placeholder = document.querySelector('#placeholder');
 
+        const existingObject = document.querySelector('object');
+        const placeholder = document.querySelector('#placeholder');
         const pdf = createDocument(images, format.toLowerCase());
-        let object = document.createElement('object');
+        const object = document.createElement('object');
+
         object.type = 'application/pdf';
         object.data = pdf;
         if (existingObject) {
@@ -25,39 +25,35 @@ export const generatePreview = (format) => {
         gtag('event', 'preview_generated', {
                 'images': images.length,
                 'pages': pages,
-                'rev': rev
         });
 };
 
 export const addPage = (format) => {
         if(!firebase.auth().currentUser) return;
+        
         const imgsOnPage = cutterFormats[format].layout.x * cutterFormats[format].layout.y;
+        let noImg = imgsOnPage - (images.length % imgsOnPage);
+        for (let i = 0; i < noImg; i++) images.push(getCropperData());
 
-        let noImg = images.length;
-        while (noImg >= imgsOnPage) {
-                noImg -= imgsOnPage;
-        }
-        const remain = imgsOnPage - noImg;
-        for (let i = 0; i < remain; i++) {
-                images.push(getCropperData());
-        }
         generatePreview(format);
 }
 
 export const addPhoto = (format) => {
         if(!firebase.auth().currentUser) return;
+
         images.push(getCropperData());
         generatePreview(format);
 };
 
 export const addPhotoSilently = (data) => {
         if(!firebase.auth().currentUser) return;
+
         images.push(data);
 }
 
 export const clearPages = () => {
         if(!firebase.auth().currentUser) return;
-        rev = 1;
+
         images = [];
         lastDocument = '';
         if (document.querySelector('object')) {
@@ -71,6 +67,7 @@ export const clearPages = () => {
 
 export const printPages = () => {
         if(!firebase.auth().currentUser) return;
+
         if (lastDocument != '') {
                 gtag('event', 'print_requested', {
                         'images': images.length,
@@ -82,6 +79,7 @@ export const printPages = () => {
 
 function positionImages(imgs, format) {
         if(!firebase.auth().currentUser) return;
+
         var imgPkgs = [];
         for (let img in imgs) {
                 let imageNo = img;
@@ -99,19 +97,20 @@ function positionImages(imgs, format) {
                         x: cutterFormats[format].images.width,
                         y: cutterFormats[format].images.height
                 };
-                imgPkgs.push([imgs[img], 'PNG', pos.x, pos.y, dim.x, dim.y]);
+                imgPkgs.push([imgs[img], pos.x, pos.y, dim.x, dim.y]);
         }
         return imgPkgs;
 }
 
 function createDocument(imgs, format) {
         if(!firebase.auth().currentUser) return;
-        pages = 0;
+        
+        pages = 1;
 
         const doc = new jspdf.jsPDF({
-                orientation: "portrait",
+                orientation: pageOrientation(format),
                 unit: "in",
-                format: [8.5, 11]
+                format: cutterFormats[format].pageSize
         });
 
         doc.setProperties({
@@ -119,20 +118,20 @@ function createDocument(imgs, format) {
                 'author': "Peter's Cut-Erator"
         });
 
-        let imgPkgs = positionImages(imgs, format);
         const imgsOnPage = cutterFormats[format].layout.x * cutterFormats[format].layout.y;
         let i = 0;
-        imgPkgs.forEach(pkg => {
+        positionImages(imgs, format).forEach(pkg => {
                 if (i % imgsOnPage == 0 && i > 0) {
                         watermark(doc, format);
+
                         doc.addPage();
                         pages++;
                 }
-                doc.addImage(pkg[0], pkg[1], pkg[2], pkg[3], pkg[4], pkg[5]);
+                doc.addImage(pkg[0], 'PNG', pkg[1], pkg[2], pkg[3], pkg[4]);
                 i++;
         });
-        pages++;
         watermark(doc, format);
+
         lastDocument = doc.output('bloburl');
         return (lastDocument);
 }

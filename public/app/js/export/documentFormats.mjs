@@ -47,7 +47,8 @@ export const cutterFormats = {
                         x: 3.3333333333333335,
                         y: 2.941176470588235
                 },
-                layout: { x: 2, y: 5 }
+                layout: { x: 2, y: 5 },
+                pageSize: [8.5, 11]
         },
         '3.5x2.5': {
                 desc: "Trading Card",
@@ -70,7 +71,8 @@ export const cutterFormats = {
                         x: 3.3333333333333335,
                         y: 2.380952380952381
                 },
-                layout: { x: 2, y: 4 }
+                layout: { x: 2, y: 4 },
+                pageSize: [8.5, 11]
         },
         '3.5x5': {
                 desc: "Note Card",
@@ -94,9 +96,9 @@ export const cutterFormats = {
                         x: 3.3333333333333335,
                         y: 2.380952380952381
                 },
-                layout: { x: 2, y: 2 }
+                layout: { x: 2, y: 2 },
+                pageSize: [8.5, 11]
         },
-
         '3.5x5f': {
                 desc: "Tent Card",
                 ext: false,
@@ -119,7 +121,8 @@ export const cutterFormats = {
                         x: 3.3333333333333335,
                         y: 2.380952380952381
                 },
-                layout: { x: 2, y: 2 }
+                layout: { x: 2, y: 2 },
+                pageSize: [8.5, 11]
         },
         '4x6': {
                 desc: "Post Card / Photo",
@@ -143,7 +146,8 @@ export const cutterFormats = {
                         x: 2,
                         y: 2.941176470588235
                 },
-                layout: { x: 1, y: 2 }
+                layout: { x: 1, y: 2 },
+                pageSize: [8.5, 11]
         },
         '5x7': {
                 desc: "Post Card / Photo",
@@ -166,7 +170,8 @@ export const cutterFormats = {
                         x: 1.7241379310344827,
                         y: 2.380952380952381
                 },
-                layout: { x: 1, y: 2 }
+                layout: { x: 1, y: 2 },
+                pageSize: [8.5, 11]
         },
         '10x7f': {
                 desc: "Greeting Card",
@@ -188,7 +193,8 @@ export const cutterFormats = {
                         x: 1.7241379310344827,
                         y: 1.2195121951219512
                 },
-                layout: { x: 1, y: 1 }
+                layout: { x: 1, y: 1 },
+                pageSize: [8.5, 11]
         }, 
         'Other': {
                 desc: "Custom Sizes",
@@ -199,13 +205,13 @@ export const cutterFormats = {
                 ext: true,
                 margins: {
                         x: 0.25,
-                        y: 0.5,
+                        y: 0.5
                 },
                 images: {
                         width: 8,
                         height: 10,
                         cutWidth: 8,
-                        cutHeight: 10,
+                        cutHeight: 10
                 },
                 'editor': {
                         aspectRatio: 0.8,
@@ -215,6 +221,55 @@ export const cutterFormats = {
                         y: 0
                 },
                 layout: { x: 1, y: 1 },
+                disableWatermark: true,
+                pageSize: [8.5, 11]
+        },
+        '4x6p': {
+                desc: "ASK Printer Compatible",
+                ext: true,
+                margins: {
+                        x: 0,
+                        y: 0
+                },
+                images: {
+                        width: 6,
+                        height: 4,
+                        cutWidth: 6,
+                        cutHeight: 4
+                },
+                editor: {
+                        aspectRatio: 1.5,
+                        width: 100,
+                        height: 100,
+                        x: 0,
+                        y: 0
+                },
+                layout: { x: 1, y: 1 },
+                pageSize: [6, 4],
+                disableWatermark: true
+        },
+        '5x7p': {
+                desc: "ASK Printer Compatible",
+                ext: true,
+                margins: {
+                        x: 0,
+                        y: 0
+                },
+                images: {
+                        width: 7,
+                        height: 5,
+                        cutWidth: 7,
+                        cutHeight: 5
+                },
+                editor: {
+                        aspectRatio: 1.4,
+                        width: 100,
+                        height: 100,
+                        x: 0,
+                        y: 0
+                },
+                layout: { x: 1, y: 1 },
+                pageSize: [7, 5],
                 disableWatermark: true
         }
 };
@@ -228,3 +283,13 @@ export const getCutterFormats = function () {
                 res(formats);
         });
 };
+
+export const formatOrientation = (format) => {
+        if (cutterFormats[format].aspectRatio > 1) return "landscape";
+        return "portrait";
+};
+
+export const pageOrientation = (format) => {
+        if (cutterFormats[format].pageSize[0] > cutterFormats[format].pageSize[1]) return 'l';
+        return 'p';
+}

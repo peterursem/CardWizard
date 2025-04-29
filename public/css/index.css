@@ -2,18 +2,14 @@
         --navHeight: max(7vh, 40px);
         --contentWidth: 64vw;
         --minContentWidth: 300px;
-        --background: #f5f5f7;
-        --grey: #595959;
-
         --intro-time: 2s;
-
         --marginWidth: calc((100vw - var(--contentWidth)) / 2);
 }
 
 body {
-        color: #000;
+        color: var(--foregroundColour);
         font-size: 1.25rem;
-        background-color: var(--background);
+        background-color: var(--backgroundColour);
 }
 
 @media screen and (max-width: 900px) {
@@ -41,7 +37,7 @@ h1 {
 #large-cta {
         flex-wrap: wrap;
         justify-content: center;
-        padding: 15vh 0;
+        padding: 30vh 0;
 }
 
 /* NAV BAR */
@@ -76,6 +72,10 @@ h1 {
         margin-block: auto;
         max-height: calc(var(--navHeight) * 0.6);
         max-width: 30vw;
+}
+
+#nav div {
+        align-items: center;
 }
 
 #start {
@@ -135,6 +135,7 @@ section div {
 #long-logo {
         min-width: 200px;
         max-width: 20vw;
+        max-height: 10vh;
 }
 
 #logo-bg.unloaded{
@@ -179,8 +180,10 @@ section div {
 .screenshot-bg {
         max-height: 20vmin;
         position: absolute;
-        top: 40%;
-        left: 37%;
+        margin: -10vmin -10vmin;
+        top: 50%;
+        left: 50%;
+        text-align: center;
         transform-origin: center center;
         z-index: -1;
 }
@@ -227,20 +230,19 @@ section div {
         min-height: 100vh;
         box-sizing: border-box;
         padding-block: 5%;
-}
-
-section#csp {
-    gap: 25px;
+        gap: 25px;
+        align-items: center;
 }
 
 #csp div {
         flex-basis: 25%;
         flex-grow: 0;
         flex-shrink: 0;
-        color: #000;
+        color: var(--midColour);
         box-sizing: border-box;
         padding: 5vh 2vw 2vh;
-        background-color: #fff;
+        background-color: var(--pureBackgroundColour);
+        height: 60vh;
 }
 
 #csp img {
@@ -298,12 +300,12 @@ section#csp {
         
         scroll-snap-align: center;
 
-        background: #fff;
+        background: var(--pureBackgroundColour);
         position: relative;
 }
 
 #deepDives * p, #deepDives * ul {
-        color: var(--grey);
+        color: var(--midColour);
 }
 
 #deepDives div div {

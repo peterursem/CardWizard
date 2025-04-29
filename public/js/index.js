@@ -82,3 +82,24 @@ imagesLoaded(document.querySelectorAll('.screenshot')).then(() => {
         elem.classList.remove('unloaded');
     });
 });
+
+let dark = false;
+const darkPallete = ["#fff", '#ccc', "#222", "#000"];
+const lightPallete = ["#222", '#666', "#eee", "#fff"];
+document.getElementById("dark").addEventListener('click', () => {
+        if (dark == true) {
+            document.documentElement.style.setProperty('--foregroundColour', lightPallete[0]);
+            document.documentElement.style.setProperty('--midColour', lightPallete[1]);
+            document.documentElement.style.setProperty('--backgroundColour', lightPallete[2]);
+            document.documentElement.style.setProperty('--pureBackgroundColour', lightPallete[3]);
+
+            dark = false;
+        } else if (dark == false) {
+            document.documentElement.style.setProperty('--foregroundColour', darkPallete[0]);
+            document.documentElement.style.setProperty('--midColour', darkPallete[1]);
+            document.documentElement.style.setProperty('--backgroundColour', darkPallete[2]);
+            document.documentElement.style.setProperty('--pureBackgroundColour', darkPallete[3]);
+
+            dark = true;
+        }  
+});
