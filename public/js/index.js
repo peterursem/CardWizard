@@ -92,14 +92,14 @@ document.getElementById("dark").addEventListener('click', () => {
             document.documentElement.style.setProperty('--midColour', lightPallete[1]);
             document.documentElement.style.setProperty('--backgroundColour', lightPallete[2]);
             document.documentElement.style.setProperty('--pureBackgroundColour', lightPallete[3]);
-
+            document.getElementById('long-logo').src = '/imgs/logos/blackLogo.png';
             dark = false;
         } else if (dark == false) {
             document.documentElement.style.setProperty('--foregroundColour', darkPallete[0]);
             document.documentElement.style.setProperty('--midColour', darkPallete[1]);
             document.documentElement.style.setProperty('--backgroundColour', darkPallete[2]);
             document.documentElement.style.setProperty('--pureBackgroundColour', darkPallete[3]);
-
+            document.getElementById('long-logo').src = '/imgs/logos/logo.png';
             dark = true;
         }  
 });
