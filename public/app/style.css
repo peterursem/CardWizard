@@ -11,11 +11,9 @@
 
 body {
         background-color: #ceba93;
-        background: cover no-repeat url(/app/imgs/bg/bglq.jpg);
 }
 
 * {
-        color: #fff;
         font-family: 'lulo';
 }
 
@@ -87,6 +85,7 @@ h2 {
         background-color: var(--backgroundColour);
         text-align: center;
         font-family: 'TTNorms_Regular';
+        color: var(--foregroundColour);
 }
 
 /*--------------------     Format Bar     --------------------*/

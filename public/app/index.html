@@ -2,14 +2,6 @@
 <html>
 
 <head>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZDGK56CL3H"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', 'G-ZDGK56CL3H');
-  </script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>CardWizard</title>
@@ -17,7 +9,8 @@
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/app/style.css">
   <link href="/app/cropper.min.css" rel="stylesheet">
-
+  <script src="/dist/auth.js"></script>
+  
   <link rel="apple-touch-icon" sizes="180x180" href="/favi/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/favi/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favi/favicon-16x16.png">
@@ -84,14 +77,7 @@
     </div>
   </main>
 
-  <script src="/__/firebase/8.10.1/firebase-app.js"></script>
-  <script src="/__/firebase/8.10.1/firebase-auth.js"></script>
-  <script src="/__/firebase/8.10.1/firebase-firestore.js"></script>
-  <script src="/__/firebase/init.js"></script>
-  <script src="/app/js/lib/jspdf.umd.min.js"></script>
-  <script src="/app/js/lib/heic2any.min.js"></script>
-  <script src="/app/js/main.mjs" type="module"></script>
-  <script src="/auth/authprovider.mjs" type="module"></script>
+
 </body>
 
 </html>
