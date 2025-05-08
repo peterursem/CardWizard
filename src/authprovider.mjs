@@ -55,10 +55,8 @@ onAuthStateChanged(auth, (user) => {
                 if(window.location.pathname != '/app/')
                         window.location.pathname = '/app/';
                 else {
-                        const storage = getStorage(app);
-                        connectStorageEmulator(storage, '127.0.0.1', 9199);
-                        
-                            getBlob(ref(storage, '/app.js'))
+                        const storage = getStorage(app);                        
+                        getBlob(ref(storage, '/app.js'))
                             .then(blob => {
                                 const script = document.createElement("script");
                                 script.src = URL.createObjectURL(blob);

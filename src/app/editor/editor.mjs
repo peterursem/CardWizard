@@ -26,7 +26,7 @@ export const processImageData = (data, format) => {
 };
 
 export const getCropperData = () => {
-        return cropper.getCroppedCanvas({ fillColor: bgColor }).toDataURL('image/jpeg', 1);
+        return cropper.getCroppedCanvas({ fillColor: bgColor }).toDataURL('image/png');
 };
 
 export const destroyCropper = () => { cropper.destroy(); };
