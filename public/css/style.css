@@ -40,6 +40,10 @@ body {
     border: 3px solid;
 }
 
+.rounded {
+    border-radius: 18px;
+}
+
 .flex{
     display: flex;
 }
