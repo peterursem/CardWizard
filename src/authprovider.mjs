@@ -3,7 +3,6 @@ import { getStorage, ref, getBlob, connectStorageEmulator } from "firebase/stora
 import { app } from "./firebase.mjs";
 
 const auth = getAuth(app);
-connectAuthEmulator(auth, 'http://127.0.0.1:9099');
 const registrationForm = document.getElementById('registration');
 const loginForm = document.getElementById('login');
 const logout = document.getElementById('logout');

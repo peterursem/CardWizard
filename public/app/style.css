@@ -78,14 +78,25 @@ h2 {
         background-color: rgba(0, 0, 0, 0.7);
 }
 
+@keyframes settings-wipe {
+        0% {
+                transform: translateY(-100%);
+        }
+        100% {
+                transform: translateY(0);
+        }
+}
+
 #settings-pane {
-        width: 50vw;
-        height: 70vh;
+        width: 100vw;
+        height: 30vh;
         margin: auto;
+        margin-top: 0;
         background-color: var(--backgroundColour);
         text-align: center;
         font-family: 'TTNorms_Regular';
         color: var(--foregroundColour);
+        animation: settings-wipe 1s;
 }
 
 /*--------------------     Format Bar     --------------------*/
