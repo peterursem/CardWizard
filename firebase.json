@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "cut-erator",
     "public": "public",
     "ignore": [
       "firebase.json",
@@ -21,12 +22,11 @@
       "port": 5000
     },
     "ui": {
-      "enabled": false
+      "enabled": true
     },
     "singleProjectMode": true
   },
-  "firestore": {
-    "rules": "firestore.rules",
-    "indexes": "firestore.indexes.json"
+  "storage": {
+    "rules": "storage.rules"
   }
 }

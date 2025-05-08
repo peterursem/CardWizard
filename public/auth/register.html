@@ -32,26 +32,9 @@
         <div id="content">
                 <h1 class="bold">Welcome to</h1>
                 <a href="/"><img id="logo" src="/imgs/logos/blackLogo.png"></a>
-                <p>Please email <a href='mailto:info@cardwizard.ca'>info@cardwizard.ca</a> to inquire about personal or evaluation accounts.<br> If you work for a store that has recieved a referral code, use the sign up below.</p>
+                <p>Please email <a href='mailto:info@cardwizard.ca'>info@cardwizard.ca</a> if you are interested in using CardWizard.<br> If you work for a store that has recieved a referral code, use the sign up below.</p>
                 <form id="registration">
-                        <!--
-                        <ul class="half">
-                                <li>
-                                        <label for="fName">First name:</label>
-                                        <input type="text" id="fName" name="first_name" autocomplete="name">
-                                </li>
-                                <li>
-                                        <label for="lName">Last name:</label>
-                                        <input type="text" id="lName" name="last_name" autocomplete="family-name">
-                                </li>
-                        </ul>
-                        <a>O<br>R</a>
-                        -->
                         <ul class="full">
-                                <li>
-                                        <label for="retailer">Retail partner:</label>
-                                        <input type="text" id="retailer" name="retailer" required>
-                                </li>
                                 <li>
                                         <label for="storeno">Store #:</label>
                                         <input type="number" id="storeno" name="store_number" required>
@@ -90,12 +73,7 @@
                 </form>
         </div>  
         <div id="bottomBumper"></div>
-
-        <script src="/__/firebase/8.10.1/firebase-app.js"></script>
-        <script src="/__/firebase/8.10.1/firebase-auth.js"></script>
-        <script src="/__/firebase/8.10.1/firebase-firestore.js"></script>
-        <script src="/__/firebase/init.js"></script>
-        <script src="/auth/authprovider.mjs" type="module"></script>
+        <script src="/dist/auth.js" type="module"></script>
 </body>
 
 </html>

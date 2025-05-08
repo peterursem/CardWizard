@@ -4,8 +4,6 @@ import { blobToBase64, validateBase64Img } from "../base64handler.mjs";
 import { fileToBase64 } from "../filehandler.mjs";
 
 export const processBatch = (files, format) => {
-        if(!firebase.auth().currentUser) return;
-
         const start = new Date(Date.now());
         let index = 0;
         Array.from(files).forEach((file) => {
@@ -20,23 +18,19 @@ export const processBatch = (files, format) => {
 };
 
 function processBatchImg(file, format) {
-        if(!firebase.auth().currentUser) return;
-
         return new Promise(res => {
                 fileToBase64(file)
                 .then(data => validateBase64Img(data, formatOrientation(format)))
                 .then(rotated => autoCrop(rotated.canvas, format))
                 .then(final => addPhotoSilently(final))
                 .then(() => {
-                        gtag('event', 'batch_image_processed');
+                        //gtag('event', 'batch_image_processed');
                         res();
                 });
         });
 }
 
 function autoCrop(canvas, format) {
-        if(!firebase.auth().currentUser) return;
-
         return new Promise((res) => {
                 const aspect = cutterFormats[format].editor.aspectRatio,
                 ogWidth = canvas.width,
@@ -59,7 +53,14 @@ function autoCrop(canvas, format) {
                 ctx.drawImage(canvas, x, y);
 
                 out.convertToBlob({ type: 'image/jpeg', quality: 1 })
-                .then(blob => blobToBase64(blob))
-                .then(data => res(data));
+                .then(blob => {
+                        blobToBase64(blob)
+                        .then(data => {
+                                blob = null;
+                                res(data);
+                        });
+
+                });
+
         });
 }
