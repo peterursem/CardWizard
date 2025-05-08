@@ -1,4 +1,8 @@
 import { blobToBase64 } from "./base64handler.mjs";
+import { getAnalytics, logEvent } from 'firebase/analytics';
+import { app } from '../firebase.mjs';
+
+const analytics = getAnalytics(app);
 
 export const fileToBase64 = (file) => {
         return new Promise(async res => {
@@ -21,7 +25,7 @@ function heicConvert(file) {
                         .then(blob => heic2any({ blob, toType: "image/jpeg", quality: 1 }))
                         .then(newBlob => blobToBase64(newBlob))
                         .then(data => {
-                                //gtag('event', 'heic_converted');
+                                logEvent(app, 'heic_converted');
                                 res(data);
                         });
         });

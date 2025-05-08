@@ -2,6 +2,10 @@ import { addPhotoSilently, generatePreview } from "./export.mjs";
 import { cutterFormats, formatOrientation } from "./documentFormats.mjs";
 import { blobToBase64, validateBase64Img } from "../base64handler.mjs";
 import { fileToBase64 } from "../filehandler.mjs";
+import { getAnalytics, logEvent } from 'firebase/analytics';
+import { app } from '../../firebase.mjs';
+
+const analytics = getAnalytics(app);
 
 export const processBatch = (files, format) => {
         const start = new Date(Date.now());
@@ -24,7 +28,7 @@ function processBatchImg(file, format) {
                 .then(rotated => autoCrop(rotated.canvas, format))
                 .then(final => addPhotoSilently(final))
                 .then(() => {
-                        //gtag('event', 'batch_image_processed');
+                        logEvent(analytics, 'batch_image_processed');
                         res();
                 });
         });
