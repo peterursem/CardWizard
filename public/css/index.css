@@ -1,6 +1,6 @@
 :root {
         --navHeight: max(7vh, 40px);
-        --contentWidth: 64vw;
+        --contentWidth: 70vw;
         --minContentWidth: 300px;
         --intro-time: 2s;
         --marginWidth: calc((100vw - var(--contentWidth)) / 2);
@@ -171,7 +171,7 @@ section div {
 #screenshot {
         max-width: 80vw;
         min-width: var(--minContentWidth);
-        max-height: 65vh;
+        height: auto;
         -webkit-filter: drop-shadow(5px 5px 20px #222);
         filter: drop-shadow(5px 5px 20px #222);
         margin: -1vh 0 5vh;

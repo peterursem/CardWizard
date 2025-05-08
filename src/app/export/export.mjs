@@ -1,13 +1,12 @@
 import { cutterFormats, pageOrientation } from './documentFormats.mjs';
 import { getCropperData } from '../editor/editor.mjs';
+import { jsPDF } from "jspdf";
 
 var images = [],
 lastDocument = '',
 pages = 1;
 
 export const generatePreview = (format) => {
-        if(!firebase.auth().currentUser) return;
-
         const existingObject = document.querySelector('object');
         const placeholder = document.querySelector('#placeholder');
         const pdf = createDocument(images, format.toLowerCase());
@@ -22,15 +21,13 @@ export const generatePreview = (format) => {
                 placeholder.remove();
         }
         document.querySelector('main').appendChild(object);
-        gtag('event', 'preview_generated', {
+        /*gtag('event', 'preview_generated', {
                 'images': images.length,
                 'pages': pages,
-        });
+        });*/
 };
 
-export const addPage = (format) => {
-        if(!firebase.auth().currentUser) return;
-        
+export const addPage = (format) => {        
         const imgsOnPage = cutterFormats[format].layout.x * cutterFormats[format].layout.y;
         let noImg = imgsOnPage - (images.length % imgsOnPage);
         for (let i = 0; i < noImg; i++) images.push(getCropperData());
@@ -39,21 +36,15 @@ export const addPage = (format) => {
 }
 
 export const addPhoto = (format) => {
-        if(!firebase.auth().currentUser) return;
-
         images.push(getCropperData());
         generatePreview(format);
 };
 
 export const addPhotoSilently = (data) => {
-        if(!firebase.auth().currentUser) return;
-
         images.push(data);
 }
 
 export const clearPages = () => {
-        if(!firebase.auth().currentUser) return;
-
         images = [];
         lastDocument = '';
         if (document.querySelector('object')) {
@@ -66,20 +57,16 @@ export const clearPages = () => {
 };
 
 export const printPages = () => {
-        if(!firebase.auth().currentUser) return;
-
         if (lastDocument != '') {
-                gtag('event', 'print_requested', {
+                /*gtag('event', 'print_requested', {
                         'images': images.length,
                         'pages': pages
-                });
+                });*/
                 window.open(lastDocument);
         }
 };
 
 function positionImages(imgs, format) {
-        if(!firebase.auth().currentUser) return;
-
         var imgPkgs = [];
         for (let img in imgs) {
                 let imageNo = img;
@@ -102,12 +89,10 @@ function positionImages(imgs, format) {
         return imgPkgs;
 }
 
-function createDocument(imgs, format) {
-        if(!firebase.auth().currentUser) return;
-        
+function createDocument(imgs, format) {        
         pages = 1;
 
-        const doc = new jspdf.jsPDF({
+        const doc = new jsPDF({
                 orientation: pageOrientation(format),
                 unit: "in",
                 format: cutterFormats[format].pageSize
@@ -146,6 +131,6 @@ function watermark(doc, size) {
 
 document.getElementById('clear').addEventListener('click', () => {
         clearPages();
-        gtag('event', 'clear_pages');
+        //gtag('event', 'clear_pages');
 });
 document.getElementById('print').addEventListener('click', printPages);

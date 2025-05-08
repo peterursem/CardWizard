@@ -51,9 +51,9 @@ function formatSelected(format) {
         if (selectedFormat == '') showEditor();
         selectedFormat = format;
 
-        gtag('event', 'format_changed', {
+        /*gtag('event', 'format_changed', {
                 'format': format
-        });
+        });*/
 }
 
 function showToggleElement (e, target, close) {
@@ -115,13 +115,22 @@ function drop(e) {
         if (files.length == 1) {
                 fileToBase64(files[0])
                 .then(data => processImageData(data, selectedFormat));
-                gtag('event', 'single_file_uploaded');
+                //gtag('event', 'single_file_uploaded');
         }
         else if (files.length > 1) {
                 startLoading();
                 processBatch(files, selectedFormat);
-                gtag('event', 'batch_files_uploaded');
+                //gtag('event', 'batch_files_uploaded');
         }
+}
+
+function preloadImage(src) { 
+        return new Promise((res, rej) => {
+          const image = new Image();
+          image.onload = res;
+          image.onerror = rej;
+          image.src = src;
+        });
 }
 
 document.body.addEventListener("dragenter", drag);
@@ -142,12 +151,11 @@ document.getElementById('add-one').addEventListener('click', () => {
 
 document.getElementById('settings-btn').addEventListener('click', (e) => {showToggleElement(e,'settings-modal','settings-modal');});
 
-document.addEventListener('readystatechange', event => {
-        if (event.target.readyState === "complete") {
-                document.body.style.background = 'center / cover no-repeat url(/app/imgs/bg/bg.jpg)';
-        }
-});
-
 document.addEventListener('click', () => {
         document.getElementById('intro').remove();
 },{once: true})
+
+preloadImage("/app/imgs/bg/bg.jpg")
+.then(() => {
+        document.body.style.background = 'center / cover no-repeat url(/app/imgs/bg/bg.jpg)';
+});
