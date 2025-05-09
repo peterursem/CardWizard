@@ -17,12 +17,14 @@ if (registrationForm) {
                 const pass = document.getElementById('password').value;
                 const passCheck = document.getElementById('passwordcheck').value;
 
-                if (email == emailCheck && pass == passCheck) {
+                if (email == emailCheck && pass == passCheck && document.getElementById('referral').value == 'CW25p2U203') {
                         createUserWithEmailAndPassword(auth, email, pass)
                                 .then(() => { window.location.href = '/app/'; })
                                 .catch((err) => {
-                                        console.error('Error creating user: ', err.code, err.message);
+                                        document.getElementById('errmsg').innerText = 'Error creating user: ' + err.code + err.message
                                 });
+                } else {
+                        document.getElementById('errmsg').innerText = 'Error in form: Ensure your referral code is valid, and that your email and password match the verification.'
                 }
         });
 }
@@ -37,7 +39,7 @@ if (loginForm) {
                 signInWithEmailAndPassword(auth, email, pass)
                         .then(() => { window.location.href = '/app/'; })
                         .catch((err) => {
-                                console.error('Error logging in user: ', err.code, err.message);
+                                document.getElementById('errmsg').innerText = 'Error logging in user: ' + err.code + err.message;
                         });
         });
 }

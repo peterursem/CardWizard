@@ -3,6 +3,10 @@ import { processBatch } from "./export/processBatch.mjs";
 import { clearPages, addPage, addPhoto } from './export/export.mjs';
 import { getCutterFormats } from "./export/documentFormats.mjs";
 import { fileToBase64 } from './filehandler.mjs';
+import { getAnalytics, logEvent } from 'firebase/analytics';
+import { app } from '../firebase.mjs';
+
+const analytics = getAnalytics(app);
 
 getCutterFormats()
 .then(formats => {
@@ -51,9 +55,9 @@ function formatSelected(format) {
         if (selectedFormat == '') showEditor();
         selectedFormat = format;
 
-        /*gtag('event', 'format_changed', {
+        logEvent(analytics, 'format_changed', {
                 'format': format
-        });*/
+        });
 }
 
 function showToggleElement (e, target, close) {
@@ -115,12 +119,12 @@ function drop(e) {
         if (files.length == 1) {
                 fileToBase64(files[0])
                 .then(data => processImageData(data, selectedFormat));
-                //gtag('event', 'single_file_uploaded');
+                logEvent(analytics, 'single_file_uploaded');
         }
         else if (files.length > 1) {
                 startLoading();
                 processBatch(files, selectedFormat);
-                //gtag('event', 'batch_files_uploaded');
+                logEvent(analytics, 'batch_files_uploaded');
         }
 }
 

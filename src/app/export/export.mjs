@@ -1,10 +1,13 @@
 import { cutterFormats, pageOrientation } from './documentFormats.mjs';
 import { getCropperData } from '../editor/editor.mjs';
 import { jsPDF } from "jspdf";
+import { getAnalytics, logEvent } from 'firebase/analytics';
+import { app } from '../../firebase.mjs';
 
-var images = [],
-lastDocument = '',
-pages = 1;
+const analytics = getAnalytics(app);
+var images = [];
+var lastDocument = '';
+var pages = 1;
 
 export const generatePreview = (format) => {
         const existingObject = document.querySelector('object');
@@ -21,10 +24,10 @@ export const generatePreview = (format) => {
                 placeholder.remove();
         }
         document.querySelector('main').appendChild(object);
-        /*gtag('event', 'preview_generated', {
+        logEvent(analytics, 'preview_generated', {
                 'images': images.length,
                 'pages': pages,
-        });*/
+        });
 };
 
 export const addPage = (format) => {        
@@ -58,10 +61,10 @@ export const clearPages = () => {
 
 export const printPages = () => {
         if (lastDocument != '') {
-                /*gtag('event', 'print_requested', {
+                logEvent(analytics, 'print_requested', {
                         'images': images.length,
                         'pages': pages
-                });*/
+                });
                 window.open(lastDocument);
         }
 };
@@ -131,6 +134,6 @@ function watermark(doc, size) {
 
 document.getElementById('clear').addEventListener('click', () => {
         clearPages();
-        //gtag('event', 'clear_pages');
+        logEvent(analytics, 'clear_pages');
 });
 document.getElementById('print').addEventListener('click', printPages);
