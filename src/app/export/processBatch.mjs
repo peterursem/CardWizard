@@ -54,6 +54,8 @@ function autoCrop(canvas, format) {
 
                 out = new OffscreenCanvas(width, height),
                 ctx = out.getContext('2d');
+                ctx.fillStyle = document.getElementById('bg-color').value || '#ffffff';
+                ctx.fillRect(0,0,width,height);
                 ctx.drawImage(canvas, x, y);
 
                 out.convertToBlob({ type: 'image/jpeg', quality: 1 })
@@ -63,8 +65,6 @@ function autoCrop(canvas, format) {
                                 blob = null;
                                 res(data);
                         });
-
                 });
-
         });
 }

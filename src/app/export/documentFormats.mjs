@@ -285,7 +285,7 @@ export const getCutterFormats = function () {
 };
 
 export const formatOrientation = (format) => {
-        if (cutterFormats[format].aspectRatio > 1) return "landscape";
+        if (cutterFormats[format].editor.aspectRatio > 1) return "landscape";
         return "portrait";
 };
 

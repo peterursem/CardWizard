@@ -17,7 +17,7 @@ function isBase64Image (base64String) {
 
 function canvasToBase64 (canvas) {
         return new Promise(async res => {
-                canvas.convertToBlob({type: 'image/jpeg', quality: 1})
+                canvas.convertToBlob({type: 'image/png', quality: 1})
                 .then(blob => {
                         blobToBase64(blob)
                         .then(data => res(data));
@@ -50,7 +50,7 @@ export const blobToBase64 = (blob) => {
                 reader.onloadend = () => res(reader.result);
                 reader.readAsDataURL(blob);
         });
-}
+};
 
 export const validateBase64Img = (base64,format) => {
         return new Promise(async (res) => {
@@ -67,8 +67,8 @@ export const validateBase64Img = (base64,format) => {
                                 createCanvas(img, false)
                                 .then(canvas => {
                                         res({'canvas': canvas, 'base64': img.src});
-                                })
+                                });
                         }
                 });
         });
-}
+};
