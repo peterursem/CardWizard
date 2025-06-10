@@ -4,7 +4,7 @@ import { analytics } from '../firebase.mjs';
 
 export const fileToBase64 = (file) => {
         return new Promise(async res => {
-                if(file.name.includes(".HEIC")) res(await heicConvert(file));
+                if(file.name.toLowerCase().includes(".heic")) res(await heicConvert(file));
                 else {
                         const reader = new FileReader();
                         reader.onload = () => {
