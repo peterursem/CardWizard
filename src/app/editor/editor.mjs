@@ -1,87 +1,94 @@
 import Cropper from "cropperjs";
 import { cutterFormats } from "../export/documentFormats.mjs";
 import { validateBase64Img } from "../base64handler.mjs";
+import { settings } from "../settings.mjs";
 
-const editor = document.getElementById('editor');
-var cropper;
-var bgColor = '#fff';
-var dpi = 300;
+export class Editor {
+        format;
+        cropper;
+        image;
+        rotateDeg = 0;
+        skewDeg = 0;
+        bgColour = '#ffffff';
 
-export const switchCropperFormat = async format => {
-        const image = new Image();
-        image.src = '/app/imgs/templates/'+format+'.jpg';
+        static element = document.getElementById('editor');
+        static currentEditor;
 
-        document.querySelector('#editor').appendChild(image);
+        static switchFormat(format) {
+                const image = new Image();
+                image.src = `/app/imgs/templates/${format}.jpg`;
+                document.getElementById('editor').appendChild(image);
 
-        drawCropper(image, format);
-        rotateImg('rst');
-};
-
-export const processImageData = (data, format) => {
-        if (cropper) {
-                validateBase64Img(data, format)
-                .then(r => cropper.replace(r.base64))
-                .then(() => rotateImg('rst'));
+                this.currentEditor = new Editor(image, format);
+                this.currentEditor.resetRotation();    
         }
-};
 
-export const getCropperData = (format) => {
-        return cropper.getCroppedCanvas({ 
-                fillColor: bgColor,
-                maxWidth: cutterFormats[format].images.width * dpi,
-                maxHeight: cutterFormats[format].images.height * dpi
-        })
-        .toDataURL('image/jpeg');
-};
-
-export const destroyCropper = () => { cropper.destroy(); };
-
-function drawCropper(img, format) {
-        const formatDimensions = cutterFormats[format].editor;
-        editor.style.setProperty('--aspectRatio', formatDimensions.aspectRatio);
-        cropper = new Cropper(img, {
-                aspectRatio: formatDimensions.aspectRatio,
-                ready() {
-                        const cutBox = document.getElementById('cut-box');
-                        cutBox.style.position = "absolute";
-                        cutBox.style.width = "calc(" + formatDimensions.width + "% - 3px)";
-                        cutBox.style.height = "calc(" + formatDimensions.height + "% - 3px)";
-                        cutBox.style.left = formatDimensions.x + "%";
-                        cutBox.style.top = formatDimensions.y + "%";
-                        cutBox.classList.add('no-pointer');
-                }
-        });
-}
-
-var rot = 0,
-abs = 0;
-function rotateImg(mode, deg) {
-        if (mode == 'rel') rot += deg;
-        if (mode == 'abs') abs = deg;
-        if (mode == 'rst') {
-                abs = 0;
-                rot = 0;
-                document.getElementById('rotation').value = 0;
+        static setCutbox = dimensions => { 
+                document.getElementById('cut-box').style.cssText = `\
+                        position: absolute; \
+                        box-sizing: border-box; \
+                        width: calc(${dimensions.width}% ); \
+                        height: calc(${dimensions.height}%); \
+                        left: ${dimensions.x}%; \
+                        top: ${dimensions.y}%;\
+                        border-width: 1px;`;
         }
-        if(cropper) cropper.rotateTo(rot+abs);
-}
 
-document.getElementById('rotate-right').addEventListener('click', () => {rotateImg('rel', 90);});
-document.getElementById('rotate-left').addEventListener('click', () => {rotateImg('rel', -90);});
-document.getElementById('rotation').addEventListener('input', (e) => {rotateImg('abs', parseInt(e.target.value));});
-                
-function updateColor(e) {
-        bgColor = e.target.value;
-        document.getElementsByClassName("cropper-crop-box")[0].style.backgroundColor = e.target.value;
-}
-document.getElementById('bg-color').addEventListener('input', (e) => updateColor(e));
-document.getElementById('bg-color').addEventListener('click', (e) => updateColor(e));
+        constructor(img, format) {
+                this.format = format;
+                this.image = img;
+                const formatDimensions = cutterFormats[format].editor;
+                Editor.element.style.setProperty('--aspectRatio', formatDimensions.aspectRatio);
+                this.cropper = new Cropper(img, {
+                        aspectRatio: formatDimensions.aspectRatio,
+                        ready() { Editor.setCutbox(formatDimensions); }
+                });
+        }
 
-let timer;
-document.body.onresize = () => {
-        clearTimeout(timer);
-        timer = setTimeout(() => {
-                cropper.reset();
-                rotateImg();
-        }, 200);
+        updateColour(colour) {
+                this.bgColour = colour;
+                document.getElementsByClassName("cropper-crop-box")[0].style.backgroundColor = colour;
+        }
+
+        rotate(deg) {
+                this.rotateDeg += deg;
+                this.cropper.rotateTo(this.skewDeg + this.rotateDeg);
+        }
+
+        skew(deg) {
+                this.skewDeg = deg;
+                this.cropper.rotateTo(this.skewDeg + this.rotateDeg);
+        }
+
+        refresh() {
+                this.cropper.reset();
+                this.rotate(0);
+        }
+
+        resetRotation() {
+                this.rotateDeg = 0;
+                this.skewDeg = 0;
+                this.cropper.rotateTo(0);
+        }
+
+        addImage(img) {
+                this.image = img;
+                validateBase64Img(img, this.format)
+                .then(r => this.cropper.replace(r.base64))
+                .then(() => this.resetRotation());
+        }
+
+        export() {
+                return this.cropper.getCroppedCanvas({ 
+                        fillColor: this.bgColour,
+                        width: cutterFormats[this.format].images.width * settings.dpi,
+                        height: cutterFormats[this.format].images.height * settings.dpi
+                })
+                .toDataURL('image/jpeg');    
+        }
+
+        destroy() {
+                this.cropper.destroy();
+                Editor.currentEditor = null;
+        }
 }

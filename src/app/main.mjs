@@ -1,10 +1,11 @@
-import { switchCropperFormat, destroyCropper, processImageData } from './editor/editor.mjs';
+import { Editor } from './editor/editor.mjs';
 import { processBatch } from "./export/processBatch.mjs";
 import { clearPages, addPage, addPhoto } from './export/export.mjs';
 import { getCutterFormats } from "./export/documentFormats.mjs";
 import { fileToBase64 } from './filehandler.mjs';
 import { logEvent } from 'firebase/analytics';
 import { analytics } from '../firebase.mjs';
+import { settings } from './settings.mjs';
 
 getCutterFormats()
 .then(formats => {
@@ -43,12 +44,11 @@ function formatSelected(format) {
         document.getElementById(format).classList.add('selected');
 
         //If cropper already exists
-        if (document.querySelector('.cropper-canvas')) destroyCropper();
-
+        if (document.querySelector('.cropper-canvas')) Editor.currentEditor.destroy();
         const existingImg = document.querySelector('#editor img');
         if(existingImg) existingImg.remove();
 
-        switchCropperFormat(format);
+        Editor.switchFormat(format);
 
         if (selectedFormat == '') showEditor();
         selectedFormat = format;
@@ -116,7 +116,7 @@ function drop(e) {
 
         if (files.length == 1) {
                 fileToBase64(files[0])
-                .then(data => processImageData(data, selectedFormat));
+                .then(data => Editor.currentEditor.addImage(data));
                 logEvent(analytics, 'single_file_uploaded');
         }
         else if (files.length > 1) {
@@ -151,7 +151,33 @@ document.getElementById('add-one').addEventListener('click', () => {
         addPhoto(selectedFormat);
 });
 
+document.getElementById('rotate-right').addEventListener('click', () => { Editor.currentEditor.rotate(90); });
+document.getElementById('rotate-left').addEventListener('click', () => { Editor.currentEditor.rotate(-90); });
+document.getElementById('rotation').addEventListener('input', (e) => { Editor.currentEditor.skew(parseInt(e.target.value)); });
+document.getElementById('bg-color').addEventListener('input', (e) => { Editor.currentEditor.updateColour(e.target.value); });
+document.getElementById('bg-color').addEventListener('click', (e) => { Editor.currentEditor.updateColour(e.target.value); });
+
+let timer;
+document.body.onresize = () => {
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+                Editor.currentEditor.refresh();
+        }, 200);
+}
+
+
 document.getElementById('settings-btn').addEventListener('click', (e) => {showToggleElement(e,'settings-modal','settings-modal');});
+document.getElementById('dpi').addEventListener('input', (e) => {
+        const dpi = parseInt(e.target.value);
+        settings.dpi = dpi;
+        document.getElementById('dpi-count').innerText = dpi;
+});
+
+document.querySelectorAll('.modal-pane').forEach(elem => {
+        elem.addEventListener('click', e => {
+                e.stopImmediatePropagation();
+        });
+});
 
 document.addEventListener('click', () => {
         document.getElementById('intro').remove();

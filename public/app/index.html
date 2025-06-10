@@ -31,9 +31,14 @@
   <main class="full-height">
     <button id="settings-btn" class="highlight-btn">SETTINGS</button>
     <div id="settings-modal" class="hide overlay">
-      <div id="settings-pane">
+      <div id="settings-pane" class="modal-pane">
         <h2>Settings</h2>
-        <p>CardWizard V3: Project Sorcerer | Peter Ursem</p>
+        <p>CardWizard V2: Project Warlock | Peter Ursem</p>
+        <div>
+          <label for="dpi">Image DPI:</label>
+          <input type="range" id="dpi" min="50" max="1200" value="300" step="50">
+          <label for="dpi" id="dpi-count">300</label>
+        </div>
         <button id="logout">Log Out</button>
       </div>
     </div>

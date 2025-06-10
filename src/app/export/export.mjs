@@ -1,9 +1,8 @@
 import { cutterFormats, pageOrientation } from './documentFormats.mjs';
-import { getCropperData } from '../editor/editor.mjs';
+import { Editor } from '../editor/editor.mjs';
 import { jsPDF } from "jspdf";
 import { logEvent } from 'firebase/analytics';
 import { analytics } from '../../firebase.mjs';
-
 
 var images = [];
 var lastDocument = '';
@@ -26,20 +25,20 @@ export const generatePreview = (format) => {
         document.querySelector('main').appendChild(object);
         logEvent(analytics, 'preview_generated', {
                 'images': images.length,
-                'pages': pages,
+                'pages': pages
         });
 };
 
 export const addPage = (format) => {        
         const imgsOnPage = cutterFormats[format].layout.x * cutterFormats[format].layout.y;
         let noImg = imgsOnPage - (images.length % imgsOnPage);
-        for (let i = 0; i < noImg; i++) images.push(getCropperData(format));
+        for (let i = 0; i < noImg; i++) images.push(Editor.currentEditor.export());
 
         generatePreview(format);
 }
 
 export const addPhoto = (format) => {
-        images.push(getCropperData(format));
+        images.push(Editor.currentEditor.export());
         generatePreview(format);
 };
 
