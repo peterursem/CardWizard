@@ -3,10 +3,8 @@ import { processBatch } from "./export/processBatch.mjs";
 import { clearPages, addPage, addPhoto } from './export/export.mjs';
 import { getCutterFormats } from "./export/documentFormats.mjs";
 import { fileToBase64 } from './filehandler.mjs';
-import { getAnalytics, logEvent } from 'firebase/analytics';
-import { app } from '../firebase.mjs';
-
-const analytics = getAnalytics(app);
+import { logEvent } from 'firebase/analytics';
+import { analytics } from '../firebase.mjs';
 
 getCutterFormats()
 .then(formats => {

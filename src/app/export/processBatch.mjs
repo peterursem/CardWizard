@@ -2,10 +2,8 @@ import { addPhotoSilently, generatePreview } from "./export.mjs";
 import { cutterFormats, formatOrientation } from "./documentFormats.mjs";
 import { blobToBase64, validateBase64Img } from "../base64handler.mjs";
 import { fileToBase64 } from "../filehandler.mjs";
-import { getAnalytics, logEvent } from 'firebase/analytics';
-import { app } from '../../firebase.mjs';
-
-const analytics = getAnalytics(app);
+import { logEvent } from 'firebase/analytics';
+import { analytics } from '../../firebase.mjs';
 
 export const processBatch = (files, format) => {
         const start = new Date(Date.now());

@@ -1,10 +1,10 @@
 import { cutterFormats, pageOrientation } from './documentFormats.mjs';
 import { getCropperData } from '../editor/editor.mjs';
 import { jsPDF } from "jspdf";
-import { getAnalytics, logEvent } from 'firebase/analytics';
-import { app } from '../../firebase.mjs';
+import { logEvent } from 'firebase/analytics';
+import { app, analytics } from '../../firebase.mjs';
 
-const analytics = getAnalytics(app);
+
 var images = [];
 var lastDocument = '';
 var pages = 1;

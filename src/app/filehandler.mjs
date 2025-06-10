@@ -1,8 +1,6 @@
 import { blobToBase64 } from "./base64handler.mjs";
-import { getAnalytics, logEvent } from 'firebase/analytics';
-import { app } from '../firebase.mjs';
-
-const analytics = getAnalytics(app);
+import { logEvent } from 'firebase/analytics';
+import { analytics } from '../firebase.mjs';
 
 export const fileToBase64 = (file) => {
         return new Promise(async res => {

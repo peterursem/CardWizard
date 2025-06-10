@@ -2,7 +2,6 @@ import Cropper from "cropperjs";
 import { cutterFormats, formatOrientation } from "../export/documentFormats.mjs";
 import { validateBase64Img } from "../base64handler.mjs";
 
-
 const editor = document.getElementById('editor');
 var cropper;
 var bgColor = '#fff';
@@ -26,7 +25,7 @@ export const processImageData = (data, format) => {
 };
 
 export const getCropperData = () => {
-        return cropper.getCroppedCanvas({ fillColor: bgColor }).toDataURL('image/png');
+        return cropper.getCroppedCanvas({ fillColor: bgColor }).toDataURL('image/jpeg');
 };
 
 export const destroyCropper = () => { cropper.destroy(); };

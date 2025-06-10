@@ -1,8 +1,7 @@
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, connectAuthEmulator } from "firebase/auth";
-import { getStorage, ref, getBlob, connectStorageEmulator } from "firebase/storage";
-import { app } from "./firebase.mjs";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { ref, getBlob } from "firebase/storage";
+import { auth, storage } from "./firebase.mjs";
 
-const auth = getAuth(app);
 const registrationForm = document.getElementById('registration');
 const loginForm = document.getElementById('login');
 const logout = document.getElementById('logout');
@@ -56,7 +55,6 @@ onAuthStateChanged(auth, (user) => {
                 if(window.location.pathname != '/app/')
                         window.location.pathname = '/app/';
                 else {
-                        const storage = getStorage(app);                        
                         getBlob(ref(storage, '/app.js'))
                             .then(blob => {
                                 const script = document.createElement("script");
@@ -64,8 +62,6 @@ onAuthStateChanged(auth, (user) => {
                                 document.body.appendChild(script);
                             });   
                 }
-        } else {
-                if(window.location.pathname == '/app/' || window.location.pathname == '/auth/verifyuser.html')
-                        window.location.pathname = '/auth/register.html';
-        }
+        } else if(window.location.pathname == '/app/' || window.location.pathname == '/auth/verifyuser.html')
+                window.location.pathname = '/auth/register.html';
 });
