@@ -1,10 +1,11 @@
 import Cropper from "cropperjs";
-import { cutterFormats, formatOrientation } from "../export/documentFormats.mjs";
+import { cutterFormats } from "../export/documentFormats.mjs";
 import { validateBase64Img } from "../base64handler.mjs";
 
 const editor = document.getElementById('editor');
 var cropper;
 var bgColor = '#fff';
+var dpi = 300;
 
 export const switchCropperFormat = async format => {
         const image = new Image();
@@ -18,14 +19,19 @@ export const switchCropperFormat = async format => {
 
 export const processImageData = (data, format) => {
         if (cropper) {
-                validateBase64Img(data, formatOrientation(format))
+                validateBase64Img(data, format)
                 .then(r => cropper.replace(r.base64))
                 .then(() => rotateImg('rst'));
         }
 };
 
-export const getCropperData = () => {
-        return cropper.getCroppedCanvas({ fillColor: bgColor }).toDataURL('image/jpeg');
+export const getCropperData = (format) => {
+        return cropper.getCroppedCanvas({ 
+                fillColor: bgColor,
+                maxWidth: cutterFormats[format].images.width * dpi,
+                maxHeight: cutterFormats[format].images.height * dpi
+        })
+        .toDataURL('image/jpeg');
 };
 
 export const destroyCropper = () => { cropper.destroy(); };

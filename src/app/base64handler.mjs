@@ -1,3 +1,5 @@
+import { formatOrientation } from "./export/documentFormats.mjs";
+
 function isBase64Image (base64String) {
         let img = new Image()
         return new Promise((res, rej) => {
@@ -53,10 +55,11 @@ export const blobToBase64 = (blob) => {
 };
 
 export const validateBase64Img = (base64,format) => {
+        const orientation = formatOrientation(format);
         return new Promise(async (res) => {
                 isBase64Image(base64)
                 .then(img => {
-                        if ((img.height > img.width && format == 'landscape') || (img.height < img.width && format == 'portrait')) {
+                        if ((img.height > img.width && orientation == 'landscape') || (img.height < img.width && orientation == 'portrait')) {
                                 createCanvas(img, true)
                                 .then(canvas => {
                                         canvasToBase64(canvas)

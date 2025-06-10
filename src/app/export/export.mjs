@@ -33,13 +33,13 @@ export const generatePreview = (format) => {
 export const addPage = (format) => {        
         const imgsOnPage = cutterFormats[format].layout.x * cutterFormats[format].layout.y;
         let noImg = imgsOnPage - (images.length % imgsOnPage);
-        for (let i = 0; i < noImg; i++) images.push(getCropperData());
+        for (let i = 0; i < noImg; i++) images.push(getCropperData(format));
 
         generatePreview(format);
 }
 
 export const addPhoto = (format) => {
-        images.push(getCropperData());
+        images.push(getCropperData(format));
         generatePreview(format);
 };
 
@@ -115,7 +115,7 @@ function createDocument(imgs, format) {
                         doc.addPage();
                         pages++;
                 }
-                doc.addImage(pkg[0], 'PNG', pkg[1], pkg[2], pkg[3], pkg[4]);
+                doc.addImage(pkg[0], 'JPEG', pkg[1], pkg[2], pkg[3], pkg[4]);
                 i++;
         });
         watermark(doc, format);

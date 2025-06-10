@@ -38,7 +38,7 @@ export const cutterFormats = {
                         width: 3.75,
                         height: 2.125,
                         cutWidth: 3.5,
-                        cutHeight: 2,
+                        cutHeight: 2
                 },
                 editor: {
                         aspectRatio: 1.7647058823529411,
