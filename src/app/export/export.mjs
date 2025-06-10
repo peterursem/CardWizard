@@ -2,7 +2,7 @@ import { cutterFormats, pageOrientation } from './documentFormats.mjs';
 import { getCropperData } from '../editor/editor.mjs';
 import { jsPDF } from "jspdf";
 import { logEvent } from 'firebase/analytics';
-import { app, analytics } from '../../firebase.mjs';
+import { analytics } from '../../firebase.mjs';
 
 
 var images = [];
