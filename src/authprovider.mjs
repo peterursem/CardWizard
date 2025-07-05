@@ -1,6 +1,7 @@
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { ref, getBlob } from "firebase/storage";
-import { auth, storage } from "./firebase.mjs";
+import { analytics, auth, storage } from "./firebase.mjs";
+import { setUserId } from "firebase/analytics";
 
 const registrationForm = document.getElementById('registration');
 const loginForm = document.getElementById('login');
@@ -18,7 +19,6 @@ if (registrationForm) {
 
                 if (email == emailCheck && pass == passCheck && document.getElementById('referral').value == 'CW25p2U203') {
                         createUserWithEmailAndPassword(auth, email, pass)
-                                .then(() => { window.location.href = '/app/'; })
                                 .catch((err) => {
                                         document.getElementById('errmsg').innerText = 'Error creating user: ' + err.code + err.message
                                 });
@@ -36,7 +36,6 @@ if (loginForm) {
                 const pass = document.getElementById('password').value;
 
                 signInWithEmailAndPassword(auth, email, pass)
-                        .then(() => { window.location.href = '/app/'; })
                         .catch((err) => {
                                 document.getElementById('errmsg').innerText = 'Error logging in user: ' + err.code + err.message;
                         });
@@ -52,6 +51,7 @@ if (logout) {
 
 onAuthStateChanged(auth, (user) => {
         if(user) {
+                setUserId(analytics, user.uid);
                 if(window.location.pathname != '/app/')
                         window.location.pathname = '/app/';
                 else {
