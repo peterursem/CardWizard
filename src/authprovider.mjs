@@ -1,7 +1,7 @@
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { ref, getBlob } from "firebase/storage";
 import { analytics, auth, storage } from "./firebase.mjs";
-import { setUserId } from "firebase/analytics";
+import { setUserId, setUserProperties } from "firebase/analytics";
 
 const registrationForm = document.getElementById('registration');
 const loginForm = document.getElementById('login');
@@ -51,7 +51,8 @@ if (logout) {
 
 onAuthStateChanged(auth, (user) => {
         if(user) {
-                setUserId(analytics, user.uid);
+                if (user.email == "eval@cardwizard.ca") setUserProperties(analytics, { userType: "eval" });
+                if (user.email.includes("@busdep.com")) setUserProperties(analytics, { userType: "retail" });
                 if(window.location.pathname != '/app/')
                         window.location.pathname = '/app/';
                 else {
