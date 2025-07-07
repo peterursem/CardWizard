@@ -1,7 +1,7 @@
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { ref, getBlob } from "firebase/storage";
 import { analytics, auth, storage } from "./firebase.mjs";
-import { setUserId, setUserProperties } from "firebase/analytics";
+import { setUserProperties } from "firebase/analytics";
 
 const registrationForm = document.getElementById('registration');
 const loginForm = document.getElementById('login');
@@ -63,6 +63,6 @@ onAuthStateChanged(auth, (user) => {
                                 document.body.appendChild(script);
                             });   
                 }
-        } else if(window.location.pathname == '/app/' || window.location.pathname == '/auth/verifyuser.html')
-                window.location.pathname = '/auth/register.html';
+        } else if(window.location.pathname == '/app/' || window.location.pathname == '/auth/verify')
+                window.location.pathname = '/auth/register';
 });
