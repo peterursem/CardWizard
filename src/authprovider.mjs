@@ -51,7 +51,7 @@ if (logout) {
 
 onAuthStateChanged(auth, (user) => {
         if(user) {
-                
+
                 let type = "other"
                 if (user.email == "eval@cardwizard.ca") type = "eval";
                 else if (user.email.includes("@cardwizard.ca")) type = "dev";
@@ -69,5 +69,5 @@ onAuthStateChanged(auth, (user) => {
                             });   
                 }
         } else if(window.location.pathname == '/app/' || window.location.pathname == '/auth/verify')
-                window.location.pathname = '/auth/register';
+                window.location.pathname = '/register';
 });
