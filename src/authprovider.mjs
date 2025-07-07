@@ -51,8 +51,13 @@ if (logout) {
 
 onAuthStateChanged(auth, (user) => {
         if(user) {
-                if (user.email == "eval@cardwizard.ca") setUserProperties(analytics, { userType: "eval" });
-                if (user.email.includes("@busdep.com")) setUserProperties(analytics, { userType: "retail" });
+                
+                let type = "other"
+                if (user.email == "eval@cardwizard.ca") type = "eval";
+                else if (user.email.includes("@cardwizard.ca")) type = "dev";
+                else if (user.email.includes("@busdep.com")) type = "retail";
+                setUserProperties(analytics, { userType: type});
+
                 if(window.location.pathname != '/app/')
                         window.location.pathname = '/app/';
                 else {
