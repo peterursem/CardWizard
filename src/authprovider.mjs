@@ -68,6 +68,6 @@ onAuthStateChanged(auth, (user) => {
                                 document.body.appendChild(script);
                             });   
                 }
-        } else if(window.location.pathname == '/app/' || window.location.pathname == '/auth/verify')
-                window.location.pathname = '/register';
+        } else if(window.location.pathname == '/app/' || window.location.pathname == '/auth/verify/')
+                window.location.pathname = '/register/';
 });
